@@ -26,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -42,8 +44,6 @@ public class AdditionalPropertiesInteger extends HashMap<String, Integer> {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public AdditionalPropertiesInteger() { 
-  }
 
   public AdditionalPropertiesInteger name(String name) {
     this.name = name;
@@ -55,6 +55,7 @@ public class AdditionalPropertiesInteger extends HashMap<String, Integer> {
    * @return name
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -79,9 +80,6 @@ public class AdditionalPropertiesInteger extends HashMap<String, Integer> {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
-   * @param key the name of the property
-   * @param value the value of the property
-   * @return self reference
    */
   @JsonAnySetter
   public AdditionalPropertiesInteger putAdditionalProperty(String key, Integer value) {
@@ -93,8 +91,7 @@ public class AdditionalPropertiesInteger extends HashMap<String, Integer> {
   }
 
   /**
-   * Return the additional (undeclared) properties.
-   * @return the additional (undeclared) properties
+   * Return the additional (undeclared) property.
    */
   @JsonAnyGetter
   public Map<String, Integer> getAdditionalProperties() {
@@ -103,8 +100,6 @@ public class AdditionalPropertiesInteger extends HashMap<String, Integer> {
 
   /**
    * Return the additional (undeclared) property with the specified name.
-   * @param key the name of the property
-   * @return the additional (undeclared) property with the specified name
    */
   public Integer getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {

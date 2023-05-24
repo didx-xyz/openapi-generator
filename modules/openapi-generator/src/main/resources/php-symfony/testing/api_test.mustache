@@ -1,7 +1,7 @@
 <?php
 /**
  * {{classname}}Test
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  {{apiTestsPackage}}
@@ -18,7 +18,10 @@
 
 namespace {{apiTestsPackage}};
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use {{invokerPackage}}\Configuration;
+use {{invokerPackage}}\ApiClient;
+use {{invokerPackage}}\ApiException;
+use {{invokerPackage}}\ObjectSerializer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -28,41 +31,35 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * @package  {{apiTestsPackage}}
  * @author   openapi-generator contributors
  * @link     https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \{{apiPackage}}\{{classname}}
  */
 {{#operations}}class {{classname}}Test extends WebTestCase
 {
-    private static ?KernelBrowser $client = null;
 
     /**
      * Setup before running any test cases
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass()
     {
     }
 
     /**
      * Setup before running each test case
      */
-    public function setUp(): void
+    public function setUp()
     {
-        if (null === self::$client) {
-            self::$client = static::createClient();
-        }
     }
 
     /**
      * Clean up after running each test case
      */
-    public function tearDown(): void
+    public function tearDown()
     {
-        static::ensureKernelShutdown();
     }
 
     /**
      * Clean up after running all test cases
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownAfterClass()
     {
     }
     {{#operation}}
@@ -73,9 +70,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
      * {{{summary}}}.
      *
      */
-    public function test{{operationIdCamelCase}}(): void
+    public function test{{operationIdCamelCase}}()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '{{path}}';
         {{#pathParams}}
@@ -103,15 +100,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
         {{/pathParams}}
 
         $crawler = $client->request('{{httpMethod}}', $path{{#hasBodyParam}}, [], [], ['CONTENT_TYPE' => 'application/json']{{/hasBodyParam}});
-        $this->markTestSkipped('Test for {{operationId}} not implemented');
     }
     {{/operation}}
 
-    /**
-     * @param string $regexp
-     * @return mixed
-     */
-    protected function genTestData(string $regexp)
+    protected function genTestData($regexp)
     {
         $grammar  = new \Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
         $compiler = \Hoa\Compiler\Llk\Llk::load($grammar);

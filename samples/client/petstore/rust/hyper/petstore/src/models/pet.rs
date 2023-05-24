@@ -12,7 +12,7 @@
 
 
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Pet {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<i64>,
@@ -52,11 +52,5 @@ pub enum Status {
     Pending,
     #[serde(rename = "sold")]
     Sold,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Available
-    }
 }
 

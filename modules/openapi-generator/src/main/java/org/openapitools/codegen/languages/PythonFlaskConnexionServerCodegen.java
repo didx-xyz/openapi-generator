@@ -54,7 +54,4 @@ public class PythonFlaskConnexionServerCodegen extends AbstractPythonConnexionSe
         supportingFiles.add(new SupportingFile("__init__.mustache", packagePath(), "__init__.py"));
         testPackage = packageName + "." + testPackage;
     }
-
-    @Override
-    public String generatorLanguageVersion() { return "3.5.2+"; };
 }

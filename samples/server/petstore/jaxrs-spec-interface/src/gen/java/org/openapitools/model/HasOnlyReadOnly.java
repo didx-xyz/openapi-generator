@@ -1,6 +1,5 @@
 package org.openapitools.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -12,13 +11,11 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("hasOnlyReadOnly")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class HasOnlyReadOnly  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class HasOnlyReadOnly  implements Serializable {
+  
   private @Valid String bar;
   private @Valid String foo;
 
@@ -30,23 +27,26 @@ public class HasOnlyReadOnly  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("bar")
   public String getBar() {
     return bar;
   }
 
-  @JsonProperty("bar")
   public void setBar(String bar) {
     this.bar = bar;
   }
 
-  /**
+/**
    **/
   public HasOnlyReadOnly foo(String foo) {
     this.foo = foo;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -55,7 +55,6 @@ public class HasOnlyReadOnly  implements Serializable {
     return foo;
   }
 
-  @JsonProperty("foo")
   public void setFoo(String foo) {
     this.foo = foo;
   }

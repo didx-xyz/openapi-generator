@@ -7,6 +7,8 @@ use futures::{future, Stream, StreamExt, TryFutureExt, TryStreamExt};
 use hyper::server::conn::Http;
 use hyper::service::Service;
 use log::info;
+#[cfg(not(any(target_os = "macos", target_os = "windows", target_os = "ios")))]
+use openssl::ssl::SslAcceptorBuilder;
 use std::future::Future;
 use std::marker::PhantomData;
 use std::net::SocketAddr;
@@ -18,7 +20,7 @@ use swagger::EmptyContext;
 use tokio::net::TcpListener;
 
 #[cfg(not(any(target_os = "macos", target_os = "windows", target_os = "ios")))]
-use openssl::ssl::{Ssl, SslAcceptor, SslAcceptorBuilder, SslFiletype, SslMethod};
+use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 use rust_server_test::models;
 
@@ -32,7 +34,6 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
-    #[allow(unused_mut)]
     let mut service =
         rust_server_test::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -50,28 +51,29 @@ pub async fn create(addr: &str, https: bool) {
 
             // Server authentication
             ssl.set_private_key_file("examples/server-key.pem", SslFiletype::PEM).expect("Failed to set private key");
-            ssl.set_certificate_chain_file("examples/server-chain.pem").expect("Failed to set certificate chain");
+            ssl.set_certificate_chain_file("examples/server-chain.pem").expect("Failed to set cerificate chain");
             ssl.check_private_key().expect("Failed to check private key");
 
-            let tls_acceptor = ssl.build();
-            let tcp_listener = TcpListener::bind(&addr).await.unwrap();
+            let tls_acceptor = Arc::new(ssl.build());
+            let mut tcp_listener = TcpListener::bind(&addr).await.unwrap();
+            let mut incoming = tcp_listener.incoming();
 
-            loop {
-                if let Ok((tcp, _)) = tcp_listener.accept().await {
-                    let ssl = Ssl::new(tls_acceptor.context()).unwrap();
+            while let (Some(tcp), rest) = incoming.into_future().await {
+                if let Ok(tcp) = tcp {
                     let addr = tcp.peer_addr().expect("Unable to get remote address");
                     let service = service.call(addr);
+                    let tls_acceptor = Arc::clone(&tls_acceptor);
 
                     tokio::spawn(async move {
-                        let tls = tokio_openssl::SslStream::new(ssl, tcp).map_err(|_| ())?;
+                        let tls = tokio_openssl::accept(&*tls_acceptor, tcp).await.map_err(|_| ())?;
+
                         let service = service.await.map_err(|_| ())?;
 
-                        Http::new()
-                            .serve_connection(tls, service)
-                            .await
-                            .map_err(|_| ())
+                        Http::new().serve_connection(tls, service).await.map_err(|_| ())
                     });
                 }
+
+                incoming = rest;
             }
         }
     } else {
@@ -117,7 +119,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("all_of_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// A dummy endpoint to make the spec valid.
@@ -127,17 +129,17 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("dummy_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn dummy_put(
         &self,
-        nested_response: models::DummyPutRequest,
+        nested_response: models::InlineObject,
         context: &C) -> Result<DummyPutResponse, ApiError>
     {
         let context = context.clone();
         info!("dummy_put({:?}) - X-Span-ID: {:?}", nested_response, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// Get a file
@@ -147,7 +149,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("file_response_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn get_structured_yaml(
@@ -156,7 +158,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("get_structured_yaml() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// Test HTML handling
@@ -167,7 +169,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("html_post(\"{}\") - X-Span-ID: {:?}", body, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn post_yaml(
@@ -177,7 +179,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("post_yaml(\"{}\") - X-Span-ID: {:?}", value, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// Get an arbitrary JSON blob.
@@ -187,7 +189,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("raw_json_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// Send an arbitrary JSON blob
@@ -198,7 +200,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("solo_object_post({:?}) - X-Span-ID: {:?}", value, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
 }

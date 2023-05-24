@@ -1,6 +1,5 @@
 package org.openapitools.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.annotations.ApiModel;
@@ -14,7 +13,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "className", visible = true)
 @JsonSubTypes({
@@ -24,19 +22,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 
 
-@JsonTypeName("Animal")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class Animal  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class Animal  implements Serializable {
+  
   private @Valid String className;
   private @Valid String color = "red";
-
-  protected Animal(AnimalBuilder<?, ?> b) {
-    this.className = b.className;
-    this.color = b.color;
-  }
-
-  public Animal() {
-  }
 
   /**
    **/
@@ -46,6 +35,8 @@ public class Animal  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(required = true, value = "")
   @JsonProperty("className")
   @NotNull
@@ -53,17 +44,18 @@ public class Animal  implements Serializable {
     return className;
   }
 
-  @JsonProperty("className")
   public void setClassName(String className) {
     this.className = className;
   }
 
-  /**
+/**
    **/
   public Animal color(String color) {
     this.color = color;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -72,7 +64,6 @@ public class Animal  implements Serializable {
     return color;
   }
 
-  @JsonProperty("color")
   public void setColor(String color) {
     this.color = color;
   }
@@ -119,38 +110,5 @@ public class Animal  implements Serializable {
   }
 
 
-  public static AnimalBuilder<?, ?> builder() {
-    return new AnimalBuilderImpl();
-  }
-
-  private static final class AnimalBuilderImpl extends AnimalBuilder<Animal, AnimalBuilderImpl> {
-
-    @Override
-    protected AnimalBuilderImpl self() {
-      return this;
-    }
-
-    @Override
-    public Animal build() {
-      return new Animal(this);
-    }
-  }
-
-  public static abstract class AnimalBuilder<C extends Animal, B extends AnimalBuilder<C, B>>  {
-    private String className;
-    private String color = "red";
-    protected abstract B self();
-
-    public abstract C build();
-
-    public B className(String className) {
-      this.className = className;
-      return self();
-    }
-    public B color(String color) {
-      this.color = color;
-      return self();
-    }
-  }
 }
 

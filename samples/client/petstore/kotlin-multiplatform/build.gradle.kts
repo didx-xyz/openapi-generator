@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    kotlin("multiplatform") version "1.7.21" // kotlin_version
-    kotlin("plugin.serialization") version "1.7.21" // kotlin_version
+    kotlin("multiplatform") version "1.5.10" // kotlin_version
+    kotlin("plugin.serialization") version "1.5.10" // kotlin_version
 }
 
 group = "org.openapitools"
 version = "1.0.0"
 
-val kotlin_version = "1.7.21"
-val coroutines_version = "1.6.4"
-val serialization_version = "1.3.3"
-val ktor_version = "2.1.3"
+val kotlin_version = "1.5.10"
+val coroutines_version = "1.5.0"
+val serialization_version = "1.2.1"
+val ktor_version = "1.6.0"
 
 repositories {
     mavenCentral()
@@ -30,11 +30,9 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version")
-
                 api("io.ktor:ktor-client-core:$ktor_version")
+                api("io.ktor:ktor-client-json:$ktor_version")
                 api("io.ktor:ktor-client-serialization:$ktor_version")
-                api("io.ktor:ktor-client-content-negotiation:$ktor_version")
-                api("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
             }
         }
 
@@ -76,7 +74,7 @@ kotlin {
 
         all {
             languageSettings.apply {
-                optIn("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.Experimental")
             }
         }
     }
@@ -94,8 +92,5 @@ tasks {
                 commandLine("xcrun", "simctl", "spawn", device, binary.outputFile)
             }
         }
-    }
-    register("test") {
-        dependsOn("allTests")
     }
 }

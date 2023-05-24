@@ -14,13 +14,10 @@ import (
 	"encoding/json"
 )
 
-// checks if the EnumArrays type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EnumArrays{}
-
 // EnumArrays struct for EnumArrays
 type EnumArrays struct {
 	JustSymbol *string `json:"just_symbol,omitempty"`
-	ArrayEnum []string `json:"array_enum,omitempty"`
+	ArrayEnum *[]string `json:"array_enum,omitempty"`
 }
 
 // NewEnumArrays instantiates a new EnumArrays object
@@ -42,7 +39,7 @@ func NewEnumArraysWithDefaults() *EnumArrays {
 
 // GetJustSymbol returns the JustSymbol field value if set, zero value otherwise.
 func (o *EnumArrays) GetJustSymbol() string {
-	if o == nil || IsNil(o.JustSymbol) {
+	if o == nil || o.JustSymbol == nil {
 		var ret string
 		return ret
 	}
@@ -52,7 +49,7 @@ func (o *EnumArrays) GetJustSymbol() string {
 // GetJustSymbolOk returns a tuple with the JustSymbol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EnumArrays) GetJustSymbolOk() (*string, bool) {
-	if o == nil || IsNil(o.JustSymbol) {
+	if o == nil || o.JustSymbol == nil {
 		return nil, false
 	}
 	return o.JustSymbol, true
@@ -60,7 +57,7 @@ func (o *EnumArrays) GetJustSymbolOk() (*string, bool) {
 
 // HasJustSymbol returns a boolean if a field has been set.
 func (o *EnumArrays) HasJustSymbol() bool {
-	if o != nil && !IsNil(o.JustSymbol) {
+	if o != nil && o.JustSymbol != nil {
 		return true
 	}
 
@@ -74,17 +71,17 @@ func (o *EnumArrays) SetJustSymbol(v string) {
 
 // GetArrayEnum returns the ArrayEnum field value if set, zero value otherwise.
 func (o *EnumArrays) GetArrayEnum() []string {
-	if o == nil || IsNil(o.ArrayEnum) {
+	if o == nil || o.ArrayEnum == nil {
 		var ret []string
 		return ret
 	}
-	return o.ArrayEnum
+	return *o.ArrayEnum
 }
 
 // GetArrayEnumOk returns a tuple with the ArrayEnum field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EnumArrays) GetArrayEnumOk() ([]string, bool) {
-	if o == nil || IsNil(o.ArrayEnum) {
+func (o *EnumArrays) GetArrayEnumOk() (*[]string, bool) {
+	if o == nil || o.ArrayEnum == nil {
 		return nil, false
 	}
 	return o.ArrayEnum, true
@@ -92,7 +89,7 @@ func (o *EnumArrays) GetArrayEnumOk() ([]string, bool) {
 
 // HasArrayEnum returns a boolean if a field has been set.
 func (o *EnumArrays) HasArrayEnum() bool {
-	if o != nil && !IsNil(o.ArrayEnum) {
+	if o != nil && o.ArrayEnum != nil {
 		return true
 	}
 
@@ -101,26 +98,18 @@ func (o *EnumArrays) HasArrayEnum() bool {
 
 // SetArrayEnum gets a reference to the given []string and assigns it to the ArrayEnum field.
 func (o *EnumArrays) SetArrayEnum(v []string) {
-	o.ArrayEnum = v
+	o.ArrayEnum = &v
 }
 
 func (o EnumArrays) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o EnumArrays) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.JustSymbol) {
+	if o.JustSymbol != nil {
 		toSerialize["just_symbol"] = o.JustSymbol
 	}
-	if !IsNil(o.ArrayEnum) {
+	if o.ArrayEnum != nil {
 		toSerialize["array_enum"] = o.ArrayEnum
 	}
-	return toSerialize, nil
+	return json.Marshal(toSerialize)
 }
 
 type NullableEnumArrays struct {

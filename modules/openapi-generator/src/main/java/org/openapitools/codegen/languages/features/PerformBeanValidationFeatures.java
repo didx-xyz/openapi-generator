@@ -20,8 +20,8 @@ package org.openapitools.codegen.languages.features;
 public interface PerformBeanValidationFeatures {
 
     // Language supports performing BeanValidation
-    String PERFORM_BEANVALIDATION = "performBeanValidation";
+    public static final String PERFORM_BEANVALIDATION = "performBeanValidation";
 
-    void setPerformBeanValidation(boolean performBeanValidation);
+    public void setPerformBeanValidation(boolean performBeanValidation);
 
 }

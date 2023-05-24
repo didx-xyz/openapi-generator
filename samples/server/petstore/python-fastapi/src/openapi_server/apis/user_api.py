@@ -30,7 +30,6 @@ router = APIRouter()
     },
     tags=["user"],
     summary="Create user",
-    response_model_by_alias=True,
 )
 async def create_user(
     user: User = Body(None, description="Created user object"),
@@ -49,7 +48,6 @@ async def create_user(
     },
     tags=["user"],
     summary="Creates list of users with given input array",
-    response_model_by_alias=True,
 )
 async def create_users_with_array_input(
     user: List[User] = Body(None, description="List of user object"),
@@ -57,7 +55,6 @@ async def create_users_with_array_input(
         get_token_api_key
     ),
 ) -> None:
-    """"""
     ...
 
 
@@ -68,7 +65,6 @@ async def create_users_with_array_input(
     },
     tags=["user"],
     summary="Creates list of users with given input array",
-    response_model_by_alias=True,
 )
 async def create_users_with_list_input(
     user: List[User] = Body(None, description="List of user object"),
@@ -76,7 +72,6 @@ async def create_users_with_list_input(
         get_token_api_key
     ),
 ) -> None:
-    """"""
     ...
 
 
@@ -88,7 +83,6 @@ async def create_users_with_list_input(
     },
     tags=["user"],
     summary="Delete user",
-    response_model_by_alias=True,
 )
 async def delete_user(
     username: str = Path(None, description="The name that needs to be deleted"),
@@ -109,12 +103,10 @@ async def delete_user(
     },
     tags=["user"],
     summary="Get user by user name",
-    response_model_by_alias=True,
 )
 async def get_user_by_name(
     username: str = Path(None, description="The name that needs to be fetched. Use user1 for testing."),
 ) -> User:
-    """"""
     ...
 
 
@@ -126,13 +118,11 @@ async def get_user_by_name(
     },
     tags=["user"],
     summary="Logs user into the system",
-    response_model_by_alias=True,
 )
 async def login_user(
     username: str = Query(None, description="The user name for login", regex=r"^[a-zA-Z0-9]+[a-zA-Z0-9\.\-_]*[a-zA-Z0-9]+$"),
     password: str = Query(None, description="The password for login in clear text"),
 ) -> str:
-    """"""
     ...
 
 
@@ -143,14 +133,12 @@ async def login_user(
     },
     tags=["user"],
     summary="Logs out current logged in user session",
-    response_model_by_alias=True,
 )
 async def logout_user(
     token_api_key: TokenModel = Security(
         get_token_api_key
     ),
 ) -> None:
-    """"""
     ...
 
 
@@ -162,7 +150,6 @@ async def logout_user(
     },
     tags=["user"],
     summary="Updated user",
-    response_model_by_alias=True,
 )
 async def update_user(
     username: str = Path(None, description="name that need to be deleted"),

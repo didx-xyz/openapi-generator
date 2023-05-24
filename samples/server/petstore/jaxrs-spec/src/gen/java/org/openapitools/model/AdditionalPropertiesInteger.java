@@ -13,13 +13,11 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("AdditionalPropertiesInteger")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class AdditionalPropertiesInteger extends HashMap<String, Integer> implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class AdditionalPropertiesInteger extends HashMap<String, Integer> implements Serializable {
+  
   private @Valid String name;
 
   /**
@@ -30,13 +28,14 @@ public class AdditionalPropertiesInteger extends HashMap<String, Integer> implem
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("name")
   public String getName() {
     return name;
   }
 
-  @JsonProperty("name")
   public void setName(String name) {
     this.name = name;
   }

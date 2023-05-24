@@ -2,7 +2,6 @@
 package com.my.company.codegen
 
 import org.openapitools.codegen.*
-import org.openapitools.codegen.model.*;
 
 import java.util.*
 import java.io.File
@@ -37,11 +36,11 @@ open class MyclientcodegenGenerator() : DefaultCodegen(), CodegenConfig {
      * Provides an opportunity to inspect and modify operation data before the code is generated.
      */
     @Suppress("UNCHECKED_CAST")
-    override fun postProcessOperationsWithModels(objs: OperationsMap, allModels: List<ModelMap>?): OperationsMap {
+    override fun postProcessOperationsWithModels(objs: Map<String, Any>, allModels: List<Any>?): Map<String, Any> {
         val results = super.postProcessOperationsWithModels(objs, allModels)
 
-        val ops = results.getOperations()
-        val opList = ops.getOperation()
+        val ops = results["operations"] as Map<String, Any>
+        val opList = ops["operation"] as ArrayList<CodegenOperation>
 
         // iterate over the operation and perhaps modify something
         for (co: CodegenOperation in opList) {

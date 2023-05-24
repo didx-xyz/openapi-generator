@@ -83,8 +83,6 @@ No authorization required
 
 Creates list of users with given input array
 
-
-
 ### Examples
 
 ```ruby
@@ -145,8 +143,6 @@ No authorization required
 > create_users_with_list_input(user)
 
 Creates list of users with given input array
-
-
 
 ### Examples
 
@@ -272,8 +268,6 @@ No authorization required
 
 Get user by user name
 
-
-
 ### Examples
 
 ```ruby
@@ -335,8 +329,6 @@ No authorization required
 > String login_user(username, password)
 
 Logs user into the system
-
-
 
 ### Examples
 
@@ -401,8 +393,6 @@ No authorization required
 > logout_user
 
 Logs out current logged in user session
-
-
 
 ### Examples
 

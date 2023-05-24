@@ -39,10 +39,6 @@ namespace Org.OpenAPITools.Model
         public File(string sourceURI = default(string))
         {
             this._SourceURI = sourceURI;
-            if (this.SourceURI != null)
-            {
-                this._flagSourceURI = true;
-            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -83,7 +79,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class File {\n");
             sb.Append("  SourceURI: ").Append(SourceURI).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
@@ -130,13 +126,9 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.SourceURI != null)
-                {
-                    hashCode = (hashCode * 59) + this.SourceURI.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.SourceURI.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

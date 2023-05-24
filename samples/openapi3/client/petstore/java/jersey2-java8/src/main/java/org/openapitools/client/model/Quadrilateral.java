@@ -21,7 +21,6 @@ import java.util.Objects;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -29,6 +28,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.client.model.ComplexQuadrilateral;
 import org.openapitools.client.model.SimpleQuadrilateral;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -96,7 +97,7 @@ public class Quadrilateral extends AbstractOpenApiSchema {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             Quadrilateral newQuadrilateral = new Quadrilateral();
-            Map<String, Object> result2 = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Map<String, Object>>() {});
+            Map<String,Object> result2 = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Map<String, Object>>() {});
             String discriminatorValue = (String)result2.get("quadrilateralType");
             switch (discriminatorValue) {
                 case "ComplexQuadrilateral":
@@ -184,7 +185,7 @@ public class Quadrilateral extends AbstractOpenApiSchema {
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<>();
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
 
     public Quadrilateral() {
         super("oneOf", Boolean.FALSE);
@@ -203,7 +204,7 @@ public class Quadrilateral extends AbstractOpenApiSchema {
   @JsonAnySetter
   public Quadrilateral putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<>();
+        this.additionalProperties = new HashMap<String, Object>();
     }
     this.additionalProperties.put(key, value);
     return this;
@@ -256,7 +257,7 @@ public class Quadrilateral extends AbstractOpenApiSchema {
         });
         JSON.registerDescendants(Quadrilateral.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
-        Map<String, Class<?>> mappings = new HashMap<>();
+        Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
         mappings.put("ComplexQuadrilateral", ComplexQuadrilateral.class);
         mappings.put("SimpleQuadrilateral", SimpleQuadrilateral.class);
         mappings.put("Quadrilateral", Quadrilateral.class);
@@ -278,12 +279,12 @@ public class Quadrilateral extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(ComplexQuadrilateral.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(ComplexQuadrilateral.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(SimpleQuadrilateral.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(SimpleQuadrilateral.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -303,7 +304,7 @@ public class Quadrilateral extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `ComplexQuadrilateral`. If the actual instance is not `ComplexQuadrilateral`,
+     * Get the actual instance of `ComplexQuadrilateral`. If the actual instanct is not `ComplexQuadrilateral`,
      * the ClassCastException will be thrown.
      *
      * @return The actual instance of `ComplexQuadrilateral`
@@ -314,7 +315,7 @@ public class Quadrilateral extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `SimpleQuadrilateral`. If the actual instance is not `SimpleQuadrilateral`,
+     * Get the actual instance of `SimpleQuadrilateral`. If the actual instanct is not `SimpleQuadrilateral`,
      * the ClassCastException will be thrown.
      *
      * @return The actual instance of `SimpleQuadrilateral`

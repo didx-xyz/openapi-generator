@@ -10,9 +10,9 @@ namespace app\Models;
 class ReadOnlyFirst {
 
     /** @var string $bar */
-    public $bar = "";
+    private $bar;
 
     /** @var string $baz */
-    public $baz = "";
+    private $baz;
 
 }

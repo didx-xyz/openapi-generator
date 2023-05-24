@@ -11,18 +11,13 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Arrays;
 
-import static org.openapitools.codegen.typescript.TypeScriptGroups.*;
-
-@Test(groups = {TYPESCRIPT})
 public class SharedTypeScriptTest {
     @Test
-    public void typesInImportsAreSplitTest() throws IOException {
+    public void typesInImportsAreSplittedTest() throws IOException {
         CodegenConfigurator config =
                 new CodegenConfigurator()
                         .setInputSpec("src/test/resources/split-import.json")
@@ -50,10 +45,10 @@ public class SharedTypeScriptTest {
 
     private void checkAPIFile(List<File> files, String apiFileName) throws IOException {
         File apiFile = files.stream().filter(file->file.getName().contains(apiFileName)).findFirst().get();
-        String apiFileContent = FileUtils.readFileToString(apiFile, StandardCharsets.UTF_8);
-        Assert.assertTrue(!apiFileContent.contains("import { GetCustomer200Response | PersonWrapper }"));
+        String apiFileContent = FileUtils.readFileToString(apiFile);
+        Assert.assertTrue(!apiFileContent.contains("import { OrganizationWrapper | PersonWrapper }"));
         Assert.assertEquals(StringUtils.countMatches(apiFileContent,"import { PersonWrapper }"),1);
-        Assert.assertEquals(StringUtils.countMatches(apiFileContent,"import { GetCustomer200Response }"),1);
+        Assert.assertEquals(StringUtils.countMatches(apiFileContent,"import { OrganizationWrapper }"),1);
     }
 
     @Test
@@ -70,7 +65,7 @@ public class SharedTypeScriptTest {
         config.setGeneratorName("typescript-angular");
         final List<File> files = getGenerator(config).generate();
         File pets = files.stream().filter(file->file.getName().contains("pet.ts")).findFirst().get();
-        String apiFileContent = FileUtils.readFileToString(pets, StandardCharsets.UTF_8);
+        String apiFileContent = FileUtils.readFileToString(pets);
         Assert.assertTrue(apiFileContent.contains("import { Category }"));
         Assert.assertTrue(apiFileContent.contains("import { Tag }"));
 
@@ -79,22 +74,21 @@ public class SharedTypeScriptTest {
 
     /*
         #8000
-        Test that primitives are not returned by toModelImportMap
+        Test that primatives are not returned by toModelImportMap
     */
     @Test
     public void toModelImportMapTest() {
         TypeScriptAxiosClientCodegen codegen = new TypeScriptAxiosClientCodegen();
 
         Map<String, String[]> types = new HashMap<String, String[]>() {{
-            put("Schema & AnotherSchema", new String[]{ "AnotherSchema", "Schema" });
-            put("Schema | AnotherSchema", new String[]{ "AnotherSchema", "Schema" });
+            put("Schema & AnotherSchema", new String[]{ "Schema", "AnotherSchema" });
+            put("Schema | AnotherSchema", new String[]{ "Schema", "AnotherSchema" });
             put("Schema & object", new String[]{ "Schema" });
             put("Schema | object", new String[]{ "Schema" });
         }};
 
         for (Map.Entry<String, String[]> entry : types.entrySet()) {
             String[] mapped = codegen.toModelImportMap(entry.getKey()).values().toArray(new String[0]);
-            Arrays.sort(mapped);
             Assert.assertEquals(mapped, entry.getValue());
         }
     }

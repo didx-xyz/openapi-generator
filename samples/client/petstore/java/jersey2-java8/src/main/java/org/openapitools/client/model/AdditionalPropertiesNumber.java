@@ -26,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.openapitools.client.JSON;
@@ -42,8 +44,6 @@ public class AdditionalPropertiesNumber {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public AdditionalPropertiesNumber() { 
-  }
 
   public AdditionalPropertiesNumber name(String name) {
     this.name = name;
@@ -55,6 +55,7 @@ public class AdditionalPropertiesNumber {
    * @return name
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -83,7 +84,7 @@ public class AdditionalPropertiesNumber {
   @JsonAnySetter
   public AdditionalPropertiesNumber putAdditionalProperty(String key, BigDecimal value) {
     if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<>();
+        this.additionalProperties = new HashMap<String, BigDecimal>();
     }
     this.additionalProperties.put(key, value);
     return this;

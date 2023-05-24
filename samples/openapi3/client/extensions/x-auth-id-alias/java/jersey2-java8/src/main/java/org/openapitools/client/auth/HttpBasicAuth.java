@@ -16,12 +16,13 @@ package org.openapitools.client.auth;
 import org.openapitools.client.Pair;
 import org.openapitools.client.ApiException;
 
-import java.util.Base64;
-import java.nio.charset.StandardCharsets;
+import com.migcomponents.migbase64.Base64;
 
 import java.net.URI;
 import java.util.Map;
 import java.util.List;
+
+import java.io.UnsupportedEncodingException;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class HttpBasicAuth implements Authentication {
@@ -50,6 +51,10 @@ public class HttpBasicAuth implements Authentication {
       return;
     }
     String str = (username == null ? "" : username) + ":" + (password == null ? "" : password);
-    headerParams.put("Authorization", "Basic " + Base64.getEncoder().encodeToString(str.getBytes(StandardCharsets.UTF_8)));
+    try {
+      headerParams.put("Authorization", "Basic " + Base64.encodeToString(str.getBytes("UTF-8"), false));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

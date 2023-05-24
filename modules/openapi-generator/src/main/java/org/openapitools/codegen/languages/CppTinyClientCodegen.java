@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenConfig {
     public static final String PROJECT_NAME = "TinyClient";
 
-    final Logger LOGGER = LoggerFactory.getLogger(CppTinyClientCodegen.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(CppTinyClientCodegen.class);
 
     public static final String MICROCONTROLLER = "controller";
     public static final String rootFolder = "";
@@ -71,9 +71,10 @@ public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenC
     }
 
     public void addControllerToAdditionalProperties() {
-        Map<String, String> supportedControllers = new HashMap<>();
-        supportedControllers.put("esp32", "isESP32");
-        supportedControllers.put("esp8266", "isESP8266");
+        Map<String, String> supportedControllers = new HashMap<String, String>() {{
+            put("esp32", "isESP32");
+            put("esp8266", "isESP8266");
+        }};
         if (supportedControllers.containsKey(controller)) {
             additionalProperties.put(supportedControllers.get(controller), true);
         } else {
@@ -152,19 +153,20 @@ public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenC
 
         // SERVICES: Helpers
         supportingFiles.add(new SupportingFile("service/Response.h.mustache", serviceFolder, "Response.h"));
-        supportingFiles.add(new SupportingFile("service/Service.h.mustache", serviceFolder, "Service.h"));
-        supportingFiles.add(new SupportingFile("service/Service.cpp.mustache", serviceFolder, "Service.cpp"));
+        supportingFiles.add(new SupportingFile("service/AbstractService.h.mustache", serviceFolder, "AbstractService.h"));
+        supportingFiles.add(new SupportingFile("service/AbstractService.cpp.mustache", serviceFolder, "AbstractService.cpp"));
 
         // Main
-        supportingFiles.add(new SupportingFile("main.mustache", CppTinyClientCodegen.sourceFolder, "main.cpp")); // TODO no overwrite
+        supportingFiles.add(new SupportingFile("main.mustache", CppTinyClientCodegen.sourceFolder, "main.cpp"));
 
         // Config files
         supportingFiles.add(new SupportingFile("README.mustache", rootFolder, "README.md"));
-        supportingFiles.add(new SupportingFile("platformio.ini.mustache", rootFolder, "platformio.ini")); // TODO no overwrite
-        supportingFiles.add(new SupportingFile("root.cert.mustache", rootFolder, "root.cert")); // TODO no overwrite
+        supportingFiles.add(new SupportingFile("platformio.ini.mustache", rootFolder, "platformio.ini"));
+        supportingFiles.add(new SupportingFile("root.cert.mustache", rootFolder, "root.cert"));
+        supportingFiles.add(new SupportingFile("README.mustache", rootFolder, "README.md"));
         supportingFiles.add(new SupportingFile("pre_compiling_bourne.py.mustache", rootFolder, "pre_compiling_bourne.py"));
 
-        defaultIncludes = new HashSet<>(
+        defaultIncludes = new HashSet<String>(
                 Arrays.asList(
                         "bool",
                         "int",
@@ -172,7 +174,7 @@ public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenC
                         "double",
                         "float")
         );
-        languageSpecificPrimitives = new HashSet<>(
+        languageSpecificPrimitives = new HashSet<String>(
                 Arrays.asList(
                         "bool",
                         "int",
@@ -182,7 +184,7 @@ public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenC
                         "std::string")
         );
 
-        super.typeMapping = new HashMap<>();
+        super.typeMapping = new HashMap<String, String>();
         typeMapping.put("string", "std::string");
         typeMapping.put("integer", "int");
         typeMapping.put("boolean", "bool");
@@ -231,6 +233,7 @@ public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenC
     @Override
     public void processOpts() {
         super.processOpts();
+        // Throw exception if http and esp8266
 
         // -- --additional-properties=controller=<controllername>
         if (additionalProperties.containsKey(MICROCONTROLLER)) {
@@ -257,7 +260,7 @@ public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenC
         if (languageSpecificPrimitives.contains(openAPIType)) {
             return toModelName(openAPIType);
         } else {
-            return openAPIType;
+            return openAPIType + "";
         }
     }
 
@@ -314,7 +317,7 @@ public class CppTinyClientCodegen extends AbstractCppCodegen implements CodegenC
         if (isReservedWord(paramName)) {
             return escapeReservedWord(paramName);
         }
-        return paramName;
+        return "" + paramName;
     }
 
     @Override

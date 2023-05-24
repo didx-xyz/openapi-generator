@@ -98,6 +98,7 @@ public class ReadOnlyFirst   {
     return Objects.hash(bar, baz);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

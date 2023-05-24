@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.openapitools.client.JSON;
 
@@ -37,8 +39,6 @@ public class DanishPig {
   public static final String JSON_PROPERTY_CLASS_NAME = "className";
   private String className;
 
-  public DanishPig() { 
-  }
 
   public DanishPig className(String className) {
     this.className = className;
@@ -50,6 +50,7 @@ public class DanishPig {
    * @return className
   **/
   @javax.annotation.Nonnull
+  @ApiModelProperty(required = true, value = "")
   @JsonProperty(JSON_PROPERTY_CLASS_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

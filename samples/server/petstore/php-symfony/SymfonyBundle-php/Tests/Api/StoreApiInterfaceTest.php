@@ -1,7 +1,7 @@
 <?php
 /**
  * StoreApiInterfaceTest
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Api
@@ -28,7 +28,10 @@
 
 namespace OpenAPI\Server\Tests\Api;
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use OpenAPI\Server\Configuration;
+use OpenAPI\Server\ApiClient;
+use OpenAPI\Server\ApiException;
+use OpenAPI\Server\ObjectSerializer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -38,41 +41,35 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * @package  OpenAPI\Server\Tests\Api
  * @author   openapi-generator contributors
  * @link     https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \OpenAPI\Server\Api\StoreApiInterface
  */
 class StoreApiInterfaceTest extends WebTestCase
 {
-    private static ?KernelBrowser $client = null;
 
     /**
      * Setup before running any test cases
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass()
     {
     }
 
     /**
      * Setup before running each test case
      */
-    public function setUp(): void
+    public function setUp()
     {
-        if (null === self::$client) {
-            self::$client = static::createClient();
-        }
     }
 
     /**
      * Clean up after running each test case
      */
-    public function tearDown(): void
+    public function tearDown()
     {
-        static::ensureKernelShutdown();
     }
 
     /**
      * Clean up after running all test cases
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownAfterClass()
     {
     }
 
@@ -82,9 +79,9 @@ class StoreApiInterfaceTest extends WebTestCase
      * Delete purchase order by ID.
      *
      */
-    public function testDeleteOrder(): void
+    public function testDeleteOrder()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/store/order/{orderId}';
         $pattern = '{orderId}';
@@ -92,7 +89,6 @@ class StoreApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
-        $this->markTestSkipped('Test for deleteOrder not implemented');
     }
 
     /**
@@ -101,14 +97,13 @@ class StoreApiInterfaceTest extends WebTestCase
      * Returns pet inventories by status.
      *
      */
-    public function testGetInventory(): void
+    public function testGetInventory()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/store/inventory';
 
         $crawler = $client->request('GET', $path);
-        $this->markTestSkipped('Test for getInventory not implemented');
     }
 
     /**
@@ -117,9 +112,9 @@ class StoreApiInterfaceTest extends WebTestCase
      * Find purchase order by ID.
      *
      */
-    public function testGetOrderById(): void
+    public function testGetOrderById()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/store/order/{orderId}';
         $pattern = '{orderId}';
@@ -127,7 +122,6 @@ class StoreApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
-        $this->markTestSkipped('Test for getOrderById not implemented');
     }
 
     /**
@@ -136,27 +130,22 @@ class StoreApiInterfaceTest extends WebTestCase
      * Place an order for a pet.
      *
      */
-    public function testPlaceOrder(): void
+    public function testPlaceOrder()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/store/order';
 
         $crawler = $client->request('POST', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
-        $this->markTestSkipped('Test for placeOrder not implemented');
     }
 
-    /**
-     * @param string $regexp
-     * @return mixed
-     */
-    protected function genTestData(string $regexp)
+    protected function genTestData($regexp)
     {
-        $grammar = new \Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
+        $grammar  = new \Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
         $compiler = \Hoa\Compiler\Llk\Llk::load($grammar);
-        $ast = $compiler->parse($regexp);
+        $ast      = $compiler->parse($regexp);
         $generator = new \Hoa\Regex\Visitor\Isotropic(new \Hoa\Math\Sampler\Random());
 
-        return $generator->visit($ast);
+        return $generator->visit($ast); 
     }
 }

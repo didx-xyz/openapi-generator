@@ -16,6 +16,7 @@
 
 package org.openapitools.codegen.config;
 
+import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -46,8 +50,8 @@ public class WorkflowSettings {
     public static final boolean DEFAULT_ENABLE_MINIMAL_UPDATE = false;
     public static final boolean DEFAULT_STRICT_SPEC_BEHAVIOR = true;
     public static final boolean DEFAULT_GENERATE_ALIAS_AS_MODEL = false;
-    public static final String DEFAULT_TEMPLATING_ENGINE_NAME = null; // this is set by the generator
-    public static final Map<String, String> DEFAULT_GLOBAL_PROPERTIES = Collections.unmodifiableMap(new HashMap<>());
+    public static final String DEFAULT_TEMPLATING_ENGINE_NAME = "mustache";
+    public static final ImmutableMap<String, String> DEFAULT_GLOBAL_PROPERTIES = ImmutableMap.of();
 
     private String inputSpec;
     private String outputDir = DEFAULT_OUTPUT_DIR;
@@ -64,14 +68,13 @@ public class WorkflowSettings {
     private String templateDir;
     private String templatingEngineName = DEFAULT_TEMPLATING_ENGINE_NAME;
     private String ignoreFileOverride;
-    private Map<String, ?> globalProperties = DEFAULT_GLOBAL_PROPERTIES;
+    private ImmutableMap<String, ?> globalProperties = DEFAULT_GLOBAL_PROPERTIES;
 
     private WorkflowSettings(Builder builder) {
         this.inputSpec = builder.inputSpec;
         this.outputDir = builder.outputDir;
         this.verbose = builder.verbose;
         this.skipOverwrite = builder.skipOverwrite;
-        this.skipOperationExample = builder.skipOperationExample;
         this.removeOperationIdPrefix = builder.removeOperationIdPrefix;
         this.logToStderr = builder.logToStderr;
         this.validateSpec = builder.validateSpec;
@@ -81,7 +84,7 @@ public class WorkflowSettings {
         this.templateDir = builder.templateDir;
         this.templatingEngineName = builder.templatingEngineName;
         this.ignoreFileOverride = builder.ignoreFileOverride;
-        this.globalProperties = Collections.unmodifiableMap(builder.globalProperties);
+        this.globalProperties = ImmutableMap.copyOf(builder.globalProperties);
         this.generateAliasAsModel = builder.generateAliasAsModel;
     }
 

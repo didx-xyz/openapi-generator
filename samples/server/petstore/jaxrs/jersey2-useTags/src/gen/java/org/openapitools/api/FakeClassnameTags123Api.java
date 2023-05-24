@@ -1,5 +1,6 @@
 package org.openapitools.api;
 
+import org.openapitools.model.*;
 import org.openapitools.api.FakeClassnameTags123ApiService;
 import org.openapitools.api.factories.FakeClassnameTags123ApiServiceFactory;
 
@@ -54,7 +55,7 @@ public class FakeClassnameTags123Api  {
       this.delegate = delegate;
    }
 
-    @javax.ws.rs.PATCH
+    @PATCH
     
     @Consumes({ "application/json" })
     @Produces({ "application/json" })

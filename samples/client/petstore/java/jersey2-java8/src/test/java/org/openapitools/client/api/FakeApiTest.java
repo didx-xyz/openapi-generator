@@ -23,8 +23,8 @@ import java.time.OffsetDateTime;
 import org.openapitools.client.model.OuterComposite;
 import org.openapitools.client.model.User;
 import org.openapitools.client.model.XmlItem;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * API tests for FakeApi
  */
-@Disabled
+@Ignore
 public class FakeApiTest {
 
     private final FakeApi api = new FakeApi();

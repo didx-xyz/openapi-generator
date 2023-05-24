@@ -80,13 +80,13 @@ module {{moduleName}}
       {{/required}}
       {{#hasValidation}}
       {{#maxLength}}
-      if @api_client.config.client_side_validation && {{^required}}!{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.to_s.size > {{{maxLength}}}
+      if @api_client.config.client_side_validation && {{^required}}!{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.to_s.length > {{{maxLength}}}
         raise ArgumentError.new("invalid value for \"{{{paramName}}}\" when calling {{classname}}.{{operationId}}, the character length must be smaller than or equal to {{{maxLength}}}.")
       end
 
       {{/maxLength}}
       {{#minLength}}
-      if @api_client.config.client_side_validation && {{^required}}!{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.to_s.size < {{{minLength}}}
+      if @api_client.config.client_side_validation && {{^required}}!{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.to_s.length < {{{minLength}}}
         raise ArgumentError.new("invalid value for \"{{{paramName}}}\" when calling {{classname}}.{{operationId}}, the character length must be great than or equal to {{{minLength}}}.")
       end
 
@@ -111,13 +111,13 @@ module {{moduleName}}
 
       {{/pattern}}
       {{#maxItems}}
-      if @api_client.config.client_side_validation && {{^required}}{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.size > {{{maxItems}}}
+      if @api_client.config.client_side_validation && {{^required}}{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.length > {{{maxItems}}}
         raise ArgumentError.new("invalid value for \"{{{paramName}}}\" when calling {{classname}}.{{operationId}}, number of items must be less than or equal to {{{maxItems}}}.")
       end
 
       {{/maxItems}}
       {{#minItems}}
-      if @api_client.config.client_side_validation && {{^required}}{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.size < {{{minItems}}}
+      if @api_client.config.client_side_validation && {{^required}}{{{paramName}}}.nil? && {{/required}}{{{paramName}}}.length < {{{minItems}}}
         raise ArgumentError.new("invalid value for \"{{{paramName}}}\" when calling {{classname}}.{{operationId}}, number of items must be greater than or equal to {{{minItems}}}.")
       end
 
@@ -125,12 +125,12 @@ module {{moduleName}}
       {{/hasValidation}}
       {{/allParams}}
       # resource path
-      local_var_path = "{{{path}}}"{{#pathParams}}.sub("{" + "{{baseName}}" + "}", URI.encode_path({{paramName}}.to_s){{^strictSpecBehavior}}.gsub("%2F", "/"){{/strictSpecBehavior}}){{/pathParams}}
+      local_var_path = "{{{path}}}"{{#pathParams}}.sub("{" + "{{baseName}}" + "}", URI.encode({{paramName}}.to_s){{^strictSpecBehavior}}.gsub("%2F", "/"){{/strictSpecBehavior}}){{/pathParams}}
 
       # query parameters
       query_params = Hash(String, String).new
       {{#queryParams}}
-      query_params["{{{baseName}}}"] = {{#collectionFormat}}@api_client.build_collection_param({{{paramName}}}, :{{{collectionFormat}}}){{/collectionFormat}}{{^collectionFormat}}{{{paramName}}}.to_s unless {{{paramName}}}.nil?{{/collectionFormat}}
+      query_params["{{{baseName}}}"] = {{#collectionFormat}}@api_client.build_collection_param({{{paramName}}}, :{{{collectionFormat}}}){{/collectionFormat}}{{^collectionFormat}}{{{paramName}}}{{/collectionFormat}}
       {{/queryParams}}
 
       # header parameters
@@ -148,9 +148,9 @@ module {{moduleName}}
       {{/headerParams}}
 
       # form parameters
-      form_params = Hash(Symbol, (String | ::File)).new
+      form_params = Hash(Symbol, String).new
       {{#formParams}}
-      form_params[:"{{baseName}}"] = {{#collectionFormat}}@api_client.build_collection_param({{{paramName}}}, :{{{collectionFormat}}}){{/collectionFormat}}{{^collectionFormat}}{{{paramName}}} unless {{{paramName}}}.nil?{{/collectionFormat}}
+      form_params[:"{{baseName}}"] = {{#collectionFormat}}@api_client.build_collection_param({{{paramName}}}, :{{{collectionFormat}}}){{/collectionFormat}}{{^collectionFormat}}{{{paramName}}}{{/collectionFormat}}
       {{/formParams}}
 
       # http body (model)

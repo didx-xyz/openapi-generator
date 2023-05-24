@@ -13,9 +13,7 @@ import play.mvc.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import openapitools.OpenAPIUtils;
-import openapitools.SecurityAPIUtils;
 import static play.mvc.Results.ok;
-import static play.mvc.Results.unauthorized;
 import play.libs.Files.TemporaryFile;
 
 import javax.validation.constraints.*;
@@ -23,19 +21,15 @@ import javax.validation.constraints.*;
 @SuppressWarnings("RedundantThrows")
 public abstract class FakeClassnameTags123ApiControllerImpInterface {
     @Inject private Config configuration;
-    @Inject private SecurityAPIUtils securityAPIUtils;
     private ObjectMapper mapper = new ObjectMapper();
 
     public Result testClassnameHttp(Http.Request request, Client body) throws Exception {
         Client obj = testClassname(request, body);
-
-        if (configuration.getBoolean("useOutputBeanValidation")) {
+    if (configuration.getBoolean("useOutputBeanValidation")) {
             OpenAPIUtils.validate(obj);
-        }
-
-        JsonNode result = mapper.valueToTree(obj);
-
-        return ok(result);
+    }
+JsonNode result = mapper.valueToTree(obj);
+return ok(result);
 
     }
 

@@ -20,6 +20,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
@@ -31,8 +33,6 @@ public class CatAllOf {
   @SerializedName(SERIALIZED_NAME_DECLAWED)
   private Boolean declawed;
 
-  public CatAllOf() {
-  }
 
   public CatAllOf declawed(Boolean declawed) {
     
@@ -45,6 +45,7 @@ public class CatAllOf {
    * @return declawed
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
   public Boolean getDeclawed() {
     return declawed;
@@ -54,6 +55,7 @@ public class CatAllOf {
   public void setDeclawed(Boolean declawed) {
     this.declawed = declawed;
   }
+
 
   @Override
   public boolean equals(Object o) {

@@ -122,17 +122,17 @@ public class PetApiController extends Controller {
 
     @ApiAction
     public Result updatePetWithForm(Http.Request request, Long petId) throws Exception {
-        String[] valuename = request.body().asMultipartFormData().asFormUrlEncoded().get("name");
+        String valuename = (request.body().asMultipartFormData().asFormUrlEncoded().get("name"))[0];
         String name;
         if (valuename != null) {
-            name = valuename[0];
+            name = valuename;
         } else {
             name = null;
         }
-        String[] valuestatus = request.body().asMultipartFormData().asFormUrlEncoded().get("status");
+        String valuestatus = (request.body().asMultipartFormData().asFormUrlEncoded().get("status"))[0];
         String status;
         if (valuestatus != null) {
-            status = valuestatus[0];
+            status = valuestatus;
         } else {
             status = null;
         }
@@ -141,24 +141,24 @@ public class PetApiController extends Controller {
 
     @ApiAction
     public Result uploadFile(Http.Request request, Long petId) throws Exception {
-        String[] valueadditionalMetadata = request.body().asMultipartFormData().asFormUrlEncoded().get("additionalMetadata");
+        String valueadditionalMetadata = (request.body().asMultipartFormData().asFormUrlEncoded().get("additionalMetadata"))[0];
         String additionalMetadata;
         if (valueadditionalMetadata != null) {
-            additionalMetadata = valueadditionalMetadata[0];
+            additionalMetadata = valueadditionalMetadata;
         } else {
             additionalMetadata = null;
         }
-        Http.MultipartFormData<TemporaryFile> body_file = request.body().asMultipartFormData();
-        Http.MultipartFormData.FilePart<TemporaryFile> _file = body_file.getFile("file");
-        return imp.uploadFileHttp(request, petId, additionalMetadata, _file);
+        Http.MultipartFormData<TemporaryFile> bodyfile = request.body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<TemporaryFile> file = bodyfile.getFile("file");
+        return imp.uploadFileHttp(request, petId, additionalMetadata, file);
     }
 
     @ApiAction
     public Result uploadFileWithRequiredFile(Http.Request request, Long petId) throws Exception {
-        String[] valueadditionalMetadata = request.body().asMultipartFormData().asFormUrlEncoded().get("additionalMetadata");
+        String valueadditionalMetadata = (request.body().asMultipartFormData().asFormUrlEncoded().get("additionalMetadata"))[0];
         String additionalMetadata;
         if (valueadditionalMetadata != null) {
-            additionalMetadata = valueadditionalMetadata[0];
+            additionalMetadata = valueadditionalMetadata;
         } else {
             additionalMetadata = null;
         }

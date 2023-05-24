@@ -2,7 +2,7 @@
 /**
  * OpenAPIServerApiPass
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\DependencyInjection\Compiler

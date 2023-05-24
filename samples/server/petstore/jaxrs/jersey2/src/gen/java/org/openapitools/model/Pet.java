@@ -17,7 +17,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -57,11 +56,11 @@ public class Pet   {
 
   public static final String JSON_PROPERTY_PHOTO_URLS = "photoUrls";
   @JsonProperty(JSON_PROPERTY_PHOTO_URLS)
-  private Set<String> photoUrls = new LinkedHashSet<>();
+  private Set<String> photoUrls = new LinkedHashSet<String>();
 
   public static final String JSON_PROPERTY_TAGS = "tags";
   @JsonProperty(JSON_PROPERTY_TAGS)
-  private List<Tag> tags;
+  private List<Tag> tags = null;
 
   /**
    * pet status in the store
@@ -166,9 +165,6 @@ public class Pet   {
   }
 
   public Pet addPhotoUrlsItem(String photoUrlsItem) {
-    if (this.photoUrls == null) {
-      this.photoUrls = new LinkedHashSet<>();
-    }
     this.photoUrls.add(photoUrlsItem);
     return this;
   }
@@ -184,7 +180,6 @@ public class Pet   {
     return photoUrls;
   }
 
-  @JsonDeserialize(as = LinkedHashSet.class)
   public void setPhotoUrls(Set<String> photoUrls) {
     this.photoUrls = photoUrls;
   }
@@ -196,7 +191,7 @@ public class Pet   {
 
   public Pet addTagsItem(Tag tagsItem) {
     if (this.tags == null) {
-      this.tags = new ArrayList<>();
+      this.tags = new ArrayList<Tag>();
     }
     this.tags.add(tagsItem);
     return this;
@@ -259,6 +254,7 @@ public class Pet   {
   public int hashCode() {
     return Objects.hash(id, category, name, photoUrls, tags, status);
   }
+
 
   @Override
   public String toString() {

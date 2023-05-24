@@ -6,9 +6,6 @@ import io.swagger.v3.parser.util.SchemaTypeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.features.*;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.*;
 
-public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements CodegenConfig {
-
+public class CppQtAbstractCodegen extends AbstractCppCodegen implements CodegenConfig {
     private final Logger LOGGER = LoggerFactory.getLogger(CppQtAbstractCodegen.class);
     protected final String PREFIX = "OAI";
     protected String apiVersion = "1.0.0";
@@ -25,13 +21,13 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
     protected static final String CPP_NAMESPACE_DESC = "C++ namespace (convention: name::space::for::api).";
     protected static final String CONTENT_COMPRESSION_ENABLED = "contentCompression";
     protected static final String CONTENT_COMPRESSION_ENABLED_DESC = "Enable Compressed Content Encoding for requests and responses";
-    protected Set<String> foundationClasses = new HashSet<>();
+    protected Set<String> foundationClasses = new HashSet<String>();
     protected String cppNamespace = "OpenAPI";
-    protected Map<String, String> namespaces = new HashMap<>();
-    protected Set<String> systemIncludes = new HashSet<>();
+    protected Map<String, String> namespaces = new HashMap<String, String>();
+    protected Set<String> systemIncludes = new HashSet<String>();
     protected boolean isContentCompressionEnabled = false;
 
-    protected Set<String> nonFrameworkPrimitives = new HashSet<>();
+    protected Set<String> nonFrameworkPrimitives = new HashSet<String>();
 
     public CppQtAbstractCodegen() {
         super();
@@ -78,7 +74,7 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
          * Language Specific Primitives.  These types will not trigger imports by
          * the client generator
          */
-        languageSpecificPrimitives = new HashSet<>(
+        languageSpecificPrimitives = new HashSet<String>(
                 Arrays.asList(
                         "bool",
                         "qint32",
@@ -96,7 +92,7 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
                         "QByteArray")
         );
         languageSpecificPrimitives.addAll(foundationClasses);
-        super.typeMapping = new HashMap<>();
+        super.typeMapping = new HashMap<String, String>();
 
         typeMapping.put("date", "QDate");
         typeMapping.put("DateTime", "QDateTime");
@@ -119,8 +115,8 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
         typeMapping.put("URI", "QString");
         typeMapping.put("file", "QByteArray");
         typeMapping.put("binary", "QByteArray");
-        importMapping = new HashMap<>();
-        namespaces = new HashMap<>();
+        importMapping = new HashMap<String, String>();
+        namespaces = new HashMap<String, String>();
 
         systemIncludes.add("QString");
         systemIncludes.add("QList");
@@ -277,7 +273,7 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
         String varName = name;
         varName = sanitizeName(name);
 
-        // if it's all upper case, convert to lower case
+        // if it's all uppper case, convert to lower case
         if (varName.matches("^[A-Z_]*$")) {
             varName = varName.toLowerCase(Locale.ROOT);
         }
@@ -312,15 +308,16 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
 
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
-        OperationMap objectMap = objs.getOperations();
-        List<CodegenOperation> operations = objectMap.getOperation();
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+        Map<String, Object> objectMap = (Map<String, Object>) objs.get("operations");
+        List<CodegenOperation> operations = (List<CodegenOperation>) objectMap.get("operation");
 
-        List<Map<String, String>> imports = objs.getImports();
-        Map<String, CodegenModel> codegenModels = new HashMap<>();
+        List<Map<String, String>> imports = (List<Map<String, String>>) objs.get("imports");
+        Map<String, CodegenModel> codegenModels = new HashMap<String, CodegenModel>();
 
-        for (ModelMap moObj : allModels) {
-            CodegenModel mo = moObj.getModel();
+        for (Object moObj : allModels) {
+            CodegenModel mo = ((Map<String, CodegenModel>) moObj).get("model");
             if (mo.isEnum) {
                 codegenModels.put(mo.classname, mo);
             }
@@ -338,7 +335,7 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
                     imports.add(createMapping("import", operation.returnBaseType));
                 }
             }
-            List<CodegenParameter> params = new ArrayList<>();
+            List<CodegenParameter> params = new ArrayList<CodegenParameter>();
             if (operation.allParams != null) params.addAll(operation.allParams);
 
             // Check all parameter baseType if there is a necessity to include, include it if not
@@ -377,7 +374,7 @@ public abstract class CppQtAbstractCodegen extends AbstractCppCodegen implements
     }
 
     private Map<String, String> createMapping(String key, String value) {
-        Map<String, String> customImport = new HashMap<>();
+        Map<String, String> customImport = new HashMap<String, String>();
         customImport.put(key, toModelImport(value));
         return customImport;
     }

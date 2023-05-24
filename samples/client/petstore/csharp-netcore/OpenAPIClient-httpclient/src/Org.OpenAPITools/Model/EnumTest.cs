@@ -56,6 +56,7 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "")]
             Empty = 3
+
         }
 
 
@@ -87,13 +88,14 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "")]
             Empty = 3
+
         }
 
 
         /// <summary>
         /// Gets or Sets EnumStringRequired
         /// </summary>
-        [DataMember(Name = "enum_string_required", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "enum_string_required", IsRequired = true, EmitDefaultValue = false)]
         public EnumStringRequiredEnum EnumStringRequired { get; set; }
         /// <summary>
         /// Defines EnumInteger
@@ -109,6 +111,7 @@ namespace Org.OpenAPITools.Model
             /// Enum NUMBER_MINUS_1 for value: -1
             /// </summary>
             NUMBER_MINUS_1 = -1
+
         }
 
 
@@ -131,6 +134,7 @@ namespace Org.OpenAPITools.Model
             /// Enum NUMBER_MINUS_2 for value: -2
             /// </summary>
             NUMBER_MINUS_2 = -2
+
         }
 
 
@@ -156,6 +160,7 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "-1.2")]
             NUMBER_MINUS_1_DOT_2 = 2
+
         }
 
 
@@ -234,7 +239,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class EnumTest {\n");
             sb.Append("  EnumString: ").Append(EnumString).Append("\n");
             sb.Append("  EnumStringRequired: ").Append(EnumStringRequired).Append("\n");
@@ -288,19 +293,17 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.EnumString.GetHashCode();
-                hashCode = (hashCode * 59) + this.EnumStringRequired.GetHashCode();
-                hashCode = (hashCode * 59) + this.EnumInteger.GetHashCode();
-                hashCode = (hashCode * 59) + this.EnumIntegerOnly.GetHashCode();
-                hashCode = (hashCode * 59) + this.EnumNumber.GetHashCode();
-                hashCode = (hashCode * 59) + this.OuterEnum.GetHashCode();
-                hashCode = (hashCode * 59) + this.OuterEnumInteger.GetHashCode();
-                hashCode = (hashCode * 59) + this.OuterEnumDefaultValue.GetHashCode();
-                hashCode = (hashCode * 59) + this.OuterEnumIntegerDefaultValue.GetHashCode();
+                hashCode = hashCode * 59 + this.EnumString.GetHashCode();
+                hashCode = hashCode * 59 + this.EnumStringRequired.GetHashCode();
+                hashCode = hashCode * 59 + this.EnumInteger.GetHashCode();
+                hashCode = hashCode * 59 + this.EnumIntegerOnly.GetHashCode();
+                hashCode = hashCode * 59 + this.EnumNumber.GetHashCode();
+                hashCode = hashCode * 59 + this.OuterEnum.GetHashCode();
+                hashCode = hashCode * 59 + this.OuterEnumInteger.GetHashCode();
+                hashCode = hashCode * 59 + this.OuterEnumDefaultValue.GetHashCode();
+                hashCode = hashCode * 59 + this.OuterEnumIntegerDefaultValue.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

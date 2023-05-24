@@ -1,4 +1,3 @@
-.github/workflows/maven.yml
 .gitignore
 .travis.yml
 README.md
@@ -39,7 +38,6 @@ docs/FakeApi.md
 docs/FakeClassnameTags123Api.md
 docs/FileSchemaTestClass.md
 docs/Foo.md
-docs/FooGetDefaultResponse.md
 docs/FormatTest.md
 docs/Fruit.md
 docs/FruitReq.md
@@ -47,14 +45,13 @@ docs/GmFruit.md
 docs/GrandparentAnimal.md
 docs/HasOnlyReadOnly.md
 docs/HealthCheckResult.md
+docs/InlineResponseDefault.md
 docs/IsoscelesTriangle.md
 docs/Mammal.md
 docs/MapTest.md
 docs/MixedPropertiesAndAdditionalPropertiesClass.md
 docs/Model200Response.md
 docs/ModelApiResponse.md
-docs/ModelFile.md
-docs/ModelList.md
 docs/ModelReturn.md
 docs/Name.md
 docs/NullableClass.md
@@ -153,7 +150,6 @@ src/main/java/org/openapitools/client/model/EnumTest.java
 src/main/java/org/openapitools/client/model/EquilateralTriangle.java
 src/main/java/org/openapitools/client/model/FileSchemaTestClass.java
 src/main/java/org/openapitools/client/model/Foo.java
-src/main/java/org/openapitools/client/model/FooGetDefaultResponse.java
 src/main/java/org/openapitools/client/model/FormatTest.java
 src/main/java/org/openapitools/client/model/Fruit.java
 src/main/java/org/openapitools/client/model/FruitReq.java
@@ -161,14 +157,13 @@ src/main/java/org/openapitools/client/model/GmFruit.java
 src/main/java/org/openapitools/client/model/GrandparentAnimal.java
 src/main/java/org/openapitools/client/model/HasOnlyReadOnly.java
 src/main/java/org/openapitools/client/model/HealthCheckResult.java
+src/main/java/org/openapitools/client/model/InlineResponseDefault.java
 src/main/java/org/openapitools/client/model/IsoscelesTriangle.java
 src/main/java/org/openapitools/client/model/Mammal.java
 src/main/java/org/openapitools/client/model/MapTest.java
 src/main/java/org/openapitools/client/model/MixedPropertiesAndAdditionalPropertiesClass.java
 src/main/java/org/openapitools/client/model/Model200Response.java
 src/main/java/org/openapitools/client/model/ModelApiResponse.java
-src/main/java/org/openapitools/client/model/ModelFile.java
-src/main/java/org/openapitools/client/model/ModelList.java
 src/main/java/org/openapitools/client/model/ModelReturn.java
 src/main/java/org/openapitools/client/model/Name.java
 src/main/java/org/openapitools/client/model/NullableClass.java

@@ -39,10 +39,6 @@ namespace Org.OpenAPITools.Model
         public ModelClient(string _client = default(string))
         {
             this.__Client = _client;
-            if (this._Client != null)
-            {
-                this._flag_Client = true;
-            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -82,7 +78,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class ModelClient {\n");
             sb.Append("  _Client: ").Append(_Client).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
@@ -129,13 +125,9 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this._Client != null)
-                {
-                    hashCode = (hashCode * 59) + this._Client.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this._Client.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

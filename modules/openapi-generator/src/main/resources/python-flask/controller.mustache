@@ -1,8 +1,5 @@
 import connexion
 import six
-from typing import Dict
-from typing import Tuple
-from typing import Union
 
 {{#imports}}{{import}}  # noqa: E501
 {{/imports}}
@@ -58,7 +55,7 @@ def {{operationId}}({{#allParams}}{{paramName}}{{^required}}=None{{/required}}{{
         {{/isMap}}
     {{/allParams}}
 
-    :rtype: Union[{{returnType}}{{^returnType}}None{{/returnType}}, Tuple[{{returnType}}{{^returnType}}None{{/returnType}}, int], Tuple[{{returnType}}{{^returnType}}None{{/returnType}}, int, Dict[str, str]]
+    :rtype: {{returnType}}{{^returnType}}None{{/returnType}}
     """
     {{#allParams}}
         {{^isContainer}}

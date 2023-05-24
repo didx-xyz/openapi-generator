@@ -1,33 +1,32 @@
 {{^reactive}}
 {{#examples}}
     {{#-first}}
+        {{#jdk8}}
             {{#async}}
 return CompletableFuture.supplyAsync(()-> {
             {{/async}}getRequest().ifPresent(request -> {
-{{#async}}    {{/async}}            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+{{#async}}    {{/async}}            {{/jdk8}}for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
     {{/-first}}
-{{#async}}        {{/async}}{{^async}}    {{/async}}            if (mediaType.isCompatibleWith(MediaType.valueOf("{{{contentType}}}"))) {
-{{#async}}        {{/async}}{{^async}}    {{/async}}                String exampleString = {{>exampleString}};
-{{#async}}        {{/async}}{{^async}}    {{/async}}                ApiUtil.setExampleResponse(request, "{{{contentType}}}", exampleString);
-{{#async}}        {{/async}}{{^async}}    {{/async}}                break;
-{{#async}}        {{/async}}{{^async}}    {{/async}}            }
+{{#async}}        {{/async}}{{^async}}{{#jdk8}}    {{/jdk8}}{{/async}}            if (mediaType.isCompatibleWith(MediaType.valueOf("{{{contentType}}}"))) {
+{{#async}}        {{/async}}{{^async}}{{#jdk8}}    {{/jdk8}}{{/async}}                String exampleString = {{>exampleString}};
+{{#async}}        {{/async}}{{^async}}{{#jdk8}}    {{/jdk8}}{{/async}}                ApiUtil.setExampleResponse(request, "{{{contentType}}}", exampleString);
+{{#async}}        {{/async}}{{^async}}{{#jdk8}}    {{/jdk8}}{{/async}}                break;
+{{#async}}        {{/async}}{{^async}}{{#jdk8}}    {{/jdk8}}{{/async}}            }
     {{#-last}}
-{{#async}}        {{/async}}{{^async}}    {{/async}}        }
+{{#async}}        {{/async}}{{^async}}{{#jdk8}}    {{/jdk8}}{{/async}}        }
+        {{#jdk8}}
 {{#async}}    {{/async}}        });
-{{#async}}    {{/async}}        {{#useResponseEntity}}return new ResponseEntity<>({{#returnSuccessCode}}HttpStatus.valueOf({{{statusCode}}}){{/returnSuccessCode}}{{^returnSuccessCode}}HttpStatus.NOT_IMPLEMENTED{{/returnSuccessCode}});
-{{/useResponseEntity}}
-{{^useResponseEntity}}throw new IllegalArgumentException("Not implemented");
-{{/useResponseEntity}}
+        {{/jdk8}}
+{{#async}}    {{/async}}        return new ResponseEntity<>({{#returnSuccessCode}}HttpStatus.valueOf({{{statusCode}}}){{/returnSuccessCode}}{{^returnSuccessCode}}HttpStatus.NOT_IMPLEMENTED{{/returnSuccessCode}});
+        {{#jdk8}}
             {{#async}}
         }, Runnable::run);
             {{/async}}
+        {{/jdk8}}
     {{/-last}}
 {{/examples}}
 {{^examples}}
-{{#useResponseEntity}}return {{#async}}CompletableFuture.completedFuture({{/async}}new ResponseEntity<>({{#returnSuccessCode}}HttpStatus.OK{{/returnSuccessCode}}{{^returnSuccessCode}}HttpStatus.NOT_IMPLEMENTED{{/returnSuccessCode}}){{#async}}){{/async}};
-{{/useResponseEntity}}
-{{^useResponseEntity}}throw new IllegalArgumentException("Not implemented");
-{{/useResponseEntity}}
+return {{#jdk8}}{{#async}}CompletableFuture.completedFuture({{/async}}{{/jdk8}}new ResponseEntity<>({{#returnSuccessCode}}HttpStatus.OK{{/returnSuccessCode}}{{^returnSuccessCode}}HttpStatus.NOT_IMPLEMENTED{{/returnSuccessCode}}){{#jdk8}}{{#async}}){{/async}}{{/jdk8}};
 {{/examples}}
 {{/reactive}}
 {{#reactive}}
@@ -39,7 +38,7 @@ Mono<Void> result = Mono.empty();
         {{/-first}}
             if (mediaType.isCompatibleWith(MediaType.valueOf("{{{contentType}}}"))) {
                 String exampleString = {{>exampleString}};
-                result = ApiUtil.getExampleResponse(exchange, mediaType, exampleString);
+                result = ApiUtil.getExampleResponse(exchange, exampleString);
                 break;
             }
         {{#-last}}
@@ -49,5 +48,5 @@ Mono<Void> result = Mono.empty();
 {{^examples}}
         exchange.getResponse().setStatusCode({{#returnSuccessCode}}HttpStatus.OK{{/returnSuccessCode}}{{^returnSuccessCode}}HttpStatus.NOT_IMPLEMENTED{{/returnSuccessCode}});
 {{/examples}}
-        return result{{#allParams}}{{#isBodyParam}}{{^isArray}}{{#paramName}}.then({{.}}){{/paramName}}{{/isArray}}{{#isArray}}{{#paramName}}.thenMany({{.}}){{/paramName}}{{/isArray}}{{/isBodyParam}}{{/allParams}}.then(Mono.empty());
+        return result.then(Mono.empty());
 {{/reactive}}

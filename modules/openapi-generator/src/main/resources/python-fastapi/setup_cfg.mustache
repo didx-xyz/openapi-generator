@@ -4,17 +4,20 @@ version = {{appVersion}}
 description = {{appDescription}}
 long_description = file: README.md
 keywords = OpenAPI {{appName}}
-python_requires = >= {{{generatorLanguageVersion}}}.*
+python_requires = >= 3.7.*
 classifiers =
     Operating System :: OS Independent
     Programming Language :: Python :: 3
-    Programming Language :: Python :: {{{generatorLanguageVersion}}}
+    Programming Language :: Python :: 3.7
 
 [options]
-install_requires = fastapi[all]
-setup_requires = setuptools
-package_dir = ={{sourceFolder}}
-packages = find_namespace:
+install_requires =
+    fastapi[all]
+setup_requires =
+    setuptools
+package_dir=
+    =src
+packages=find_namespace:
 
 [options.packages.find]
-where = {{sourceFolder}}
+where=src

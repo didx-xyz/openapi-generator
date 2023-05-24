@@ -47,6 +47,5 @@ public class ScalaAkkaClientOptionsTest extends AbstractOptionsTest {
         verify(clientCodegen).setPrependFormOrBodyParameters(Boolean.valueOf(ScalaAkkaClientOptionsProvider.PREPEND_FORM_OR_BODY_PARAMETERS_VALUE));
         verify(clientCodegen).setMainPackage(ScalaAkkaClientOptionsProvider.MAIN_PACKAGE_VALUE);
         verify(clientCodegen).setModelPropertyNaming(ScalaAkkaClientOptionsProvider.MODEL_PROPERTY_NAMING);
-        verify(clientCodegen).setEnumUnknownDefaultCase(Boolean.parseBoolean(ScalaAkkaClientOptionsProvider.ENUM_UNKNOWN_DEFAULT_CASE_VALUE));
     }
 }

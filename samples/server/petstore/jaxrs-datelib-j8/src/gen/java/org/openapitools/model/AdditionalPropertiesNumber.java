@@ -77,6 +77,7 @@ public class AdditionalPropertiesNumber extends HashMap<String, BigDecimal> impl
     return Objects.hash(name, super.hashCode());
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

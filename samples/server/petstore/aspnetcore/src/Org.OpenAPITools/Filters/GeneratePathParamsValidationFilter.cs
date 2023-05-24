@@ -47,13 +47,13 @@ namespace Org.OpenAPITools.Filters
                     }
 
                     // String Length [StringLength]
-                    int? minLength = null, maxLength = null;
+                    int? minLenght = null, maxLength = null;
                     var stringLengthAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(StringLengthAttribute));
                     if (stringLengthAttr != null)
                     {
                         if (stringLengthAttr.NamedArguments.Count == 1)
                         {
-                            minLength = (int)stringLengthAttr.NamedArguments.Single(p => p.MemberName == "MinimumLength").TypedValue.Value;
+                            minLenght = (int)stringLengthAttr.NamedArguments.Single(p => p.MemberName == "MinimumLength").TypedValue.Value;
                         }
                         maxLength = (int)stringLengthAttr.ConstructorArguments[0].Value;
                     }
@@ -61,7 +61,7 @@ namespace Org.OpenAPITools.Filters
                     var minLengthAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(MinLengthAttribute));
                     if (minLengthAttr != null)
                     {
-                        minLength = (int)minLengthAttr.ConstructorArguments[0].Value;
+                        minLenght = (int)minLengthAttr.ConstructorArguments[0].Value;
                     }
 
                     var maxLengthAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(MaxLengthAttribute));
@@ -72,7 +72,7 @@ namespace Org.OpenAPITools.Filters
 
                     if (swaggerParam is NonBodyParameter)
                     {
-                        ((NonBodyParameter)swaggerParam).MinLength = minLength;
+                        ((NonBodyParameter)swaggerParam).MinLength = minLenght;
                         ((NonBodyParameter)swaggerParam).MaxLength = maxLength;
                     }
 

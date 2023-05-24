@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import type {
+import {
     Category,
     Tag,
 } from './';

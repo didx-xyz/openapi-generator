@@ -2,7 +2,7 @@
 /**
  * OpenAPIServerExtension
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\DependencyInjection
@@ -44,13 +44,13 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 class OpenAPIServerExtension extends Extension
 {
-    public function load(array $configs, ContainerBuilder $container): void
+    public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yaml');
+        $loader->load('services.yml');
     }
 
-    public function getAlias(): string
+    public function getAlias()
     {
         return 'open_api_server';
     }

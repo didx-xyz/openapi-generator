@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **Int** |  | 
-**snakeCase** | **Int** |  | [optional] [readonly] [default to .encodeValue(11033)]
+**snakeCase** | **Int** |  | [optional] [readonly] 
 **property** | **String** |  | [optional] 
 **_123number** | **Int** |  | [optional] [readonly] 
 

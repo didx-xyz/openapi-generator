@@ -2,7 +2,7 @@
 /**
  * ApiResponseTest
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Model
@@ -29,92 +29,75 @@
 
 namespace OpenAPI\Server\Model;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * ApiResponseTest Class Doc Comment
  *
- * @category    Class
- * @description Describes the result of uploading an image resource
+ * @category    Class */
+// * @description Describes the result of uploading an image resource
+/**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \OpenAPI\Server\Model\ApiResponse
  */
 class ApiResponseTest extends TestCase
 {
-    protected ApiResponse|MockObject $object;
 
     /**
      * Setup before running any test case
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass()
     {
     }
 
     /**
      * Setup before running each test case
      */
-    public function setUp(): void
+    public function setUp()
     {
-         $this->object = $this->getMockBuilder(ApiResponse::class)->getMockForAbstractClass();
     }
 
     /**
      * Clean up after running each test case
      */
-    public function tearDown(): void
+    public function tearDown()
     {
     }
 
     /**
      * Clean up after running all test cases
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownAfterClass()
     {
     }
 
     /**
-     * @group integration
-     * @small
+     * Test "ApiResponse"
      */
-    public function testTestClassExists(): void
+    public function testApiResponse()
     {
-        $this->assertTrue(class_exists(ApiResponse::class));
-        $this->assertInstanceOf(ApiResponse::class, $this->object);
+        $testApiResponse = new ApiResponse();
     }
 
     /**
      * Test attribute "code"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyCode(): void
+    public function testPropertyCode()
     {
-        $this->markTestSkipped('Test for property code not implemented');
     }
 
     /**
      * Test attribute "type"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyType(): void
+    public function testPropertyType()
     {
-        $this->markTestSkipped('Test for property type not implemented');
     }
 
     /**
      * Test attribute "message"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyMessage(): void
+    public function testPropertyMessage()
     {
-        $this->markTestSkipped('Test for property message not implemented');
     }
 }

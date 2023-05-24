@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.Category")
-public typealias Category = PetstoreClientAPI.Category
+@available(*, deprecated, renamed: "PetstoreClient.Category")
+public typealias Category = PetstoreClient.Category
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class Category: Codable, JSONEncodable, Hashable {
+public final class Category: Codable, Hashable {
 
     public var id: Int64?
     public var name: String? = "default-name"

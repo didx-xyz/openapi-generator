@@ -29,8 +29,6 @@
 #include "PFXObject.h"
 
 namespace test_namespace {
-class PFXCategory;
-class PFXTag;
 
 class PFXPet : public PFXObject {
 public:

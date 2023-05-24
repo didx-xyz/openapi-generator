@@ -23,16 +23,12 @@ type Mammal struct {
 
 // WhaleAsMammal is a convenience function that returns Whale wrapped in Mammal
 func WhaleAsMammal(v *Whale) Mammal {
-	return Mammal{
-		Whale: v,
-	}
+	return Mammal{ Whale: v}
 }
 
 // ZebraAsMammal is a convenience function that returns Zebra wrapped in Mammal
 func ZebraAsMammal(v *Zebra) Mammal {
-	return Mammal{
-		Zebra: v,
-	}
+	return Mammal{ Zebra: v}
 }
 
 
@@ -41,7 +37,7 @@ func (dst *Mammal) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into Whale
-	err = newStrictDecoder(data).Decode(&dst.Whale)
+	err = json.Unmarshal(data, &dst.Whale)
 	if err == nil {
 		jsonWhale, _ := json.Marshal(dst.Whale)
 		if string(jsonWhale) == "{}" { // empty struct
@@ -54,7 +50,7 @@ func (dst *Mammal) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal data into Zebra
-	err = newStrictDecoder(data).Decode(&dst.Zebra)
+	err = json.Unmarshal(data, &dst.Zebra)
 	if err == nil {
 		jsonZebra, _ := json.Marshal(dst.Zebra)
 		if string(jsonZebra) == "{}" { // empty struct
@@ -71,11 +67,11 @@ func (dst *Mammal) UnmarshalJSON(data []byte) error {
 		dst.Whale = nil
 		dst.Zebra = nil
 
-		return fmt.Errorf("data matches more than one schema in oneOf(Mammal)")
+		return fmt.Errorf("Data matches more than one schema in oneOf(Mammal)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(Mammal)")
+		return fmt.Errorf("Data failed to match schemas in oneOf(Mammal)")
 	}
 }
 
@@ -94,9 +90,6 @@ func (src Mammal) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *Mammal) GetActualInstance() (interface{}) {
-	if obj == nil {
-		return nil
-	}
 	if obj.Whale != nil {
 		return obj.Whale
 	}

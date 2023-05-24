@@ -23,15 +23,9 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.parser.util.SchemaTypeUtil;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.features.DocumentationFeature;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.ModelsMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
-
 import java.io.File;
 import java.util.*;
 
-import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 
 public class TypeScriptInversifyClientCodegen extends AbstractTypeScriptClientCodegen {
@@ -97,7 +91,7 @@ public class TypeScriptInversifyClientCodegen extends AbstractTypeScriptClientCo
     @Override
     public void processOpts() {
         super.processOpts();
-        // HttpClient
+        // HttpCliens
         supportingFiles.add(new SupportingFile("IHttpClient.mustache", getIndexDirectory(), "IHttpClient.ts"));
         supportingFiles.add(new SupportingFile("IAPIConfiguration.mustache", getIndexDirectory(), "IAPIConfiguration.ts"));
         supportingFiles.add(new SupportingFile("HttpClient.mustache", getIndexDirectory(), "HttpClient.ts"));
@@ -200,13 +194,13 @@ public class TypeScriptInversifyClientCodegen extends AbstractTypeScriptClientCo
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap operations, List<ModelMap> allModels) {
-        OperationMap objs = operations.getOperations();
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> operations, List<Object> allModels) {
+        Map<String, Object> objs = (Map<String, Object>) operations.get("operations");
 
         // Add filename information for api imports
-        objs.put("apiFilename", getApiFilenameFromClassname(objs.getClassname()));
+        objs.put("apiFilename", getApiFilenameFromClassname(objs.get("classname").toString()));
 
-        List<CodegenOperation> ops = objs.getOperation();
+        List<CodegenOperation> ops = (List<CodegenOperation>) objs.get("operation");
         for (CodegenOperation op : ops) {
             // Prep a string buffer where we're going to set up our new version of the string.
             StringBuilder pathBuffer = new StringBuilder();
@@ -249,29 +243,31 @@ public class TypeScriptInversifyClientCodegen extends AbstractTypeScriptClientCo
         }
 
         // Add additional filename information for model imports in the services
-        List<Map<String, String>> imports = operations.getImports();
-        for (Map<String, String> im : imports) {
+        List<Map<String, Object>> imports = (List<Map<String, Object>>) operations.get("imports");
+        for (Map<String, Object> im : imports) {
             im.put("filename", im.get("import"));
-            im.put("classname", getModelnameFromModelFilename(im.get("filename")));
+            im.put("classname", getModelnameFromModelFilename(im.get("filename").toString()));
         }
 
         return operations;
     }
 
     @Override
-    public ModelsMap postProcessModels(ModelsMap objs) {
-        ModelsMap result = super.postProcessModels(objs);
+    public Map<String, Object> postProcessModels(Map<String, Object> objs) {
+        Map<String, Object> result = super.postProcessModels(objs);
 
         return postProcessModelsEnum(result);
     }
 
     @Override
-    public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
-        Map<String, ModelsMap> result = super.postProcessAllModels(objs);
+    public Map<String, Object> postProcessAllModels(Map<String, Object> objs) {
+        Map<String, Object> result = super.postProcessAllModels(objs);
 
-        for (ModelsMap entry : result.values()) {
-            for (ModelMap mo : entry.getModels()) {
-                CodegenModel cm = mo.getModel();
+        for (Map.Entry<String, Object> entry : result.entrySet()) {
+            Map<String, Object> inner = (Map<String, Object>) entry.getValue();
+            List<Map<String, Object>> models = (List<Map<String, Object>>) inner.get("models");
+            for (Map<String, Object> mo : models) {
+                CodegenModel cm = (CodegenModel) mo.get("model");
                 if (taggedUnions) {
                     mo.put(TAGGED_UNIONS, true);
                     if (cm.discriminator != null && cm.children != null) {
@@ -316,7 +312,7 @@ public class TypeScriptInversifyClientCodegen extends AbstractTypeScriptClientCo
         if (name.length() == 0) {
             return "default.service";
         }
-        return camelize(name, LOWERCASE_FIRST_LETTER) + ".service";
+        return camelize(name, true) + ".service";
     }
 
     @Override
@@ -326,7 +322,7 @@ public class TypeScriptInversifyClientCodegen extends AbstractTypeScriptClientCo
 
     @Override
     public String toModelFilename(String name) {
-        return camelize(toModelName(name), LOWERCASE_FIRST_LETTER);
+        return camelize(toModelName(name), true);
     }
 
     @Override

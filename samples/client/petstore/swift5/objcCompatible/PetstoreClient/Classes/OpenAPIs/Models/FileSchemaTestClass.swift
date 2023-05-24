@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-@objcMembers public class FileSchemaTestClass: NSObject, Codable, JSONEncodable {
+@objc public class FileSchemaTestClass: NSObject, Codable {
 
     public var file: File?
     public var files: [File]?

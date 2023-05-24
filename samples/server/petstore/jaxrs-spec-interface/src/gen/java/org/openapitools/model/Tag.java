@@ -11,13 +11,11 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("Tag")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class Tag  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class Tag  implements Serializable {
+  
   private @Valid Long id;
   private @Valid String name;
 
@@ -29,23 +27,26 @@ public class Tag  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("id")
   public Long getId() {
     return id;
   }
 
-  @JsonProperty("id")
   public void setId(Long id) {
     this.id = id;
   }
 
-  /**
+/**
    **/
   public Tag name(String name) {
     this.name = name;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -54,7 +55,6 @@ public class Tag  implements Serializable {
     return name;
   }
 
-  @JsonProperty("name")
   public void setName(String name) {
     this.name = name;
   }

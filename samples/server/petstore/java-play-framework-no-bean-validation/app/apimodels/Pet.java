@@ -122,10 +122,7 @@ public class Pet   {
   }
 
   public Pet addPhotoUrlsItem(String photoUrlsItem) {
-    if (this.photoUrls == null) {
-      this.photoUrls = new ArrayList<>();
-    }
-    this.photoUrls.add(photoUrlsItem);
+    photoUrls.add(photoUrlsItem);
     return this;
   }
 
@@ -147,10 +144,10 @@ public class Pet   {
   }
 
   public Pet addTagsItem(Tag tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<>();
+    if (tags == null) {
+      tags = new ArrayList<>();
     }
-    this.tags.add(tagsItem);
+    tags.add(tagsItem);
     return this;
   }
 

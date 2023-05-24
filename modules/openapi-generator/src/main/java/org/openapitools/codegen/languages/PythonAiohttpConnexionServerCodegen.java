@@ -75,7 +75,4 @@ public class PythonAiohttpConnexionServerCodegen extends AbstractPythonConnexion
         supportingFiles.add(new SupportingFile("tox.mustache", "", "tox.ini"));
         supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"));
     }
-
-    @Override
-    public String generatorLanguageVersion() { return "3.5.2+"; };
 }

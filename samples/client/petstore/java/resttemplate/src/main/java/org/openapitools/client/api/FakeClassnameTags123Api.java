@@ -26,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@Component("org.openapitools.client.api.FakeClassnameTags123Api")
 public class FakeClassnameTags123Api {
     private ApiClient apiClient;
 
@@ -33,6 +34,7 @@ public class FakeClassnameTags123Api {
         this(new ApiClient());
     }
 
+    @Autowired
     public FakeClassnameTags123Api(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
@@ -66,7 +68,7 @@ public class FakeClassnameTags123Api {
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
     public ResponseEntity<Client> testClassnameWithHttpInfo(Client body) throws RestClientException {
-        Object localVarPostBody = body;
+        Object postBody = body;
         
         // verify the required parameter 'body' is set
         if (body == null) {
@@ -74,23 +76,23 @@ public class FakeClassnameTags123Api {
         }
         
 
-        final MultiValueMap<String, String> localVarQueryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders localVarHeaderParams = new HttpHeaders();
-        final MultiValueMap<String, String> localVarCookieParams = new LinkedMultiValueMap<String, String>();
-        final MultiValueMap<String, Object> localVarFormParams = new LinkedMultiValueMap<String, Object>();
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<String, String>();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
         final String[] localVarAccepts = { 
             "application/json"
          };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        final String[] localVarContentTypes = { 
+        final String[] contentTypes = { 
             "application/json"
          };
-        final MediaType localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        final MediaType localVarContentType = apiClient.selectHeaderContentType(contentTypes);
 
-        String[] localVarAuthNames = new String[] { "api_key_query" };
+        String[] authNames = new String[] { "api_key_query" };
 
-        ParameterizedTypeReference<Client> localReturnType = new ParameterizedTypeReference<Client>() {};
-        return apiClient.invokeAPI("/fake_classname_test", HttpMethod.PATCH, Collections.<String, Object>emptyMap(), localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localReturnType);
+        ParameterizedTypeReference<Client> returnType = new ParameterizedTypeReference<Client>() {};
+        return apiClient.invokeAPI("/fake_classname_test", HttpMethod.PATCH, Collections.<String, Object>emptyMap(), queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
 }

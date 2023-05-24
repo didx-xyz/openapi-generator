@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin
-import javax.validation.constraints.Email
 import javax.validation.constraints.Max
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 import javax.validation.Valid
+import io.swagger.annotations.ApiModelProperty
 
 /**
  * An order for a pets from the pet store
@@ -24,17 +24,23 @@ import javax.validation.Valid
  */
 data class Order(
 
-    @get:JsonProperty("id") val id: kotlin.Long? = null,
+    @ApiModelProperty(example = "null", value = "")
+    @field:JsonProperty("id") val id: kotlin.Long? = null,
 
-    @get:JsonProperty("petId") val petId: kotlin.Long? = null,
+    @ApiModelProperty(example = "null", value = "")
+    @field:JsonProperty("petId") val petId: kotlin.Long? = null,
 
-    @get:JsonProperty("quantity") val quantity: kotlin.Int? = null,
+    @ApiModelProperty(example = "null", value = "")
+    @field:JsonProperty("quantity") val quantity: kotlin.Int? = null,
 
-    @get:JsonProperty("shipDate") val shipDate: java.time.OffsetDateTime? = null,
+    @ApiModelProperty(example = "null", value = "")
+    @field:JsonProperty("shipDate") val shipDate: java.time.OffsetDateTime? = null,
 
-    @get:JsonProperty("status") val status: Order.Status? = null,
+    @ApiModelProperty(example = "null", value = "Order Status")
+    @field:JsonProperty("status") val status: Order.Status? = null,
 
-    @get:JsonProperty("complete") val complete: kotlin.Boolean? = false
+    @ApiModelProperty(example = "null", value = "")
+    @field:JsonProperty("complete") val complete: kotlin.Boolean? = false
 ) {
 
     /**
@@ -42,10 +48,13 @@ data class Order(
     * Values: placed,approved,delivered
     */
     enum class Status(val value: kotlin.String) {
-
+    
         @JsonProperty("placed") placed("placed"),
+    
         @JsonProperty("approved") approved("approved"),
-        @JsonProperty("delivered") delivered("delivered")
+    
+        @JsonProperty("delivered") delivered("delivered");
+    
     }
 
 }

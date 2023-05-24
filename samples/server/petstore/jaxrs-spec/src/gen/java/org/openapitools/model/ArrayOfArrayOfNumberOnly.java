@@ -14,21 +14,12 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("ArrayOfArrayOfNumberOnly")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class ArrayOfArrayOfNumberOnly  implements Serializable {
-  private @Valid List<List<BigDecimal>> arrayArrayNumber;
-
-  protected ArrayOfArrayOfNumberOnly(ArrayOfArrayOfNumberOnlyBuilder<?, ?> b) {
-    this.arrayArrayNumber = b.arrayArrayNumber;
-  }
-
-  public ArrayOfArrayOfNumberOnly() {
-  }
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class ArrayOfArrayOfNumberOnly  implements Serializable {
+  
+  private @Valid List<List<BigDecimal>> arrayArrayNumber = new ArrayList<List<BigDecimal>>();
 
   /**
    **/
@@ -38,33 +29,18 @@ public class ArrayOfArrayOfNumberOnly  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("ArrayArrayNumber")
   public List<List<BigDecimal>> getArrayArrayNumber() {
     return arrayArrayNumber;
   }
 
-  @JsonProperty("ArrayArrayNumber")
   public void setArrayArrayNumber(List<List<BigDecimal>> arrayArrayNumber) {
     this.arrayArrayNumber = arrayArrayNumber;
   }
 
-  public ArrayOfArrayOfNumberOnly addArrayArrayNumberItem(List<BigDecimal> arrayArrayNumberItem) {
-    if (this.arrayArrayNumber == null) {
-      this.arrayArrayNumber = new ArrayList<>();
-    }
-
-    this.arrayArrayNumber.add(arrayArrayNumberItem);
-    return this;
-  }
-
-  public ArrayOfArrayOfNumberOnly removeArrayArrayNumberItem(List<BigDecimal> arrayArrayNumberItem) {
-    if (arrayArrayNumberItem != null && this.arrayArrayNumber != null) {
-      this.arrayArrayNumber.remove(arrayArrayNumberItem);
-    }
-
-    return this;
-  }
 
   @Override
   public boolean equals(Object o) {
@@ -105,33 +81,5 @@ public class ArrayOfArrayOfNumberOnly  implements Serializable {
   }
 
 
-  public static ArrayOfArrayOfNumberOnlyBuilder<?, ?> builder() {
-    return new ArrayOfArrayOfNumberOnlyBuilderImpl();
-  }
-
-  private static final class ArrayOfArrayOfNumberOnlyBuilderImpl extends ArrayOfArrayOfNumberOnlyBuilder<ArrayOfArrayOfNumberOnly, ArrayOfArrayOfNumberOnlyBuilderImpl> {
-
-    @Override
-    protected ArrayOfArrayOfNumberOnlyBuilderImpl self() {
-      return this;
-    }
-
-    @Override
-    public ArrayOfArrayOfNumberOnly build() {
-      return new ArrayOfArrayOfNumberOnly(this);
-    }
-  }
-
-  public static abstract class ArrayOfArrayOfNumberOnlyBuilder<C extends ArrayOfArrayOfNumberOnly, B extends ArrayOfArrayOfNumberOnlyBuilder<C, B>>  {
-    private List<List<BigDecimal>> arrayArrayNumber;
-    protected abstract B self();
-
-    public abstract C build();
-
-    public B arrayArrayNumber(List<List<BigDecimal>> arrayArrayNumber) {
-      this.arrayArrayNumber = arrayArrayNumber;
-      return self();
-    }
-  }
 }
 

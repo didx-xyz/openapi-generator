@@ -10,6 +10,6 @@ namespace app\Models;
 class Foo {
 
     /** @var string $bar */
-    public $bar = 'bar';
+    private $bar;
 
 }

@@ -7,15 +7,16 @@ docs/AdditionalPropertiesWithList.md
 docs/AnotherXmlArray.md
 docs/AnotherXmlInner.md
 docs/AnotherXmlObject.md
-docs/AnyOfGet202Response.md
 docs/AnyOfObject.md
+docs/AnyOfObjectAnyOf.md
 docs/AnyOfProperty.md
 docs/DuplicateXmlObject.md
 docs/EnumWithStarObject.md
 docs/Err.md
 docs/Error.md
+docs/InlineResponse201.md
 docs/Model12345AnyOfObject.md
-docs/MultigetGet201Response.md
+docs/Model12345AnyOfObjectAnyOf.md
 docs/MyId.md
 docs/MyIdList.md
 docs/NullableTest.md
@@ -24,7 +25,6 @@ docs/ObjectParam.md
 docs/ObjectUntypedProps.md
 docs/ObjectWithArrayOfObjects.md
 docs/Ok.md
-docs/OneOfGet200Response.md
 docs/OptionalObjectHeader.md
 docs/RequiredObjectHeader.md
 docs/Result.md

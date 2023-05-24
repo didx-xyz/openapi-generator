@@ -8,7 +8,6 @@ import org.openapitools.model.Tag
 
 import org.openapitools.model.Pet
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import spock.lang.Ignore
 import spock.lang.Specification
 import jakarta.inject.Inject
 
@@ -49,7 +48,7 @@ class PetApiSpec extends Specification {
 
         then:
         var e = thrown(HttpClientResponseException.class)
-        e.getMessage().contains("Pet not found")
+        e.getMessage() == "Pet not found"
         e.getStatus() == HttpStatus.NOT_FOUND
     }
 
@@ -75,7 +74,6 @@ class PetApiSpec extends Specification {
      * Finds Pets by status
      * Multiple status values can be provided with comma separated strings
      */
-    @Ignore("Issue reported in https://github.com/micronaut-projects/micronaut-jackson-xml/issues/175")
     void "findPetsByStatus() test"() {
         given:
         Pet pet = new Pet()
@@ -232,7 +230,6 @@ class PetApiSpec extends Specification {
         notThrown()
     }
 
-    @Ignore("Issue reported in https://github.com/micronaut-projects/micronaut-jackson-xml/issues/175")
     void "findPetByTags() test"() {
         given:
         Tag tag = new Tag().name("cute").id(2L)

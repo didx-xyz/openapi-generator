@@ -10,18 +10,18 @@ namespace app\Models;
 class ObjectWithDeprecatedFields {
 
     /** @var string $uuid */
-    public $uuid = "";
+    private $uuid;
 
     /** @var float $id */
     /** @deprecated */
-    public $id = 0;
+    private $id;
 
     /** @var \app\Models\DeprecatedObject $deprecatedRef */
     /** @deprecated */
-    public $deprecatedRef;
+    private $deprecatedRef;
 
     /** @var string[] $bars */
     /** @deprecated */
-    public $bars = [];
+    private $bars;
 
 }

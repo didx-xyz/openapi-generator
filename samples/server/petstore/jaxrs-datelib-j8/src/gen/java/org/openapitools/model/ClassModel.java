@@ -74,6 +74,7 @@ public class ClassModel  implements Serializable {
     return Objects.hash(propertyClass);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

@@ -17,11 +17,16 @@ import io.swagger.annotations.*;
 @ApiModel(description="A pet for sale in the pet store")@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaResteasyEapServerCodegen")
 public class Pet   {
   
+
   private Long id;
+
   private Category category;
+
   private String name;
-  private List<String> photoUrls = new ArrayList<>();
-  private List<Tag> tags;
+
+  private List<String> photoUrls = new ArrayList<String>();
+
+  private List<Tag> tags = new ArrayList<Tag>();
 
   /**
    * pet status in the store
@@ -44,6 +49,7 @@ public class Pet   {
       return String.valueOf(value);
     }
   }
+
 
   private StatusEnum status;
 

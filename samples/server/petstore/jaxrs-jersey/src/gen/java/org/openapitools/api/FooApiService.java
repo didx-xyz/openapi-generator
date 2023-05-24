@@ -1,10 +1,11 @@
 package org.openapitools.api;
 
 import org.openapitools.api.*;
+import org.openapitools.model.*;
 
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 
-import org.openapitools.model.FooGetDefaultResponse;
+import org.openapitools.model.InlineResponseDefault;
 
 import java.util.List;
 import org.openapitools.api.NotFoundException;

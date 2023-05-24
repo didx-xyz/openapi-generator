@@ -38,15 +38,15 @@ import javax.validation.Valid;
 public class ArrayTest  implements Serializable {
   public static final String JSON_PROPERTY_ARRAY_OF_STRING = "array_of_string";
   @JsonProperty(JSON_PROPERTY_ARRAY_OF_STRING)
-  private List<String> arrayOfString;
+  private List<String> arrayOfString = null;
 
   public static final String JSON_PROPERTY_ARRAY_ARRAY_OF_INTEGER = "array_array_of_integer";
   @JsonProperty(JSON_PROPERTY_ARRAY_ARRAY_OF_INTEGER)
-  private List<List<Long>> arrayArrayOfInteger;
+  private List<List<Long>> arrayArrayOfInteger = null;
 
   public static final String JSON_PROPERTY_ARRAY_ARRAY_OF_MODEL = "array_array_of_model";
   @JsonProperty(JSON_PROPERTY_ARRAY_ARRAY_OF_MODEL)
-  private List<List<ReadOnlyFirst>> arrayArrayOfModel;
+  private List<List<ReadOnlyFirst>> arrayArrayOfModel = null;
 
   public ArrayTest arrayOfString(List<String> arrayOfString) {
     this.arrayOfString = arrayOfString;
@@ -151,6 +151,7 @@ public class ArrayTest  implements Serializable {
   public int hashCode() {
     return Objects.hash(arrayOfString, arrayArrayOfInteger, arrayArrayOfModel);
   }
+
 
   @Override
   public String toString() {

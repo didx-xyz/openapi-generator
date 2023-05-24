@@ -51,8 +51,7 @@ public class ZipUtil {
     public void compressFiles(List<File> listFiles, String destZipFile)
             throws IOException {
 
-        try (FileOutputStream fileOutputStream = new FileOutputStream(destZipFile);
-             ZipOutputStream zos = new ZipOutputStream(fileOutputStream)) {
+        try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(destZipFile))) {
 
             for (File file : listFiles) {
                 if (file.isDirectory()) {
@@ -85,8 +84,7 @@ public class ZipUtil {
 
             zos.putNextEntry(new ZipEntry(parentFolder + "/" + file.getName()));
 
-            try (FileInputStream fileInputStream = new FileInputStream(file);
-                 BufferedInputStream bis = new BufferedInputStream(fileInputStream)) {
+            try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
                 byte[] bytesIn = new byte[BUFFER_SIZE];
                 int read;
                 while ((read = bis.read(bytesIn)) != -1) {
@@ -111,8 +109,7 @@ public class ZipUtil {
             IOException {
         zos.putNextEntry(new ZipEntry(file.getName()));
 
-        try (FileInputStream fileInputStream = new FileInputStream(file);
-             BufferedInputStream bis = new BufferedInputStream(fileInputStream)) {
+        try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
             byte[] bytesIn = new byte[BUFFER_SIZE];
             int read;
             while ((read = bis.read(bytesIn)) != -1) {

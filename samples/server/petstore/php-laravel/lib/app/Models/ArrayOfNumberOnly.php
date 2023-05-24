@@ -10,6 +10,6 @@ namespace app\Models;
 class ArrayOfNumberOnly {
 
     /** @var float[] $arrayNumber */
-    public $arrayNumber = [];
+    private $arrayNumber;
 
 }

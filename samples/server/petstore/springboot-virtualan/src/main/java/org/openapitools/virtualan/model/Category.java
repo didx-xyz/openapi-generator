@@ -1,40 +1,24 @@
 package org.openapitools.virtualan.model;
 
-import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
-import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-
-import java.util.*;
-import javax.annotation.Generated;
 
 /**
  * Category
  */
-
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class Category {
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
+public class Category   {
+  @JsonProperty("id")
   private Long id;
 
+  @JsonProperty("name")
   private String name = "default-name";
-
-  public Category() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Category(String name) {
-    this.name = name;
-  }
 
   public Category id(Long id) {
     this.id = id;
@@ -45,9 +29,9 @@ public class Category {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
+  @ApiModelProperty(value = "")
+
+
   public Long getId() {
     return id;
   }
@@ -65,9 +49,10 @@ public class Category {
    * Get name
    * @return name
   */
-  @NotNull 
-  @Schema(name = "name", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("name")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
   public String getName() {
     return name;
   }
@@ -75,6 +60,7 @@ public class Category {
   public void setName(String name) {
     this.name = name;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -98,6 +84,7 @@ public class Category {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Category {\n");
+    
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");

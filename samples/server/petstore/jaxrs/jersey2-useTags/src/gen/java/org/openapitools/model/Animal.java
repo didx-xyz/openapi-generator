@@ -14,7 +14,6 @@
 package org.openapitools.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -106,6 +105,7 @@ public class Animal   {
   public int hashCode() {
     return Objects.hash(className, color);
   }
+
 
   @Override
   public String toString() {

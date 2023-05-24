@@ -48,24 +48,16 @@ namespace Org.OpenAPITools.Model
         public ScaleneTriangle(string shapeType = default(string), string triangleType = default(string))
         {
             // to ensure "shapeType" is required (not null)
-            if (shapeType == null)
-            {
-                throw new ArgumentNullException("shapeType is a required property for ScaleneTriangle and cannot be null");
-            }
-            this._ShapeType = shapeType;
+            this._ShapeType = shapeType ?? throw new ArgumentNullException("shapeType is a required property for ScaleneTriangle and cannot be null");
             // to ensure "triangleType" is required (not null)
-            if (triangleType == null)
-            {
-                throw new ArgumentNullException("triangleType is a required property for ScaleneTriangle and cannot be null");
-            }
-            this._TriangleType = triangleType;
+            this._TriangleType = triangleType ?? throw new ArgumentNullException("triangleType is a required property for ScaleneTriangle and cannot be null");
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
         /// Gets or Sets ShapeType
         /// </summary>
-        [DataMember(Name = "shapeType", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "shapeType", IsRequired = true, EmitDefaultValue = false)]
         public string ShapeType
         {
             get{ return _ShapeType;}
@@ -89,7 +81,7 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets TriangleType
         /// </summary>
-        [DataMember(Name = "triangleType", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "triangleType", IsRequired = true, EmitDefaultValue = false)]
         public string TriangleType
         {
             get{ return _TriangleType;}
@@ -122,7 +114,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class ScaleneTriangle {\n");
             sb.Append("  ShapeType: ").Append(ShapeType).Append("\n");
             sb.Append("  TriangleType: ").Append(TriangleType).Append("\n");
@@ -170,17 +162,11 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.ShapeType != null)
-                {
-                    hashCode = (hashCode * 59) + this.ShapeType.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ShapeType.GetHashCode();
                 if (this.TriangleType != null)
-                {
-                    hashCode = (hashCode * 59) + this.TriangleType.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.TriangleType.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

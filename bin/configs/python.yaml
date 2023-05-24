@@ -1,9 +1,7 @@
 generatorName: python
 outputDir: samples/openapi3/client/petstore/python
-inputSpec: modules/openapi-generator/src/test/resources/3_0/python/petstore-with-fake-endpoints-models-for-testing.yaml
+inputSpec: modules/openapi-generator/src/test/resources/3_0/python/petstore-with-fake-endpoints-models-for-testing-with-http-signature.yaml
 templateDir: modules/openapi-generator/src/main/resources/python
 additionalProperties:
   packageName: petstore_api
-  useOneOfDiscriminatorLookup: "true"
-  disallowAdditionalPropertiesIfNotPresent: false
-  mapNumberTo: StrictFloat
+  recursionLimit: "1234"

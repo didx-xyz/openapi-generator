@@ -25,8 +25,7 @@ const (
 	OUTERENUMDEFAULTVALUE_DELIVERED OuterEnumDefaultValue = "delivered"
 )
 
-// All allowed values of OuterEnumDefaultValue enum
-var AllowedOuterEnumDefaultValueEnumValues = []OuterEnumDefaultValue{
+var allowedOuterEnumDefaultValueEnumValues = []OuterEnumDefaultValue{
 	"placed",
 	"approved",
 	"delivered",
@@ -39,7 +38,7 @@ func (v *OuterEnumDefaultValue) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := OuterEnumDefaultValue(value)
-	for _, existing := range AllowedOuterEnumDefaultValueEnumValues {
+	for _, existing := range allowedOuterEnumDefaultValueEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -56,13 +55,13 @@ func NewOuterEnumDefaultValueFromValue(v string) (*OuterEnumDefaultValue, error)
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for OuterEnumDefaultValue: valid values are %v", v, AllowedOuterEnumDefaultValueEnumValues)
+		return nil, fmt.Errorf("invalid value '%v' for OuterEnumDefaultValue: valid values are %v", v, allowedOuterEnumDefaultValueEnumValues)
 	}
 }
 
 // IsValid return true if the value is valid for the enum, false otherwise
 func (v OuterEnumDefaultValue) IsValid() bool {
-	for _, existing := range AllowedOuterEnumDefaultValueEnumValues {
+	for _, existing := range allowedOuterEnumDefaultValueEnumValues {
 		if existing == v {
 			return true
 		}

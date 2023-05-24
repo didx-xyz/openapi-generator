@@ -16,8 +16,9 @@ const pet = new petstore.Pet()
 pet.id = Math.floor(Math.random() * 100000)
 pet.name = "PetName"
 pet.photoUrls = []
-pet.status = petstore.PetStatusEnum.Available
+pet.status = 'available'
 pet.tags = [ tag ]
+pet.category = undefined
 
 QUnit.module("PetApi")
 

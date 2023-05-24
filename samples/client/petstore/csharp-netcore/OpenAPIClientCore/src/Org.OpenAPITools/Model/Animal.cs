@@ -46,22 +46,18 @@ namespace Org.OpenAPITools.Model
         /// </summary>
         /// <param name="className">className (required).</param>
         /// <param name="color">color (default to &quot;red&quot;).</param>
-        public Animal(string className = default(string), string color = @"red")
+        public Animal(string className = default(string), string color = "red")
         {
             // to ensure "className" is required (not null)
-            if (className == null)
-            {
-                throw new ArgumentNullException("className is a required property for Animal and cannot be null");
-            }
-            this.ClassName = className;
+            this.ClassName = className ?? throw new ArgumentNullException("className is a required property for Animal and cannot be null");
             // use default value if no "color" provided
-            this.Color = color ?? @"red";
+            this.Color = color ?? "red";
         }
 
         /// <summary>
         /// Gets or Sets ClassName
         /// </summary>
-        [DataMember(Name = "className", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "className", IsRequired = true, EmitDefaultValue = false)]
         public string ClassName { get; set; }
 
         /// <summary>
@@ -76,7 +72,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class Animal {\n");
             sb.Append("  ClassName: ").Append(ClassName).Append("\n");
             sb.Append("  Color: ").Append(Color).Append("\n");
@@ -123,13 +119,9 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.ClassName != null)
-                {
-                    hashCode = (hashCode * 59) + this.ClassName.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ClassName.GetHashCode();
                 if (this.Color != null)
-                {
-                    hashCode = (hashCode * 59) + this.Color.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.Color.GetHashCode();
                 return hashCode;
             }
         }

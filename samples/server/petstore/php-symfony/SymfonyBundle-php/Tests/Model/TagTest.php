@@ -2,7 +2,7 @@
 /**
  * TagTest
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Model
@@ -29,81 +29,68 @@
 
 namespace OpenAPI\Server\Model;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * TagTest Class Doc Comment
  *
- * @category    Class
- * @description A tag for a pet
+ * @category    Class */
+// * @description A tag for a pet
+/**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \OpenAPI\Server\Model\Tag
  */
 class TagTest extends TestCase
 {
-    protected Tag|MockObject $object;
 
     /**
      * Setup before running any test case
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass()
     {
     }
 
     /**
      * Setup before running each test case
      */
-    public function setUp(): void
+    public function setUp()
     {
-         $this->object = $this->getMockBuilder(Tag::class)->getMockForAbstractClass();
     }
 
     /**
      * Clean up after running each test case
      */
-    public function tearDown(): void
+    public function tearDown()
     {
     }
 
     /**
      * Clean up after running all test cases
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownAfterClass()
     {
     }
 
     /**
-     * @group integration
-     * @small
+     * Test "Tag"
      */
-    public function testTestClassExists(): void
+    public function testTag()
     {
-        $this->assertTrue(class_exists(Tag::class));
-        $this->assertInstanceOf(Tag::class, $this->object);
+        $testTag = new Tag();
     }
 
     /**
      * Test attribute "id"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyId(): void
+    public function testPropertyId()
     {
-        $this->markTestSkipped('Test for property id not implemented');
     }
 
     /**
      * Test attribute "name"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyName(): void
+    public function testPropertyName()
     {
-        $this->markTestSkipped('Test for property name not implemented');
     }
 }

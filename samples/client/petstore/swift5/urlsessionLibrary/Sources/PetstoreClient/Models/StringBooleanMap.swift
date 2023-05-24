@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.StringBooleanMap")
-public typealias StringBooleanMap = PetstoreClientAPI.StringBooleanMap
+@available(*, deprecated, renamed: "PetstoreClient.StringBooleanMap")
+public typealias StringBooleanMap = PetstoreClient.StringBooleanMap
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class StringBooleanMap: Codable, JSONEncodable, Hashable {
+public final class StringBooleanMap: Codable, Hashable {
 
 
     public enum CodingKeys: CodingKey, CaseIterable {

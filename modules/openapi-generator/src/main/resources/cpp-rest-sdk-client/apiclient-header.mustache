@@ -9,10 +9,14 @@
 #define {{apiHeaderGuardPrefix}}_ApiClient_H_
 
 {{{defaultInclude}}}
-#include "{{packageName}}/ApiConfiguration.h"
-#include "{{packageName}}/ApiException.h"
-#include "{{packageName}}/IHttpBody.h"
-#include "{{packageName}}/HttpContent.h"
+#include "ApiConfiguration.h"
+#include "ApiException.h"
+#include "IHttpBody.h"
+#include "HttpContent.h"
+
+#include <memory>
+#include <vector>
+#include <functional>
 
 #if  defined (_WIN32) || defined (_WIN64)
 #undef U
@@ -20,10 +24,6 @@
 
 #include <cpprest/details/basic_types.h>
 #include <cpprest/http_client.h>
-
-#include <memory>
-#include <vector>
-#include <functional>
 
 {{#apiNamespaceDeclarations}}
 namespace {{this}} {
@@ -51,7 +51,6 @@ public:
     static utility::string_t parameterToString(float value);
     static utility::string_t parameterToString(double value);
     static utility::string_t parameterToString(const utility::datetime &value);
-    static utility::string_t parameterToString(bool value);
     template<class T>
     static utility::string_t parameterToString(const std::vector<T>& value);
     template<class T>

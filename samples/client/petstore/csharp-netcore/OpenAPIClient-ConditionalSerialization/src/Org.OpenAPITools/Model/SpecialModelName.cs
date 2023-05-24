@@ -40,15 +40,7 @@ namespace Org.OpenAPITools.Model
         public SpecialModelName(long specialPropertyName = default(long), string specialModelName = default(string))
         {
             this._SpecialPropertyName = specialPropertyName;
-            if (this.SpecialPropertyName != null)
-            {
-                this._flagSpecialPropertyName = true;
-            }
             this.__SpecialModelName = specialModelName;
-            if (this._SpecialModelName != null)
-            {
-                this._flag_SpecialModelName = true;
-            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -112,7 +104,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class SpecialModelName {\n");
             sb.Append("  SpecialPropertyName: ").Append(SpecialPropertyName).Append("\n");
             sb.Append("  _SpecialModelName: ").Append(_SpecialModelName).Append("\n");
@@ -159,15 +151,11 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.SpecialPropertyName.GetHashCode();
+                hashCode = hashCode * 59 + this.SpecialPropertyName.GetHashCode();
                 if (this._SpecialModelName != null)
-                {
-                    hashCode = (hashCode * 59) + this._SpecialModelName.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this._SpecialModelName.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

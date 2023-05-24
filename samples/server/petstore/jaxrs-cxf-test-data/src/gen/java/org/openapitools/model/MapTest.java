@@ -10,6 +10,13 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiModelProperty;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,10 +27,12 @@ public class MapTest  {
   @Valid
   private Map<String, Map<String, String>> mapMapOfString = null;
 
+@XmlType(name="InnerEnum")
+@XmlEnum(String.class)
 public enum InnerEnum {
 
-    @JsonProperty("UPPER") UPPER(String.valueOf("UPPER")),
-    @JsonProperty("lower") LOWER(String.valueOf("lower"));
+    @XmlEnumValue("UPPER") @JsonProperty("UPPER") UPPER(String.valueOf("UPPER")), 
+    @XmlEnumValue("lower") @JsonProperty("lower") LOWER(String.valueOf("lower"));
 
     private String value;
 
@@ -71,7 +80,7 @@ public enum InnerEnum {
   /**
    * Sets the <code>mapMapOfString</code> property.
    */
- public void setMapMapOfString(Map<String, Map<String, String>> mapMapOfString) {
+  public void setMapMapOfString(Map<String, Map<String, String>> mapMapOfString) {
     this.mapMapOfString = mapMapOfString;
   }
 
@@ -103,7 +112,7 @@ public enum InnerEnum {
   /**
    * Sets the <code>mapOfEnumString</code> property.
    */
- public void setMapOfEnumString(Map<String, InnerEnum> mapOfEnumString) {
+  public void setMapOfEnumString(Map<String, InnerEnum> mapOfEnumString) {
     this.mapOfEnumString = mapOfEnumString;
   }
 
@@ -135,7 +144,7 @@ public enum InnerEnum {
   /**
    * Sets the <code>directMap</code> property.
    */
- public void setDirectMap(Map<String, Boolean> directMap) {
+  public void setDirectMap(Map<String, Boolean> directMap) {
     this.directMap = directMap;
   }
 
@@ -167,7 +176,7 @@ public enum InnerEnum {
   /**
    * Sets the <code>indirectMap</code> property.
    */
- public void setIndirectMap(StringBooleanMap indirectMap) {
+  public void setIndirectMap(StringBooleanMap indirectMap) {
     this.indirectMap = indirectMap;
   }
 

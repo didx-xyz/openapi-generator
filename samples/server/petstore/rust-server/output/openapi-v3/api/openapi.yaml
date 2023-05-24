@@ -8,7 +8,6 @@ servers:
 paths:
   /xml:
     post:
-      description: ""
       requestBody:
         content:
           application/xml:
@@ -79,7 +78,7 @@ paths:
           content:
             application/xml:
               schema:
-                $ref: '#/components/schemas/_multiget_get_201_response'
+                $ref: '#/components/schemas/inline_response_201'
           description: XML rsp
         "202":
           content:
@@ -390,7 +389,7 @@ paths:
                 $ref: '#/components/schemas/StringObject'
           description: OK
       tags:
-      - repo
+      - Repo
       - Info
   /repos:
     post:
@@ -415,7 +414,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/_one_of_get_200_response'
+                oneOf:
+                - type: integer
+                - items:
+                    type: string
+                  type: array
           description: Success
   /any-of:
     get:
@@ -448,7 +451,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/_any_of_get_202_response'
+                anyOf:
+                - $ref: '#/components/schemas/StringObject'
+                - $ref: '#/components/schemas/UuidObject'
           description: AnyOfSuccess
   /json-complex-query-param:
     get:
@@ -459,9 +464,11 @@ paths:
               items:
                 $ref: '#/components/schemas/StringObject'
               type: array
+        explode: true
         in: query
         name: list-of-strings
         required: false
+        style: form
       responses:
         "200":
           description: Success
@@ -478,20 +485,13 @@ components:
       - requiredAnyOf
     AnyOfObject:
       anyOf:
-      - enum:
-        - FOO
-        - BAR
-        type: string
+      - $ref: '#/components/schemas/AnyOfObject_anyOf'
       - description: Alternate option
         type: string
       description: Test a model containing an anyOf
     "12345AnyOfObject":
       anyOf:
-      - enum:
-        - FOO
-        - BAR
-        - '*'
-        type: string
+      - $ref: '#/components/schemas/_12345AnyOfObject_anyOf'
       - description: Alternate option
         type: string
       description: Test a model containing an anyOf that starts with a number
@@ -640,6 +640,7 @@ components:
           nullable: true
           type: string
         nullableWithNullDefault:
+          default: "null"
           nullable: true
           type: string
         nullableWithPresentDefault:
@@ -670,21 +671,22 @@ components:
       type: string
     Result:
       type: string
-    _multiget_get_201_response:
+    inline_response_201:
       properties:
         foo:
           type: string
       type: object
-    _one_of_get_200_response:
-      oneOf:
-      - type: integer
-      - items:
-          type: string
-        type: array
-    _any_of_get_202_response:
-      anyOf:
-      - $ref: '#/components/schemas/StringObject'
-      - $ref: '#/components/schemas/UuidObject'
+    AnyOfObject_anyOf:
+      enum:
+      - FOO
+      - BAR
+      type: string
+    _12345AnyOfObject_anyOf:
+      enum:
+      - FOO
+      - BAR
+      - '*'
+      type: string
   securitySchemes:
     authScheme:
       flows:

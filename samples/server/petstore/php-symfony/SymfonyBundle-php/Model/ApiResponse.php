@@ -2,7 +2,7 @@
 /**
  * ApiResponse
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -41,7 +41,6 @@ use JMS\Serializer\Annotation\SerializedName;
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-
 class ApiResponse 
 {
         /**
@@ -50,7 +49,7 @@ class ApiResponse
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $code = null;
+    protected $code;
 
     /**
      * @var string|null
@@ -58,7 +57,7 @@ class ApiResponse
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $type = null;
+    protected $type;
 
     /**
      * @var string|null
@@ -66,17 +65,17 @@ class ApiResponse
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $message = null;
+    protected $message;
 
     /**
      * Constructor
-     * @param array|null $data Associated array of property values initializing the model
+     * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->code = $data['code'] ?? null;
-        $this->type = $data['type'] ?? null;
-        $this->message = $data['message'] ?? null;
+        $this->code = isset($data['code']) ? $data['code'] : null;
+        $this->type = isset($data['type']) ? $data['type'] : null;
+        $this->message = isset($data['message']) ? $data['message'] : null;
     }
 
     /**
@@ -84,7 +83,7 @@ class ApiResponse
      *
      * @return int|null
      */
-    public function getCode(): ?int
+    public function getCode()
     {
         return $this->code;
     }
@@ -96,7 +95,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setCode(?int $code = null): self
+    public function setCode($code = null)
     {
         $this->code = $code;
 
@@ -108,7 +107,7 @@ class ApiResponse
      *
      * @return string|null
      */
-    public function getType(): ?string
+    public function getType()
     {
         return $this->type;
     }
@@ -120,7 +119,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setType(?string $type = null): self
+    public function setType($type = null)
     {
         $this->type = $type;
 
@@ -132,7 +131,7 @@ class ApiResponse
      *
      * @return string|null
      */
-    public function getMessage(): ?string
+    public function getMessage()
     {
         return $this->message;
     }
@@ -144,7 +143,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setMessage(?string $message = null): self
+    public function setMessage($message = null)
     {
         $this->message = $message;
 

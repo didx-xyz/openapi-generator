@@ -24,17 +24,13 @@ import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.*;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.ModelsMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
@@ -58,9 +54,9 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
                 "redefine", "rename", "require", "rescue", "Result", "retry", "select", "separate", "then", "True",
                 "TUPLE", "undefine", "until", "variant", "Void", "when", "xor"));
 
-        defaultIncludes = new HashSet<>(Arrays.asList("map", "array"));
+        defaultIncludes = new HashSet<String>(Arrays.asList("map", "array"));
 
-        languageSpecificPrimitives = new HashSet<>(
+        languageSpecificPrimitives = new HashSet<String>(
                 Arrays.asList("BOOLEAN", "INTEGER_8", "INTEGER_16", "INTEGER_32", "INTEGER_64", "NATURAL_8",
                         "NATURAL_16", "NATURAL_32", "NATURAL_64", "REAL_32", "REAL_64"));
 
@@ -138,7 +134,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
         // replace - with _ e.g. created-at => created_at
         name = sanitizeName(name.replaceAll("-", "_"));
 
-        // if it's all upper case, do nothing
+        // if it's all uppper case, do nothing
         if (name.matches("^[A-Z_]*$")) {
             return name;
         }
@@ -178,10 +174,10 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
 
     @Override
     public String toModelFilename(String name) {
-        // We need to check if schema-mapping has a different model for this class, so we use it
+        // We need to check if import-mapping has a different model for this class, so we use it
         // instead of the auto-generated one.
-        if (schemaMapping.containsKey(name)) {
-            return schemaMapping.get(name);
+        if (importMapping.containsKey(name)) {
+            return importMapping.get(name);
         }
 
         if (!StringUtils.isEmpty(modelNamePrefix)) {
@@ -272,13 +268,13 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
 
     @Override
     public void postProcessModelProperty(CodegenModel model, CodegenProperty property) {
-        if (StringUtils.isNotBlank(model.parent)) {
+        if (!isNullOrEmpty(model.parent)) {
             parentModels.add(model.parent);
             if (!childrenByParent.containsEntry(model.parent, model)) {
                 childrenByParent.put(model.parent, model);
             }
         }
-        if (StringUtils.isNotBlank(model.parentSchema)) {
+        if (!isNullOrEmpty(model.parentSchema)) {
             model.parentSchema = model.parentSchema.toLowerCase(Locale.ROOT);
         }
     }
@@ -308,32 +304,32 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
 
         // Not using the supertype invocation, because we want to UpperCamelize
         // the type.
-        String schemaType = getSchemaType(p);
-        if (typeMapping.containsKey(schemaType)) {
-            return typeMapping.get(schemaType);
+        String scheamType = getSchemaType(p);
+        if (typeMapping.containsKey(scheamType)) {
+            return typeMapping.get(scheamType);
         }
 
-        if (typeMapping.containsValue(schemaType)) {
-            return schemaType;
+        if (typeMapping.containsValue(scheamType)) {
+            return scheamType;
         }
 
-        if (languageSpecificPrimitives.contains(schemaType)) {
-            return schemaType;
+        if (languageSpecificPrimitives.contains(scheamType)) {
+            return scheamType;
         }
 
-        return toModelName(schemaType);
+        return toModelName(scheamType);
     }
 
     @Override
     public String getSchemaType(Schema p) {
-        String schemaType = super.getSchemaType(p);
+        String scheamType = super.getSchemaType(p);
         String type = null;
-        if (typeMapping.containsKey(schemaType)) {
-            type = typeMapping.get(schemaType);
+        if (typeMapping.containsKey(scheamType)) {
+            type = typeMapping.get(scheamType);
             if (languageSpecificPrimitives.contains(type))
                 return (type);
         } else
-            type = schemaType;
+            type = scheamType;
         return type;
     }
 
@@ -344,7 +340,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
             throw new RuntimeException("Empty method/operation name (operationId) not allowed");
         }
 
-        String sanitizedOperationId = camelize(sanitizeName(operationId), LOWERCASE_FIRST_LETTER);
+        String sanitizedOperationId = camelize(sanitizeName(operationId), true);
 
         // method name cannot use reserved keyword, e.g. return
         if (isReservedWord(sanitizedOperationId)) {
@@ -355,7 +351,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
         // operationId starts with a number
         if (operationId.matches("^\\d.*")) {
             LOGGER.warn(operationId + " (starting with a number) cannot be used as method sname. Renamed to " + camelize("call_" + operationId), true);
-            sanitizedOperationId = camelize("call_" + sanitizedOperationId, LOWERCASE_FIRST_LETTER);
+            sanitizedOperationId = camelize("call_" + sanitizedOperationId, true);
         }
 
         // method name from updateSomething to update_Something.
@@ -365,9 +361,11 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
-        OperationMap objectMap = objs.getOperations();
-        List<CodegenOperation> operations = objectMap.getOperation();
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+        @SuppressWarnings("unchecked")
+        Map<String, Object> objectMap = (Map<String, Object>) objs.get("operations");
+        @SuppressWarnings("unchecked")
+        List<CodegenOperation> operations = (List<CodegenOperation>) objectMap.get("operation");
         for (CodegenOperation operation : operations) {
             // http method verb conversion (e.g. PUT => Put)
 
@@ -375,7 +373,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
         }
 
         // remove model imports to avoid error
-        List<Map<String, String>> imports = objs.getImports();
+        List<Map<String, String>> imports = (List<Map<String, String>>) objs.get("imports");
         if (imports == null)
             return objs;
 
@@ -402,7 +400,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
         }
 
         // recursively add import for mapping one type to multiple imports
-        List<Map<String, String>> recursiveImports = objs.getImports();
+        List<Map<String, String>> recursiveImports = (List<Map<String, String>>) objs.get("imports");
         if (recursiveImports == null)
             return objs;
 
@@ -421,7 +419,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
     }
 
     @Override
-    public ModelsMap postProcessModels(ModelsMap objs) {
+    public Map<String, Object> postProcessModels(Map<String, Object> objs) {
         // remove model imports to avoid error
 //        List<Map<String, String>> imports = (List<Map<String, String>>) objs.get("imports");
 //        final String prefix = modelPackage();
@@ -454,14 +452,14 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
     }
 
     @Override
-    public Map<String, ModelsMap> postProcessAllModels(final Map<String, ModelsMap> models) {
+    public Map<String, Object> postProcessAllModels(final Map<String, Object> models) {
 
-        final Map<String, ModelsMap> processed = super.postProcessAllModels(models);
+        final Map<String, Object> processed = super.postProcessAllModels(models);
         postProcessParentModels(models);
         return processed;
     }
 
-    private void postProcessParentModels(final Map<String, ModelsMap> models) {
+    private void postProcessParentModels(final Map<String, Object> models) {
         for (final String parent : parentModels) {
             final CodegenModel parentModel = ModelUtils.getModelByName(parent, models);
             final Collection<CodegenModel> childrenModels = childrenByParent.get(parent);
@@ -520,15 +518,15 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
 
         // Iterate over all of the parent model properties
         boolean removedChildEnum = false;
-        for (CodegenProperty parentModelCodegenProperty : parentModelCodegenProperties) {
+        for (CodegenProperty parentModelCodegenPropery : parentModelCodegenProperties) {
             // Look for enums
-            if (parentModelCodegenProperty.isEnum) {
+            if (parentModelCodegenPropery.isEnum) {
                 // Now that we have found an enum in the parent class,
                 // and search the child class for the same enum.
                 Iterator<CodegenProperty> iterator = codegenProperties.iterator();
                 while (iterator.hasNext()) {
                     CodegenProperty codegenProperty = iterator.next();
-                    if (codegenProperty.isEnum && codegenProperty.equals(parentModelCodegenProperty)) {
+                    if (codegenProperty.isEnum && codegenProperty.equals(parentModelCodegenPropery)) {
                         // We found an enum in the child class that is
                         // a duplicate of the one in the parent, so remove it.
                         iterator.remove();
@@ -562,7 +560,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
     }
 
     public Map<String, String> createMapping(String key, String value) {
-        Map<String, String> customImport = new HashMap<>();
+        Map<String, String> customImport = new HashMap<String, String>();
         customImport.put(key, value);
 
         return customImport;
@@ -595,7 +593,7 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
 
     public String toEiffelFeatureStyle(String operationId) {
         if (operationId.startsWith("get_")) {
-            return operationId.substring(4);
+            return operationId.substring(4, operationId.length());
         } else {
             return operationId;
         }
@@ -637,6 +635,4 @@ public abstract class AbstractEiffelCodegen extends DefaultCodegen implements Co
 
     }
 
-    @Override
-    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.EIFFEL; }
 }

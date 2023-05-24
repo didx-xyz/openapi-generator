@@ -15,33 +15,30 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user"; //
-
-
-            // Headers  | 
-
             // Query    | 
-
+            // Headers  | 
             // Form     | 
-            addHeader("Content-Type", "application/json");
+            // Body     | user
 
 
-
-
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | POST
-            // Body     | user
+            http.addHeader("Content-Type", "application/json");
 
 
 
             payload = user.toJson().dump();
 
-            int httpCode = sendRequest(url, "POST", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("POST", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
             Response<String> response(output, httpCode);
@@ -59,23 +56,18 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user/createWithArray"; //
-
-
-            // Headers  | 
-
             // Query    | 
-
+            // Headers  | 
             // Form     | 
-            addHeader("Content-Type", "application/json");
+            // Body     | user
 
 
-
-
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | POST
-            // Body     | user
+            http.addHeader("Content-Type", "application/json");
 
 
             bourne::json tmp_arr = bourne::json::array();
@@ -88,11 +80,13 @@ using namespace Tiny;
             payload = tmp_arr.dump();
 
 
-            int httpCode = sendRequest(url, "POST", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("POST", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
             Response<String> response(output, httpCode);
@@ -110,23 +104,18 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user/createWithList"; //
-
-
-            // Headers  | 
-
             // Query    | 
-
+            // Headers  | 
             // Form     | 
-            addHeader("Content-Type", "application/json");
+            // Body     | user
 
 
-
-
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | POST
-            // Body     | user
+            http.addHeader("Content-Type", "application/json");
 
 
             bourne::json tmp_arr = bourne::json::array();
@@ -139,11 +128,13 @@ using namespace Tiny;
             payload = tmp_arr.dump();
 
 
-            int httpCode = sendRequest(url, "POST", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("POST", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
             Response<String> response(output, httpCode);
@@ -161,15 +152,10 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user/{username}"; //username 
-
-
-            // Headers  | 
-
             // Query    | 
-
+            // Headers  | 
             // Form     | 
-
-
+            // Body     | 
 
                 std::string s_username("{");
                 s_username.append("username");
@@ -180,16 +166,18 @@ using namespace Tiny;
                 url.erase(pos, s_username.length());
                 url.insert(pos, stringify(username));
 
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | DELETE
-            // Body     | 
-            int httpCode = sendRequest(url, "DELETE", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("DELETE", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
             Response<String> response(output, httpCode);
@@ -207,15 +195,10 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user/{username}"; //username 
-
-
-            // Headers  | 
-
             // Query    | 
-
+            // Headers  | 
             // Form     | 
-
-
+            // Body     | 
 
                 std::string s_username("{");
                 s_username.append("username");
@@ -226,16 +209,18 @@ using namespace Tiny;
                 url.erase(pos, s_username.length());
                 url.insert(pos, stringify(username));
 
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | GET
-            // Body     | 
-            int httpCode = sendRequest(url, "GET", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("GET", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
 
@@ -261,29 +246,24 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user/login"; //
-
-
-            // Headers  | 
-
             // Query    | username password 
-            addQueryParam("username",username);
-            addQueryParam("password",password);
-
+            // Headers  | 
             // Form     | 
+            // Body     | 
 
 
-
-
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | GET
-            // Body     | 
-            int httpCode = sendRequest(url, "GET", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("GET", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
 
@@ -305,27 +285,24 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user/logout"; //
-
-
-            // Headers  | 
-
             // Query    | 
-
+            // Headers  | 
             // Form     | 
+            // Body     | 
 
 
-
-
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | GET
-            // Body     | 
-            int httpCode = sendRequest(url, "GET", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("GET", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
             Response<String> response(output, httpCode);
@@ -346,16 +323,10 @@ using namespace Tiny;
         )
         {
             std::string url = basepath + "/user/{username}"; //username 
-
-
-            // Headers  | 
-
             // Query    | 
-
+            // Headers  | 
             // Form     | 
-            addHeader("Content-Type", "application/json");
-
-
+            // Body     | user
 
                 std::string s_username("{");
                 s_username.append("username");
@@ -366,21 +337,24 @@ using namespace Tiny;
                 url.erase(pos, s_username.length());
                 url.insert(pos, stringify(username));
 
+            begin(url);
 
             std::string payload = "";
             // Send Request
             // METHOD | PUT
-            // Body     | user
+            http.addHeader("Content-Type", "application/json");
 
 
 
             payload = user.toJson().dump();
 
-            int httpCode = sendRequest(url, "PUT", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
+            int httpCode = http.sendRequest("PUT", reinterpret_cast<uint8_t*>(&payload[0]), payload.length());
 
             // Handle Request
-            String output = getResponseBody();
+            String output = http.getString();
             std::string output_string = output.c_str();
+
+            http.end();
 
 
             Response<String> response(output, httpCode);

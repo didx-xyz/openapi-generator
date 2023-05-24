@@ -37,7 +37,7 @@ public class OAuth implements Authentication {
 
     private String tokenUrl;
     private String absoluteTokenUrl;
-    private OAuthFlow flow = OAuthFlow.APPLICATION;
+    private OAuthFlow flow = OAuthFlow.application;
     private OAuth20Service service;
     private DefaultApi20 authApi;
     private String scope;
@@ -110,22 +110,22 @@ public class OAuth implements Authentication {
                 return service.refreshAccessToken(refreshToken);
             }
         } catch (OAuthException | InterruptedException | ExecutionException | IOException e) {
-            throw new ApiException("Refreshing the access token using the refresh token failed: " + e.toString());
+            log.log(Level.FINE, "Refreshing the access token using the refresh token failed", e);
         }
         try {
             switch (flow) {
-                case PASSWORD:
+                case password:
                     if (username != null && password != null) {
                         accessToken = service.getAccessTokenPasswordGrant(username, password, scope);
                     }
                     break;
-                case ACCESS_CODE:
+                case accessCode:
                     if (code != null) {
                         accessToken = service.getAccessToken(code);
                         code = null;
                     }
                     break;
-                case APPLICATION:
+                case application:
                     accessToken = service.getAccessTokenClientCredentialsGrant(scope);
                     break;
                 default:
@@ -169,28 +169,15 @@ public class OAuth implements Authentication {
         return this;
     }
 
-    public OAuth setCredentialsForPublicClient(String clientId, Boolean debug) {
-        if (Boolean.TRUE.equals(debug)) {
-            service = new ServiceBuilder(clientId)
-                .apiSecretIsEmptyStringUnsafe().debug()
-                .build(authApi);
-        } else {
-            service = new ServiceBuilder(clientId)
-                .apiSecretIsEmptyStringUnsafe()
-                .build(authApi);
-        }
-        return this;
-    }
-
     public OAuth usePasswordFlow(String username, String password) {
-        this.flow = OAuthFlow.PASSWORD;
+        this.flow = OAuthFlow.password;
         this.username = username;
         this.password = password;
         return this;
     }
 
     public OAuth useAuthorizationCodeFlow(String code) {
-        this.flow = OAuthFlow.ACCESS_CODE;
+        this.flow = OAuthFlow.accessCode;
         this.code = code;
         return this;
     }

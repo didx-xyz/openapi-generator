@@ -13,18 +13,16 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { MatchingParts } from './MatchingParts';
 import {
+    MatchingParts,
     MatchingPartsFromJSON,
     MatchingPartsFromJSONTyped,
     MatchingPartsToJSON,
-} from './MatchingParts';
-import type { ResponseMeta } from './ResponseMeta';
-import {
+    ResponseMeta,
     ResponseMetaFromJSON,
     ResponseMetaFromJSONTyped,
     ResponseMetaToJSON,
-} from './ResponseMeta';
+} from './';
 
 /**
  * 
@@ -44,16 +42,6 @@ export interface GetMatchingPartsResponse {
      * @memberof GetMatchingPartsResponse
      */
     data?: MatchingParts;
-}
-
-/**
- * Check if a given object implements the GetMatchingPartsResponse interface.
- */
-export function instanceOfGetMatchingPartsResponse(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "meta" in value;
-
-    return isInstance;
 }
 
 export function GetMatchingPartsResponseFromJSON(json: any): GetMatchingPartsResponse {

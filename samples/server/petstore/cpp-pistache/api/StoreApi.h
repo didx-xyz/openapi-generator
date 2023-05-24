@@ -19,13 +19,11 @@
 #define StoreApi_H_
 
 
-#include "ApiBase.h"
-
 #include <pistache/http.h>
 #include <pistache/router.h>
 #include <pistache/http_headers.h>
+#include <pistache/optional.h>
 
-#include <optional>
 #include <utility>
 
 #include "Order.h"
@@ -35,11 +33,11 @@
 namespace org::openapitools::server::api
 {
 
-class  StoreApi : public ApiBase {
+class  StoreApi {
 public:
     explicit StoreApi(const std::shared_ptr<Pistache::Rest::Router>& rtr);
-    ~StoreApi() override = default;
-    void init() override;
+    virtual ~StoreApi() = default;
+    void init();
 
     static const std::string base;
 
@@ -52,16 +50,18 @@ private:
     void place_order_handler(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter response);
     void store_api_default_handler(const Pistache::Rest::Request &request, Pistache::Http::ResponseWriter response);
 
+    const std::shared_ptr<Pistache::Rest::Router> router;
+
     /// <summary>
     /// Helper function to handle unexpected Exceptions during Parameter parsing and validation.
-    /// May be overridden to return custom error formats. This is called inside a catch block.
+    /// May be overriden to return custom error formats. This is called inside a catch block.
     /// Important: When overriding, do not call `throw ex;`, but instead use `throw;`.
     /// </summary>
     virtual std::pair<Pistache::Http::Code, std::string> handleParsingException(const std::exception& ex) const noexcept;
 
     /// <summary>
     /// Helper function to handle unexpected Exceptions during processing of the request in handler functions.
-    /// May be overridden to return custom error formats. This is called inside a catch block.
+    /// May be overriden to return custom error formats. This is called inside a catch block.
     /// Important: When overriding, do not call `throw ex;`, but instead use `throw;`.
     /// </summary>
     virtual std::pair<Pistache::Http::Code, std::string> handleOperationException(const std::exception& ex) const noexcept;
@@ -85,7 +85,7 @@ private:
     /// Find purchase order by ID
     /// </summary>
     /// <remarks>
-    /// For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+    /// For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
     /// </remarks>
     /// <param name="orderId">ID of pet that needs to be fetched</param>
     virtual void get_order_by_id(const int64_t &orderId, Pistache::Http::ResponseWriter &response) = 0;

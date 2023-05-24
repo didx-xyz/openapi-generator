@@ -27,9 +27,6 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.features.*;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,10 +41,8 @@ import java.util.regex.Pattern;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
-public class ElixirClientCodegen extends DefaultCodegen {
+public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig {
     private final Logger LOGGER = LoggerFactory.getLogger(ElixirClientCodegen.class);
-
-    private final Pattern simpleAtomPattern = Pattern.compile("\\A(?:(?:[_@\\p{Alpha}][_@\\p{Alnum}]*[?!]?)|-)\\z");
 
     protected String apiVersion = "1.0.0";
     protected String moduleName;
@@ -56,12 +51,11 @@ public class ElixirClientCodegen extends DefaultCodegen {
     // This is the name of elixir project name;
     protected static final String defaultPackageName = "openapi_client";
 
-    String supportedElixirVersion = "1.10";
+    String supportedElixirVersion = "1.6";
     List<String> extraApplications = Arrays.asList(":logger");
     List<String> deps = Arrays.asList(
-            "{:tesla, \"~> 1.4\"}",
-            "{:poison, \"~> 3.0\"}",
-            "{:ex_doc, \"~> 0.28\", only: :dev, runtime: false}"
+            "{:tesla, \"~> 1.2\"}",
+            "{:poison, \"~> 3.0\"}"
     );
 
     public ElixirClientCodegen() {
@@ -87,9 +81,6 @@ public class ElixirClientCodegen extends DefaultCodegen {
                 )
                 .includeClientModificationFeatures(
                         ClientModificationFeature.BasePath
-                )
-                .includeDataTypeFeatures(
-                        DataTypeFeature.AnyType
                 )
         );
 
@@ -125,7 +116,7 @@ public class ElixirClientCodegen extends DefaultCodegen {
          * Reserved words.  Override this with reserved words specific to your language
          * Ref: https://github.com/itsgreggreg/elixir_quick_reference#reserved-words
          */
-        reservedWords = new HashSet<>(
+        reservedWords = new HashSet<String>(
                 Arrays.asList(
                         "nil",
                         "true",
@@ -156,17 +147,9 @@ public class ElixirClientCodegen extends DefaultCodegen {
                 "config",
                 "config.exs")
         );
-        supportingFiles.add(new SupportingFile("runtime.exs.mustache",
-                "config",
-                "runtime.exs")
-        );
         supportingFiles.add(new SupportingFile("mix.exs.mustache",
                 "",
                 "mix.exs")
-        );
-        supportingFiles.add(new SupportingFile("formatter.exs",
-                "",
-                ".formatter.exs")
         );
         supportingFiles.add(new SupportingFile("test_helper.exs.mustache",
                 "test",
@@ -181,7 +164,7 @@ public class ElixirClientCodegen extends DefaultCodegen {
          * Language Specific Primitives.  These types will not trigger imports by
          * the client generator
          */
-        languageSpecificPrimitives = new HashSet<>(
+        languageSpecificPrimitives = new HashSet<String>(
                 Arrays.asList(
                         "Integer",
                         "Float",
@@ -191,17 +174,15 @@ public class ElixirClientCodegen extends DefaultCodegen {
                         "List",
                         "Atom",
                         "Map",
-                        "AnyType",
                         "Tuple",
                         "PID",
                         "DateTime",
-                        "map()", // This is a workaround, since the DefaultCodeGen uses our elixir TypeSpec datetype to evaluate the primitive
-                        "any()"
+                        "map()" // This is a workaround, since the DefaultCodeGen uses our elixir TypeSpec datetype to evaluate the primitive
                 )
         );
 
         // ref: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types
-        typeMapping = new HashMap<>();
+        typeMapping = new HashMap<String, String>();
         typeMapping.put("integer", "Integer");
         typeMapping.put("long", "Integer");
         typeMapping.put("number", "Float");
@@ -278,19 +259,6 @@ public class ElixirClientCodegen extends DefaultCodegen {
                 writer.write(modulized(fragment.execute()));
             }
         });
-        additionalProperties.put("atom", new Mustache.Lambda() {
-            @Override
-            public void execute(Template.Fragment fragment, Writer writer) throws IOException {
-                writer.write(atomized(fragment.execute()));
-            }
-        });
-        additionalProperties.put("env_var", new Mustache.Lambda() {
-            @Override
-            public void execute(Template.Fragment fragment, Writer writer) throws IOException {
-                String text = underscored(fragment.execute());
-                writer.write(text.toUpperCase(Locale.ROOT));
-            }
-        });
 
         if (additionalProperties.containsKey(CodegenConstants.INVOKER_PACKAGE)) {
             setModuleName((String) additionalProperties.get(CodegenConstants.INVOKER_PACKAGE));
@@ -329,9 +297,9 @@ public class ElixirClientCodegen extends DefaultCodegen {
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
-        OperationMap operations = super.postProcessOperationsWithModels(objs, allModels).getOperations();
-        List<CodegenOperation> os = operations.getOperation();
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+        Map<String, Object> operations = (Map<String, Object>) super.postProcessOperationsWithModels(objs, allModels).get("operations");
+        List<CodegenOperation> os = (List<CodegenOperation>) operations.get("operation");
         List<ExtendedCodegenOperation> newOs = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\{([^\\}]+)\\}([^\\{]*)");
         for (CodegenOperation o : os) {
@@ -363,7 +331,7 @@ public class ElixirClientCodegen extends DefaultCodegen {
 
             newOs.add(eco);
         }
-        operations.setOperation(newOs);
+        operations.put("operation", newOs);
         return objs;
     }
 
@@ -405,26 +373,6 @@ public class ElixirClientCodegen extends DefaultCodegen {
         }
         return join("", modulizedWords);
     }
-
-    private String atomized(String text) {
-      StringBuilder atom = new StringBuilder();
-      Matcher m = simpleAtomPattern.matcher(text);
-
-      atom.append(":");
-
-      if (!m.matches()) {
-        atom.append("\"");
-      }
-
-      atom.append(text);
-
-      if (!m.matches()) {
-        atom.append("\"");
-      }
-
-      return atom.toString();
-    }
-
 
     /**
      * Escapes a reserved word as defined in the `reservedWords` array. Handle escaping
@@ -580,8 +528,6 @@ public class ElixirClientCodegen extends DefaultCodegen {
             return "String.t";
         } else if (ModelUtils.isStringSchema(p)) {
             return "String.t";
-        } else if (p.getType() == null) {
-            return "any()";
         }
         return super.getTypeDeclaration(p);
     }
@@ -667,7 +613,7 @@ public class ElixirClientCodegen extends DefaultCodegen {
                 return "%{}";
             }
             // Primitive return type, don't even try to decode
-            if (baseType == null || (containerType == null && primitiveType)) {
+            if (baseType == null || (simpleType && primitiveType)) {
                 return "false";
             } else if (isArray && languageSpecificPrimitives().contains(baseType)) {
                 return "[]";
@@ -781,24 +727,22 @@ public class ElixirClientCodegen extends DefaultCodegen {
             }
 
             sb.append("keyword()) :: ");
-            HashSet<String> uniqueResponseTypes = new HashSet<>();
+            HashSet<String> uniqueResponseTypes = new HashSet<String>();
             for (CodegenResponse response : this.responses) {
                 ExtendedCodegenResponse exResponse = (ExtendedCodegenResponse) response;
-                StringBuilder returnEntry = new StringBuilder();
+                StringBuilder returnEntry = new StringBuilder("");
                 if (exResponse.baseType == null) {
                     returnEntry.append("nil");
-                } else if (exResponse.containerType == null) { // not container (array, map, set)
+                } else if (exResponse.simpleType) {
                     if (!exResponse.primitiveType) {
                         returnEntry.append(moduleName);
                         returnEntry.append(".Model.");
                     }
-
-                    if (exResponse.baseType.equals("AnyType")) {
-                        returnEntry.append("any()");
-                    }else {
-                        returnEntry.append(exResponse.baseType);
-                        returnEntry.append(".t");
-                    }
+                    returnEntry.append(exResponse.baseType);
+                    returnEntry.append(".t");
+                } else if (exResponse.containerType == null) {
+                    returnEntry.append(returnBaseType);
+                    returnEntry.append(".t");
                 } else {
                     if (exResponse.containerType.equals("array") ||
                             exResponse.containerType.equals("set")) {
@@ -807,13 +751,8 @@ public class ElixirClientCodegen extends DefaultCodegen {
                             returnEntry.append(moduleName);
                             returnEntry.append(".Model.");
                         }
-
-                        if (exResponse.baseType.equals("AnyType")) {
-                            returnEntry.append("any())");
-                        }else {
-                            returnEntry.append(exResponse.baseType);
-                            returnEntry.append(".t)");
-                        }
+                        returnEntry.append(exResponse.baseType);
+                        returnEntry.append(".t)");
                     } else if (exResponse.containerType.equals("map")) {
                         returnEntry.append("map()");
                     }
@@ -979,7 +918,4 @@ public class ElixirClientCodegen extends DefaultCodegen {
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
     }
-
-    @Override
-    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.ELIXIR; }
 }

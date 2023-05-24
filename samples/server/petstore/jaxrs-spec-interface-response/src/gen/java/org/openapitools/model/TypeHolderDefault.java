@@ -14,18 +14,16 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("TypeHolderDefault")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class TypeHolderDefault  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class TypeHolderDefault  implements Serializable {
+  
   private @Valid String stringItem = "what";
   private @Valid BigDecimal numberItem;
   private @Valid Integer integerItem;
   private @Valid Boolean boolItem = true;
-  private @Valid List<Integer> arrayItem = new ArrayList<>();
+  private @Valid List<Integer> arrayItem = new ArrayList<Integer>();
 
   /**
    **/
@@ -35,6 +33,8 @@ public class TypeHolderDefault  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(required = true, value = "")
   @JsonProperty("string_item")
   @NotNull
@@ -42,17 +42,18 @@ public class TypeHolderDefault  implements Serializable {
     return stringItem;
   }
 
-  @JsonProperty("string_item")
   public void setStringItem(String stringItem) {
     this.stringItem = stringItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault numberItem(BigDecimal numberItem) {
     this.numberItem = numberItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -62,17 +63,18 @@ public class TypeHolderDefault  implements Serializable {
     return numberItem;
   }
 
-  @JsonProperty("number_item")
   public void setNumberItem(BigDecimal numberItem) {
     this.numberItem = numberItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault integerItem(Integer integerItem) {
     this.integerItem = integerItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -82,17 +84,18 @@ public class TypeHolderDefault  implements Serializable {
     return integerItem;
   }
 
-  @JsonProperty("integer_item")
   public void setIntegerItem(Integer integerItem) {
     this.integerItem = integerItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault boolItem(Boolean boolItem) {
     this.boolItem = boolItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -102,17 +105,18 @@ public class TypeHolderDefault  implements Serializable {
     return boolItem;
   }
 
-  @JsonProperty("bool_item")
   public void setBoolItem(Boolean boolItem) {
     this.boolItem = boolItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault arrayItem(List<Integer> arrayItem) {
     this.arrayItem = arrayItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -122,27 +126,10 @@ public class TypeHolderDefault  implements Serializable {
     return arrayItem;
   }
 
-  @JsonProperty("array_item")
   public void setArrayItem(List<Integer> arrayItem) {
     this.arrayItem = arrayItem;
   }
 
-  public TypeHolderDefault addArrayItemItem(Integer arrayItemItem) {
-    if (this.arrayItem == null) {
-      this.arrayItem = new ArrayList<>();
-    }
-
-    this.arrayItem.add(arrayItemItem);
-    return this;
-  }
-
-  public TypeHolderDefault removeArrayItemItem(Integer arrayItemItem) {
-    if (arrayItemItem != null && this.arrayItem != null) {
-      this.arrayItem.remove(arrayItemItem);
-    }
-
-    return this;
-  }
 
   @Override
   public boolean equals(Object o) {

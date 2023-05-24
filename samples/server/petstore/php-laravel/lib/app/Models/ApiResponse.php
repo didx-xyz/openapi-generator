@@ -10,12 +10,12 @@ namespace app\Models;
 class ApiResponse {
 
     /** @var int $code */
-    public $code = 0;
+    private $code;
 
     /** @var string $type */
-    public $type = "";
+    private $type;
 
     /** @var string $message */
-    public $message = "";
+    private $message;
 
 }

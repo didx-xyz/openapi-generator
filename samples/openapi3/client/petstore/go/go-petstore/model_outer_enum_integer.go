@@ -25,8 +25,7 @@ const (
 	OUTERENUMINTEGER__2 OuterEnumInteger = 2
 )
 
-// All allowed values of OuterEnumInteger enum
-var AllowedOuterEnumIntegerEnumValues = []OuterEnumInteger{
+var allowedOuterEnumIntegerEnumValues = []OuterEnumInteger{
 	0,
 	1,
 	2,
@@ -39,7 +38,7 @@ func (v *OuterEnumInteger) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := OuterEnumInteger(value)
-	for _, existing := range AllowedOuterEnumIntegerEnumValues {
+	for _, existing := range allowedOuterEnumIntegerEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -56,13 +55,13 @@ func NewOuterEnumIntegerFromValue(v int32) (*OuterEnumInteger, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for OuterEnumInteger: valid values are %v", v, AllowedOuterEnumIntegerEnumValues)
+		return nil, fmt.Errorf("invalid value '%v' for OuterEnumInteger: valid values are %v", v, allowedOuterEnumIntegerEnumValues)
 	}
 }
 
 // IsValid return true if the value is valid for the enum, false otherwise
 func (v OuterEnumInteger) IsValid() bool {
-	for _, existing := range AllowedOuterEnumIntegerEnumValues {
+	for _, existing := range allowedOuterEnumIntegerEnumValues {
 		if existing == v {
 			return true
 		}

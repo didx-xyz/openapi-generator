@@ -26,7 +26,7 @@ import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.servers.Server;
-import org.apache.commons.text.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.features.*;
@@ -36,7 +36,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.*;
 
 public class BashClientCodegen extends DefaultCodegen implements CodegenConfig {
@@ -183,7 +182,7 @@ public class BashClientCodegen extends DefaultCodegen implements CodegenConfig {
 
         /**
          * Allow the user to force the script to always include certain cURL
-         * commands
+         * comamnds
          */
         cliOptions.add(CliOption.newString(CURL_OPTIONS, "Default cURL options"));
         cliOptions.add(CliOption.newBoolean(PROCESS_MARKDOWN,
@@ -210,7 +209,7 @@ public class BashClientCodegen extends DefaultCodegen implements CodegenConfig {
         /**
          * Bash reserved words.
          */
-        reservedWords = new HashSet<>(
+        reservedWords = new HashSet<String>(
                 Arrays.asList(
                         "case",
                         "do",
@@ -530,7 +529,7 @@ public class BashClientCodegen extends DefaultCodegen implements CodegenConfig {
          * remove standalone '\'
          *
          * replace " with \"
-         * outer unescape to retain the original multi-byte characters
+         * outter unescape to retain the original multi-byte characters
          */
         result = escapeUnsafeCharacters(
                 StringEscapeUtils.unescapeJava(
@@ -808,7 +807,7 @@ public class BashClientCodegen extends DefaultCodegen implements CodegenConfig {
     public String toOperationId(String operationId) {
         // rename to empty_method_name_1 (e.g.) if method name is empty
         if (StringUtils.isEmpty(operationId)) {
-            operationId = camelize("empty_method_name_" + emptyMethodNameCounter++, LOWERCASE_FIRST_LETTER);
+            operationId = camelize("empty_method_name_" + emptyMethodNameCounter++, true);
             LOGGER.warn("Empty method name (operationId) found. Renamed to {}", operationId);
             return operationId;
         }
@@ -826,9 +825,7 @@ public class BashClientCodegen extends DefaultCodegen implements CodegenConfig {
             operationId = "call_" + operationId;
         }
 
-        return camelize(sanitizeName(operationId), LOWERCASE_FIRST_LETTER);
+        return camelize(sanitizeName(operationId), true);
     }
 
-    @Override
-    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.BASH; }
 }

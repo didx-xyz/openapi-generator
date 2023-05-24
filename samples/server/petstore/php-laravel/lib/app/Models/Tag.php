@@ -10,9 +10,9 @@ namespace app\Models;
 class Tag {
 
     /** @var int $id */
-    public $id = 0;
+    private $id;
 
     /** @var string $name */
-    public $name = "";
+    private $name;
 
 }

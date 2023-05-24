@@ -4,7 +4,7 @@
 {{{version}}}
 :toc: left
 :numbered:
-:toclevels: 4
+:toclevels: 3
 :source-highlighter: highlightjs
 :keywords: openapi, rest, {{appName}}
 :specDir: {{specDir}}
@@ -104,7 +104,7 @@ Operation Id:: {{nickname}}
 
 | {{code}}
 | {{message}}
-| {{#containerType}}{{dataType}}[<<{{baseType}}>>]{{/containerType}} {{^containerType}}<<{{dataType}}>>{{/containerType}}
+| {{^simpleType}}{{dataType}}[<<{{baseType}}>>]{{/simpleType}} {{#simpleType}}<<{{dataType}}>>{{/simpleType}}
 
 {{/responses}}
 |===

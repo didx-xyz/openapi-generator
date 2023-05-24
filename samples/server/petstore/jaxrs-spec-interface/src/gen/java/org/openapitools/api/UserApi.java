@@ -1,6 +1,5 @@
 package org.openapitools.api;
 
-import java.util.Date;
 import java.util.List;
 import org.openapitools.model.User;
 
@@ -17,8 +16,7 @@ import javax.validation.Valid;
 
 @Path("/user")
 @Api(description = "the user API")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public interface UserApi {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public interface UserApi {
 
     @POST
     @ApiOperation(value = "Create user", notes = "This can only be done by the logged in user.", tags={ "user" })

@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  description: "This is a sample server Petstore server. For this sample, you can\
-    \ use the api key `special-key` to test the authorization filters."
+  description: This is a sample server Petstore server. For this sample, you can use
+    the api key `special-key` to test the authorization filters.
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -124,8 +124,8 @@ paths:
   /pet/findByTags:
     get:
       deprecated: true
-      description: "Multiple tags can be provided with comma separated strings. Use\
-        \ tag1, tag2, tag3 for testing."
+      description: Multiple tags can be provided with comma separated strings. Use
+        tag1, tag2, tag3 for testing.
       operationId: find_pets_by_tags
       parameters:
       - description: Tags to filter by
@@ -237,7 +237,13 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/updatePetWithForm_request'
+              properties:
+                name:
+                  description: Updated name of the pet
+                  type: string
+                status:
+                  description: Updated status of the pet
+                  type: string
         x-body-name: body
       responses:
         "405":
@@ -267,7 +273,14 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/uploadFile_request'
+              properties:
+                additionalMetadata:
+                  description: Additional data to pass to server
+                  type: string
+                file:
+                  description: file to upload
+                  format: binary
+                  type: string
         x-body-name: body
       responses:
         "200":
@@ -359,7 +372,7 @@ paths:
       x-openapi-router-controller: openapi_server.controllers.store_controller
     get:
       description: For valid response try integer IDs with value <= 5 or > 10. Other
-        values will generate exceptions
+        values will generated exceptions
       operationId: get_order_by_id
       parameters:
       - description: ID of pet that needs to be fetched
@@ -489,7 +502,7 @@ paths:
                 format: int32
                 type: integer
             X-Expires-After:
-              description: date in UTC when token expires
+              description: date in UTC when toekn expires
               schema:
                 format: date-time
                 type: string
@@ -667,30 +680,22 @@ components:
       properties:
         id:
           format: int64
-          title: id
           type: integer
         username:
-          title: username
           type: string
         firstName:
-          title: firstName
           type: string
         lastName:
-          title: lastName
           type: string
         email:
-          title: email
           type: string
         password:
-          title: password
           type: string
         phone:
-          title: phone
           type: string
         userStatus:
           description: User Status
           format: int32
-          title: userStatus
           type: integer
       title: a User
       type: object
@@ -733,18 +738,15 @@ components:
       properties:
         id:
           format: int64
-          title: id
           type: integer
         category:
           $ref: '#/components/schemas/Category'
         name:
           example: doggie
-          title: name
           type: string
         photoUrls:
           items:
             type: string
-          title: photoUrls
           type: array
           xml:
             name: photoUrl
@@ -752,7 +754,6 @@ components:
         tags:
           items:
             $ref: '#/components/schemas/Tag'
-          title: tags
           type: array
           xml:
             name: tag
@@ -763,7 +764,6 @@ components:
           - available
           - pending
           - sold
-          title: status
           type: string
       required:
       - name
@@ -790,25 +790,6 @@ components:
           title: message
           type: string
       title: An uploaded response
-      type: object
-    updatePetWithForm_request:
-      properties:
-        name:
-          description: Updated name of the pet
-          type: string
-        status:
-          description: Updated status of the pet
-          type: string
-      type: object
-    uploadFile_request:
-      properties:
-        additionalMetadata:
-          description: Additional data to pass to server
-          type: string
-        file:
-          description: file to upload
-          format: binary
-          type: string
       type: object
   securitySchemes:
     petstore_auth:

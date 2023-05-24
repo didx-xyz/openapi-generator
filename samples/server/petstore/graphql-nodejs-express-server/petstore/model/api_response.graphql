@@ -20,4 +20,3 @@ input ApiResponseInput {
     type: String!
     message: String!
 }
-

@@ -1,29 +1,21 @@
 package org.openapitools.client;
 
 import org.openapitools.client.auth.*;
-import org.openapitools.client.RFC3339DateFormat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.junit.jupiter.api.*;
+import org.junit.*;
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ApiClientTest {
     ApiClient apiClient = null;
 
-    @BeforeEach
+    @Before
     public void setup() {
         apiClient = new ApiClient();
-    }
-
-    @Test
-    public void testRFC3339DateFormat() {
-        // test the constructor and the clone method to ensure there's no NPE
-        RFC3339DateFormat r = new RFC3339DateFormat();
-        RFC3339DateFormat r2 = (RFC3339DateFormat) r.clone();
     }
 
     @Test

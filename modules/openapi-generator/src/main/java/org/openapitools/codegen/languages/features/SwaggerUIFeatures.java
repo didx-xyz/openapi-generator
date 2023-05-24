@@ -17,10 +17,10 @@
 
 package org.openapitools.codegen.languages.features;
 
-public interface SwaggerUIFeatures {
+public interface SwaggerUIFeatures extends CXFFeatures {
 
-    String USE_SWAGGER_UI = "useSwaggerUI";
+    public static final String USE_SWAGGER_UI = "useSwaggerUI";
 
-    void setUseSwaggerUI(boolean useSwaggerUI);
+    public void setUseSwaggerUI(boolean useSwaggerUI);
 
 }

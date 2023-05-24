@@ -46,7 +46,6 @@ public class TypeScriptNestjsClientOptionsProvider implements OptionsProvider {
     public static String SERVICE_FILE_SUFFIX = ".service";
     public static String MODEL_SUFFIX = "";
     public static String MODEL_FILE_SUFFIX = "";
-    public static final String ENUM_UNKNOWN_DEFAULT_CASE_VALUE = "false";
 
     @Override
     public String getLanguage() {
@@ -85,7 +84,6 @@ public class TypeScriptNestjsClientOptionsProvider implements OptionsProvider {
                 .put(CodegenConstants.LEGACY_DISCRIMINATOR_BEHAVIOR, "true")
                 .put(CodegenConstants.DISALLOW_ADDITIONAL_PROPERTIES_IF_NOT_PRESENT, "true")
                 .put(TypeScriptNestjsClientCodegen.FILE_NAMING, FILE_NAMING_VALUE)
-                .put(CodegenConstants.ENUM_UNKNOWN_DEFAULT_CASE, ENUM_UNKNOWN_DEFAULT_CASE_VALUE)
                 .build();
     }
 

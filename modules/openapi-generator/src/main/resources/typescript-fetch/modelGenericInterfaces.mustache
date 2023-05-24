@@ -12,9 +12,6 @@ export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
      * {{#lambda.indented_star_4}}{{{unescapedDescription}}}{{/lambda.indented_star_4}}
      * @type {{=<% %>=}}{<%&datatype%>}<%={{ }}=%>
      * @memberof {{classname}}
-    {{#deprecated}}
-     * @deprecated
-    {{/deprecated}}
      */
     {{#isReadOnly}}readonly {{/isReadOnly}}{{name}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}};
 {{/vars}}
@@ -22,7 +19,6 @@ export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
 
 {{#vars}}
 {{#isEnum}}
-{{#stringEnums}}
 /**
 * @export
 * @enum {string}
@@ -33,18 +29,4 @@ export enum {{classname}}{{enumName}} {
     {{{name}}} = {{{value}}}{{^-last}},{{/-last}}
     {{/enumVars}}
 {{/allowableValues}}
-}
-{{/stringEnums}}{{^stringEnums}}
-/**
- * @export
- */
-export const {{classname}}{{enumName}} = {
-{{#allowableValues}}
-    {{#enumVars}}
-    {{{name}}}: {{{value}}}{{^-last}},{{/-last}}
-    {{/enumVars}}
-{{/allowableValues}}
-} as const;
-export type {{classname}}{{enumName}} = typeof {{classname}}{{enumName}}[keyof typeof {{classname}}{{enumName}}];
-{{/stringEnums}}
-{{/isEnum}}{{/vars}}{{/hasEnums}}
+}{{/isEnum}}{{/vars}}{{/hasEnums}}

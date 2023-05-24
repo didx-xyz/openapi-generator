@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.DogAllOf")
-public typealias DogAllOf = PetstoreClientAPI.DogAllOf
+@available(*, deprecated, renamed: "PetstoreClient.DogAllOf")
+public typealias DogAllOf = PetstoreClient.DogAllOf
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class DogAllOf: Codable, JSONEncodable, Hashable {
+public final class DogAllOf: Codable, Hashable {
 
     public var breed: String?
 

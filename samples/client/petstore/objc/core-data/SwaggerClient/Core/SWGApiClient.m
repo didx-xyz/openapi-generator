@@ -322,14 +322,14 @@ static NSString * SWG__fileNameForResponse(NSURLResponse *response) {
 /**
  * Update header and query params based on authentication settings
  */
-- (void) updateHeaderParams:(NSDictionary * *)headers queryParams:(NSDictionary * *)queries WithAuthSettings:(NSArray *)authSettings {
+- (void) updateHeaderParams:(NSDictionary * *)headers queryParams:(NSDictionary * *)querys WithAuthSettings:(NSArray *)authSettings {
 
     if ([authSettings count] == 0) {
         return;
     }
 
     NSMutableDictionary *headersWithAuth = [NSMutableDictionary dictionaryWithDictionary:*headers];
-    NSMutableDictionary *queriesWithAuth = [NSMutableDictionary dictionaryWithDictionary:*queries];
+    NSMutableDictionary *querysWithAuth = [NSMutableDictionary dictionaryWithDictionary:*querys];
 
     id<SWGConfiguration> config = self.configuration;
     for (NSString *auth in authSettings) {
@@ -344,12 +344,12 @@ static NSString * SWG__fileNameForResponse(NSURLResponse *response) {
         if ([type isEqualToString:@"header"] && [key length] > 0 ) {
             headersWithAuth[key] = value;
         } else if ([type isEqualToString:@"query"] && [key length] != 0) {
-                                    queriesWithAuth[key] = value;
+            querysWithAuth[key] = value;
         }
     }
 
     *headers = [NSDictionary dictionaryWithDictionary:headersWithAuth];
-    *queries = [NSDictionary dictionaryWithDictionary:queriesWithAuth];
+    *querys = [NSDictionary dictionaryWithDictionary:querysWithAuth];
 }
 
 - (AFSecurityPolicy *) createSecurityPolicy {

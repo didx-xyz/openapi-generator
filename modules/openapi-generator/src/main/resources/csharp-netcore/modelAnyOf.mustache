@@ -1,13 +1,6 @@
-{{#model}}
     /// <summary>
     /// {{description}}{{^description}}{{classname}}{{/description}}
     /// </summary>
-    {{#vendorExtensions.x-cls-compliant}}
-    [CLSCompliant({{{.}}})]
-    {{/vendorExtensions.x-cls-compliant}}
-    {{#vendorExtensions.x-com-visible}}
-    [ComVisible({{{.}}})]
-    {{/vendorExtensions.x-com-visible}}
     [JsonConverter(typeof({{classname}}JsonConverter))]
     [DataContract(Name = "{{{name}}}")]
     {{>visibility}} partial class {{classname}} : AbstractOpenAPISchema, {{#parent}}{{{.}}}, {{/parent}}IEquatable<{{classname}}>{{#validatable}}, IValidatableObject{{/validatable}}
@@ -23,24 +16,20 @@
         }
 
         {{/isNullable}}
-        {{#composedSchemas.anyOf}}
-        {{^vendorExtensions.x-duplicated-data-type}}
-        {{^isNull}}
+        {{#anyOf}}
         /// <summary>
         /// Initializes a new instance of the <see cref="{{classname}}" /> class
-        /// with the <see cref="{{#lambdaCref}}{{{dataType}}}{{/lambdaCref}}" /> class
+        /// with the <see cref="{{{.}}}" /> class
         /// </summary>
-        /// <param name="actualInstance">An instance of {{dataType}}.</param>
-        public {{classname}}({{{dataType}}} actualInstance)
+        /// <param name="actualInstance">An instance of {{{.}}}.</param>
+        public {{classname}}({{{.}}} actualInstance)
         {
-            this.IsNullable = {{#model.isNullable}}true{{/model.isNullable}}{{^model.isNullable}}false{{/model.isNullable}};
+            this.IsNullable = {{#isNullable}}true{{/isNullable}}{{^isNullable}}false{{/isNullable}};
             this.SchemaType= "anyOf";
-            this.ActualInstance = actualInstance{{^model.isNullable}}{{^isPrimitiveType}} ?? throw new ArgumentException("Invalid instance found. Must not be null."){{/isPrimitiveType}}{{#isPrimitiveType}}{{#isArray}} ?? throw new ArgumentException("Invalid instance found. Must not be null."){{/isArray}}{{/isPrimitiveType}}{{#isPrimitiveType}}{{#isFreeFormObject}} ?? throw new ArgumentException("Invalid instance found. Must not be null."){{/isFreeFormObject}}{{/isPrimitiveType}}{{#isPrimitiveType}}{{#isString}} ?? throw new ArgumentException("Invalid instance found. Must not be null."){{/isString}}{{/isPrimitiveType}}{{/model.isNullable}};
+            this.ActualInstance = actualInstance{{^isNullable}} ?? throw new ArgumentException("Invalid instance found. Must not be null."){{/isNullable}};
         }
 
-        {{/isNull}}
-        {{/vendorExtensions.x-duplicated-data-type}}
-        {{/composedSchemas.anyOf}}
+        {{/anyOf}}
 
         private Object _actualInstance;
 
@@ -67,22 +56,18 @@
                 }
             }
         }
-        {{#composedSchemas.anyOf}}
-        {{^vendorExtensions.x-duplicated-data-type}}
-        {{^isNull}}
+        {{#anyOf}}
 
         /// <summary>
-        /// Get the actual instance of `{{dataType}}`. If the actual instance is not `{{dataType}}`,
+        /// Get the actual instance of `{{{.}}}`. If the actual instanct is not `{{{.}}}`,
         /// the InvalidClassException will be thrown
         /// </summary>
-        /// <returns>An instance of {{dataType}}</returns>
-        public {{{dataType}}} Get{{#lambda.titlecase}}{{baseType}}{{/lambda.titlecase}}{{#isArray}}{{#lambda.titlecase}}{{{dataFormat}}}{{/lambda.titlecase}}{{/isArray}}()
+        /// <returns>An instance of {{{.}}}</returns>
+        public {{{.}}} Get{{{.}}}()
         {
-            return ({{{dataType}}})this.ActualInstance;
+            return ({{{.}}})this.ActualInstance;
         }
-        {{/isNull}}
-        {{/vendorExtensions.x-duplicated-data-type}}
-        {{/composedSchemas.anyOf}}
+        {{/anyOf}}
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -186,7 +171,6 @@
             }
         }
 
-        {{#validatable}}
         /// <summary>
         /// To validate all properties of the instance
         /// </summary>
@@ -196,7 +180,6 @@
         {
             yield break;
         }
-        {{/validatable}}
     }
 
     /// <summary>
@@ -242,4 +225,3 @@
             return false;
         }
     }
-{{/model}}

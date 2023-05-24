@@ -13,11 +13,8 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.openapitools.codegen.config.CodegenConfigurator;
 import org.openapitools.codegen.config.GlobalSettings;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -40,8 +37,6 @@ public class DefaultGeneratorTest {
                     "build.sbt",
                     "src/main/AndroidManifest.xml",
                     "pom.xml",
-                    ".github/**",
-                    "api/**.yaml",
                     "src/test/**",
                     "src/main/java/org/openapitools/client/api/UserApi.java"
             );
@@ -87,11 +82,8 @@ public class DefaultGeneratorTest {
             TestUtils.ensureContainsFile(files, output, "build.gradle");
             Assert.assertTrue(new File(output, "build.gradle").exists());
 
-            TestUtils.ensureDoesNotContainsFile(files, output, "api/openapi.yaml");
-            Assert.assertFalse(new File(output, "api").exists());
-
-            TestUtils.ensureDoesNotContainsFile(files, output, ".github/workflows/");
-            Assert.assertFalse(new File(output, ".github").exists());
+            TestUtils.ensureContainsFile(files, output, "api/openapi.yaml");
+            Assert.assertTrue(new File(output, "build.gradle").exists());
 
             // Check excluded files
             TestUtils.ensureDoesNotContainsFile(files, output, ".travis.yml");
@@ -112,7 +104,7 @@ public class DefaultGeneratorTest {
             TestUtils.ensureDoesNotContainsFile(files, output, "src/main/java/org/openapitools/client/api/UserApi.java");
             Assert.assertFalse(new File(output, "src/main/java/org/openapitools/client/api/UserApi.java").exists());
         } finally {
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -177,7 +169,7 @@ public class DefaultGeneratorTest {
             String modelTestContents = Files.readAllLines(modelTestFile.toPath()).get(0);
             Assert.assertEquals(modelTestContents, "empty", "Expected test file to retain original contents.");
         } finally {
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -208,7 +200,7 @@ public class DefaultGeneratorTest {
             Assert.assertEquals(files.size(), 1);
             TestUtils.ensureContainsFile(files, output, "src/main/java/org/openapitools/client/api/PingApi.java");
         } finally {
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -239,7 +231,7 @@ public class DefaultGeneratorTest {
             Assert.assertEquals(files.size(), 1);
             TestUtils.ensureContainsFile(files, output, "src/main/java/org/openapitools/client/model/SomeObj.java");
         } finally {
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -284,7 +276,7 @@ public class DefaultGeneratorTest {
             TestUtils.ensureContainsFile(files, output, ".openapi-generator/VERSION");
         } finally {
             GlobalSettings.reset();
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -341,7 +333,7 @@ public class DefaultGeneratorTest {
                     "testCase,httpStatusCode,someObj",
                     "Success,200,0");
         } finally {
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -467,7 +459,7 @@ public class DefaultGeneratorTest {
 
             List<File> files = generator.opts(clientOptInput).generate();
 
-            Assert.assertEquals(files.size(), 27);
+            Assert.assertEquals(files.size(), 26);
 
             // Generator should report a library templated file as a generated file
             TestUtils.ensureContainsFile(files, output, "src/main/kotlin/org/openapitools/client/infrastructure/Errors.kt");
@@ -481,7 +473,7 @@ public class DefaultGeneratorTest {
                     "open class ClientException",
                     "open class ServerException");
         } finally {
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -509,7 +501,7 @@ public class DefaultGeneratorTest {
 
             List<File> files = generator.opts(clientOptInput).generate();
 
-            Assert.assertEquals(files.size(), 27);
+            Assert.assertEquals(files.size(), 26);
 
             // Generator should report README.md as a generated file
             TestUtils.ensureContainsFile(files, output, "README.md");
@@ -524,7 +516,7 @@ public class DefaultGeneratorTest {
                     "## Build",
                     "## Features/Implementation Notes");
         } finally {
-            output.deleteOnExit();
+            output.delete();
         }
     }
 
@@ -574,7 +566,7 @@ public class DefaultGeneratorTest {
 
             List<File> files = generator.opts(clientOptInput).generate();
 
-            Assert.assertEquals(files.size(), 27);
+            Assert.assertEquals(files.size(), 26);
 
             // Generator should report a library templated file as a generated file
             TestUtils.ensureContainsFile(files, output, "src/main/kotlin/org/openapitools/client/infrastructure/Errors.kt");
@@ -589,8 +581,8 @@ public class DefaultGeneratorTest {
                     "open class CustomException(",
                     "private const val serialVersionUID: Long = 789L");
         } finally {
-            output.deleteOnExit();
-            templates.toFile().deleteOnExit();
+            output.delete();
+            templates.toFile().delete();
         }
     }
 
@@ -628,7 +620,7 @@ public class DefaultGeneratorTest {
 
             List<File> files = generator.opts(clientOptInput).generate();
 
-            Assert.assertEquals(files.size(), 27);
+            Assert.assertEquals(files.size(), 26);
 
             // Generator should report README.md as a generated file
             TestUtils.ensureContainsFile(files, output, "README.md");
@@ -640,8 +632,8 @@ public class DefaultGeneratorTest {
             // README.md should contain our custom templated text
             TestUtils.assertFileContains(readme.toPath(), "# testCustomNonLibraryTemplates");
         } finally {
-            output.deleteOnExit();
-            templates.toFile().deleteOnExit();
+            output.delete();
+            templates.toFile().delete();
         }
     }
 
@@ -659,9 +651,9 @@ public class DefaultGeneratorTest {
 
         List<File> files = new ArrayList<>();
         List<String> filteredSchemas = ModelUtils.getSchemasUsedOnlyInFormParam(openAPI);
-        List<ModelMap> allModels = new ArrayList<>();
+        List<Object> allModels = new ArrayList<>();
         generator.generateModels(files, allModels, filteredSchemas);
-        List<OperationsMap> allOperations = new ArrayList<>();
+        List<Object> allOperations = new ArrayList<>();
         generator.generateApis(files, allOperations, allModels);
 
         Map<String, Object> bundle = generator.buildSupportFileBundle(allOperations, allModels);
@@ -669,30 +661,6 @@ public class DefaultGeneratorTest {
         Assert.assertEquals(servers.get(0).url, "");
         Assert.assertEquals(servers.get(1).url, "http://trailingshlash.io:80/v1");
         Assert.assertEquals(servers.get(2).url, "http://notrailingslash.io:80/v2");
-    }
-    
-    @Test
-    public void testHandlesRelativeUrlsInServers() {
-        OpenAPI openAPI = TestUtils.parseFlattenSpec("src/test/resources/3_0/issue_10056.yaml");
-        ClientOptInput opts = new ClientOptInput();
-        opts.openAPI(openAPI);
-        DefaultCodegen config = new DefaultCodegen();
-        config.setStrictSpecBehavior(true);
-        opts.config(config);
-        final DefaultGenerator generator = new DefaultGenerator();
-        generator.opts(opts);
-        generator.configureGeneratorProperties();
-
-        List<File> files = new ArrayList<>();
-        List<String> filteredSchemas = ModelUtils.getSchemasUsedOnlyInFormParam(openAPI);
-        List<ModelMap> allModels = new ArrayList<>();
-        generator.generateModels(files, allModels, filteredSchemas);
-        List<OperationsMap> allOperations = new ArrayList<>();
-        generator.generateApis(files, allOperations, allModels);
-
-        Map<String, Object> bundle = generator.buildSupportFileBundle(allOperations, allModels);
-        LinkedList<CodegenServer> servers = (LinkedList<CodegenServer>) bundle.get("servers");
-        Assert.assertEquals(servers.get(0).url, "/relative/url");
     }
 
     @Test
@@ -748,28 +716,8 @@ public class DefaultGeneratorTest {
                     "from io.something import rest"
               );
         } finally {
-            output.deleteOnExit();
-            templates.toFile().deleteOnExit();
+            output.delete();
+            templates.toFile().delete();
         }
-    }
-
-    @Test
-    public void testRecursionBug4650() {
-        OpenAPI openAPI = TestUtils.parseFlattenSpec("src/test/resources/bugs/recursion-bug-4650.yaml");
-        ClientOptInput opts = new ClientOptInput();
-        opts.openAPI(openAPI);
-        DefaultCodegen config = new DefaultCodegen();
-        config.setStrictSpecBehavior(false);
-        opts.config(config);
-        final DefaultGenerator generator = new DefaultGenerator();
-        generator.opts(opts);
-        generator.configureGeneratorProperties();
-
-        List<File> files = new ArrayList<>();
-        List<String> filteredSchemas = ModelUtils.getSchemasUsedOnlyInFormParam(openAPI);
-        List<ModelMap> allModels = new ArrayList<>();
-        // The bug causes a StackOverflowError when calling generateModels
-        generator.generateModels(files, allModels, filteredSchemas);
-        // all fine, we have passed
     }
 }

@@ -3,12 +3,8 @@ class {{classname}}
     /**
      * Possible values of this enum
      */
-    {{#allowableValues}}
-    {{#enumVars}}
-    public const {{^isString}}NUMBER_{{/isString}}{{{name}}} = {{{value}}};
-
-    {{/enumVars}}
-    {{/allowableValues}}
+    {{#allowableValues}}{{#enumVars}}const {{{name}}} = {{{value}}};
+    {{/enumVars}}{{/allowableValues}}
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -16,13 +12,8 @@ class {{classname}}
     public static function getAllowableEnumValues()
     {
         return [
-            {{#allowableValues}}
-            {{#enumVars}}
-            self::{{^isString}}NUMBER_{{/isString}}{{{name}}}{{^-last}},
-            {{/-last}}
-            {{/enumVars}}
-            {{/allowableValues}}
-
+            {{#allowableValues}}{{#enumVars}}self::{{{name}}},{{^-last}}
+            {{/-last}}{{/enumVars}}{{/allowableValues}}
         ];
     }
 }

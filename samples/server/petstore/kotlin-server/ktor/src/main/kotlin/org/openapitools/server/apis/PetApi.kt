@@ -12,23 +12,18 @@
 package org.openapitools.server.apis
 
 import com.google.gson.Gson
+import io.ktor.application.*
+import io.ktor.auth.*
 import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.response.*
+import io.ktor.response.*
 import org.openapitools.server.Paths
-import io.ktor.server.resources.options
-import io.ktor.server.resources.get
-import io.ktor.server.resources.post
-import io.ktor.server.resources.put
-import io.ktor.server.resources.delete
-import io.ktor.server.resources.head
-import io.ktor.server.resources.patch
-import io.ktor.server.routing.*
+import io.ktor.locations.*
+import io.ktor.routing.*
 import org.openapitools.server.infrastructure.ApiPrincipal
-import org.openapitools.server.models.ModelApiResponse
+import org.openapitools.server.models.ApiResponse
 import org.openapitools.server.models.Pet
 
+@KtorExperimentalLocationsAPI
 fun Route.PetApi() {
     val gson = Gson()
     val empty = mutableMapOf<String, Any?>()
@@ -54,7 +49,7 @@ fun Route.PetApi() {
         val principal = call.authentication.principal<OAuthAccessTokenResponse>()!!
         
         val exampleContentType = "application/json"
-            val exampleContentString = """[ {
+            val exampleContentString = """{
               "photoUrls" : [ "photoUrls", "photoUrls" ],
               "name" : "doggie",
               "id" : 0,
@@ -70,23 +65,7 @@ fun Route.PetApi() {
                 "id" : 1
               } ],
               "status" : "available"
-            }, {
-              "photoUrls" : [ "photoUrls", "photoUrls" ],
-              "name" : "doggie",
-              "id" : 0,
-              "category" : {
-                "name" : "name",
-                "id" : 6
-              },
-              "tags" : [ {
-                "name" : "name",
-                "id" : 1
-              }, {
-                "name" : "name",
-                "id" : 1
-              } ],
-              "status" : "available"
-            } ]"""
+            }"""
             
             when (exampleContentType) {
                 "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
@@ -101,7 +80,7 @@ fun Route.PetApi() {
         val principal = call.authentication.principal<OAuthAccessTokenResponse>()!!
         
         val exampleContentType = "application/json"
-            val exampleContentString = """[ {
+            val exampleContentString = """{
               "photoUrls" : [ "photoUrls", "photoUrls" ],
               "name" : "doggie",
               "id" : 0,
@@ -117,23 +96,7 @@ fun Route.PetApi() {
                 "id" : 1
               } ],
               "status" : "available"
-            }, {
-              "photoUrls" : [ "photoUrls", "photoUrls" ],
-              "name" : "doggie",
-              "id" : 0,
-              "category" : {
-                "name" : "name",
-                "id" : 6
-              },
-              "tags" : [ {
-                "name" : "name",
-                "id" : 1
-              }, {
-                "name" : "name",
-                "id" : 1
-              } ],
-              "status" : "available"
-            } ]"""
+            }"""
             
             when (exampleContentType) {
                 "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))

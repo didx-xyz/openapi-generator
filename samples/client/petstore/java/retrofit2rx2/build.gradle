@@ -6,7 +6,8 @@ version = '1.0.0'
 
 buildscript {
     repositories {
-        mavenCentral()
+        maven { url "https://repo1.maven.org/maven2" }
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.+'
@@ -15,7 +16,7 @@ buildscript {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 
@@ -32,8 +33,8 @@ if(hasProperty('target') && target == 'android') {
             targetSdkVersion 25
         }
         compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
         }
 
         // Rename the aar correctly
@@ -48,7 +49,7 @@ if(hasProperty('target') && target == 'android') {
         }
 
         dependencies {
-            provided "jakarta.annotation:jakarta.annotation-api:$jakarta_annotation_version"
+            provided 'javax.annotation:jsr250-api:1.0'
         }
     }
 
@@ -76,17 +77,14 @@ if(hasProperty('target') && target == 'android') {
 } else {
 
     apply plugin: 'java'
-    apply plugin: 'maven-publish'
+    apply plugin: 'maven'
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-               artifactId = 'petstore-retrofit2-rx2'
-               from components.java
-            }
+    install {
+        repositories.mavenInstaller {
+            pom.artifactId = 'petstore-retrofit2-rx2'
         }
     }
 
@@ -99,10 +97,10 @@ if(hasProperty('target') && target == 'android') {
 ext {
     oltu_version = "1.0.1"
     retrofit_version = "2.3.0"
-    jakarta_annotation_version = "1.3.5"
     swagger_annotations_version = "1.5.22"
-    junit_version = "4.13.2"
+    junit_version = "4.13.1"
     rx_java_version = "2.1.1"
+    threetenbp_version = "1.4.0"
     json_fire_version = "1.8.0"
 }
 
@@ -118,6 +116,7 @@ dependencies {
         exclude group:'org.apache.oltu.oauth2' , module: 'org.apache.oltu.oauth2.common'
     }
     implementation "io.gsonfire:gson-fire:$json_fire_version"
-    implementation "jakarta.annotation:jakarta.annotation-api:$jakarta_annotation_version"
+    implementation "org.threeten:threetenbp:$threetenbp_version"
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
     testImplementation "junit:junit:$junit_version"
 }

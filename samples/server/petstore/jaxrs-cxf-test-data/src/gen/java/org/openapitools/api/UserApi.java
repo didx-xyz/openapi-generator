@@ -1,6 +1,5 @@
 package org.openapitools.api;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.openapitools.model.User;
@@ -109,7 +108,7 @@ public interface UserApi  {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = String.class),
         @ApiResponse(code = 400, message = "Invalid username/password supplied") })
-    public String loginUser(@QueryParam("username") @NotNull String username, @QueryParam("password") @NotNull String password);
+    public String loginUser(@QueryParam("username") @NotNull  String username, @QueryParam("password") @NotNull  String password);
 
     /**
      * Logs out current logged in user session
@@ -137,3 +136,4 @@ public interface UserApi  {
         @ApiResponse(code = 404, message = "User not found") })
     public void updateUser(@PathParam("username") String username, @Valid User body);
 }
+

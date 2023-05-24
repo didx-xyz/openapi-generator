@@ -1,34 +1,35 @@
 package {{configPackage}};
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-{{#sourceDocumentationProvider}}
+{{^useSpringfox}}
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
+{{/useSpringfox}}
+import org.springframework.stereotype.Controller;
+{{^useSpringfox}}
 import org.springframework.util.StreamUtils;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.GetMapping;
-{{/sourceDocumentationProvider}}
-{{#useSwaggerUI}}
+{{/useSpringfox}}
+import org.springframework.web.bind.annotation.RequestMapping;
+{{^useSpringfox}}
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.GetMapping;
-{{/useSwaggerUI}}
+{{/useSpringfox}}
 {{#reactive}}
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 {{/reactive}}
-{{#sourceDocumentationProvider}}
+
+{{^useSpringfox}}
 import java.io.IOException;
 import java.io.InputStream;
-{{/sourceDocumentationProvider}}
+{{/useSpringfox}}
 {{#reactive}}
 import java.net.URI;
 {{/reactive}}
-{{#sourceDocumentationProvider}}
+{{^useSpringfox}}
 import java.nio.charset.Charset;
-{{/sourceDocumentationProvider}}
+{{/useSpringfox}}
 {{#reactive}}
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
@@ -40,8 +41,8 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
  */
 @Controller
 public class HomeController {
-{{#sourceDocumentationProvider}}
 
+{{^useSpringfox}}
     private static YAMLMapper yamlMapper = new YAMLMapper();
 
     @Value("classpath:/openapi.yaml")
@@ -65,40 +66,23 @@ public class HomeController {
     public Object openapiJson() throws IOException {
         return yamlMapper.readValue(openapiContent(), Object.class);
     }
-{{/sourceDocumentationProvider}}
-{{#useSwaggerUI}}
-{{^springDocDocumentationProvider}}
 
-{{#sourceDocumentationProvider}}
-    static final String API_DOCS_PATH = "/openapi.json";
-{{/sourceDocumentationProvider}}
-{{#springFoxDocumentationProvider}}
-    static final String API_DOCS_PATH = "/v2/api-docs";
-{{/springFoxDocumentationProvider}}
-
-    @GetMapping(value = "/swagger-config.yaml", produces = "text/plain")
-    @ResponseBody
-    public String swaggerConfig() {
-        return "url: " + API_DOCS_PATH + "\n";
-    }
-{{/springDocDocumentationProvider}}
+{{/useSpringfox}}
 {{#reactive}}
-
     @Bean
     RouterFunction<ServerResponse> index() {
         return route(
             GET("/"),
-            req -> ServerResponse.temporaryRedirect(URI.create("swagger-ui.html")).build()
+            req -> ServerResponse.temporaryRedirect(URI.create("{{#useSpringfox}}swagger-ui.html{{/useSpringfox}}{{^useSpringfox}}swagger-ui/index.html?url=../openapi.json{{/useSpringfox}}")).build()
         );
     }
 {{/reactive}}
 {{^reactive}}
-
     @RequestMapping("/")
     public String index() {
-        return "redirect:swagger-ui.html";
+        return "redirect:{{#useSpringfox}}swagger-ui.html{{/useSpringfox}}{{^useSpringfox}}swagger-ui/index.html?url=../openapi.json{{/useSpringfox}}";
     }
 {{/reactive}}
-{{/useSwaggerUI}}
+
 
 }

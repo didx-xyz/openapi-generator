@@ -24,9 +24,6 @@ import io.swagger.v3.oas.models.media.Schema;
 import org.apache.commons.io.FileUtils;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.languages.RubyClientCodegen;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -162,17 +159,14 @@ public class RubyClientCodegenTest {
         final Operation p = openAPI.getPaths().get(path).getPost();
         Schema schema = openAPI.getComponents().getSchemas().get("Pet");
         CodegenModel model = codegen.fromModel("Pet", schema);
-        ModelMap modelMap = new ModelMap();
-        modelMap.setModel(model);
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("model", model);
         final CodegenOperation op = codegen.fromOperation(path, "post", p, null);
 
-        OperationMap operations = new OperationMap();
-        operations.setOperation(op);
-        OperationsMap objs = new OperationsMap();
-        objs.setOperation(operations);
-        objs.setImports(new ArrayList<>());
+        Map<String, Object> operations = ImmutableMap.<String, Object>of("operation", Collections.singletonList(op));
+        Map<String, Object> objs = ImmutableMap.of("operations", operations, "imports", new ArrayList<Map<String, String>>());
         objs = codegen.postProcessOperationsWithModels(objs, Collections.singletonList(modelMap));
-        CodegenOperation postProcessedOp = objs.getOperations().getOperation().get(0);
+        CodegenOperation postProcessedOp = ((List<CodegenOperation>) ((Map<String, Object>) objs.get("operations")).get("operation")).get(0);
         Assert.assertEquals(postProcessedOp.bodyParams.size(), 1);
         CodegenParameter bp = postProcessedOp.bodyParams.get(0);
         Assert.assertEquals(bp.vendorExtensions.get("x-ruby-example"), "OnlinePetstore::Pet.new({name: 'doggie', photo_urls: ['photo_urls_example']})");
@@ -388,6 +382,8 @@ public class RubyClientCodegenTest {
         Set<CodegenDiscriminator.MappedModel> mappedModels = new LinkedHashSet<CodegenDiscriminator.MappedModel>();
         mappedModels.add(new CodegenDiscriminator.MappedModel("a", "Adult"));
         mappedModels.add(new CodegenDiscriminator.MappedModel("c", "Child"));
+        mappedModels.add(new CodegenDiscriminator.MappedModel("Adult", "Adult"));
+        mappedModels.add(new CodegenDiscriminator.MappedModel("Child", "Child"));
         Assert.assertEquals(codegenDiscriminator.getMappedModels(), mappedModels);
     }
 
@@ -620,7 +616,7 @@ public class RubyClientCodegenTest {
     }
 
 
-    @Test(description = "test example string imported from x-example parameter (OAS2)")
+    @Test(description = "test example string imported from x-example parameterr (OAS2)")
     public void exampleStringFromExampleParameterOAS2Test() {
         final OpenAPI openAPI = TestUtils.parseFlattenSpec("src/test/resources/2_0/petstore-nullable.yaml");
         final RubyClientCodegen codegen = new RubyClientCodegen();
@@ -631,13 +627,10 @@ public class RubyClientCodegenTest {
         final Operation p = openAPI.getPaths().get(path).getDelete();
         final CodegenOperation op = codegen.fromOperation(path, "delete", p, null);
 
-        OperationMap operations = new OperationMap();
-        operations.setOperation(op);
-        OperationsMap objs = new OperationsMap();
-        objs.setOperation(operations);
-        objs.setImports(new ArrayList<>());
+        Map<String, Object> operations = ImmutableMap.<String, Object>of("operation", Collections.singletonList(op));
+        Map<String, Object> objs = ImmutableMap.of("operations", operations, "imports", new ArrayList<Map<String, String>>());
         objs = codegen.postProcessOperationsWithModels(objs, Collections.emptyList());
-        CodegenOperation postProcessedOp = objs.getOperations().getOperation().get(0);
+        CodegenOperation postProcessedOp = ((List<CodegenOperation>) ((Map<String, Object>) objs.get("operations")).get("operation")).get(0);
 
         CodegenParameter pp = postProcessedOp.pathParams.get(0);
         Assert.assertEquals(pp.vendorExtensions.get("x-ruby-example"), "'orderid123'");
@@ -654,13 +647,10 @@ public class RubyClientCodegenTest {
         final Operation p = openAPI.getPaths().get(path).getDelete();
         final CodegenOperation op = codegen.fromOperation(path, "delete", p, null);
 
-        OperationMap operations = new OperationMap();
-        operations.setOperation(op);
-        OperationsMap objs = new OperationsMap();
-        objs.setOperation(operations);
-        objs.setImports(new ArrayList<>());
+        Map<String, Object> operations = ImmutableMap.<String, Object>of("operation", Collections.singletonList(op));
+        Map<String, Object> objs = ImmutableMap.of("operations", operations, "imports", new ArrayList<Map<String, String>>());
         objs = codegen.postProcessOperationsWithModels(objs, Collections.emptyList());
-        CodegenOperation postProcessedOp = objs.getOperations().getOperation().get(0);
+        CodegenOperation postProcessedOp = ((List<CodegenOperation>) ((Map<String, Object>) objs.get("operations")).get("operation")).get(0);
 
         CodegenParameter pp = postProcessedOp.pathParams.get(0);
         Assert.assertEquals(pp.vendorExtensions.get("x-ruby-example"), "'orderid123'");

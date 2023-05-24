@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-@objcMembers public class HasOnlyReadOnly: NSObject, Codable, JSONEncodable {
+@objc public class HasOnlyReadOnly: NSObject, Codable {
 
     public var bar: String?
     public var foo: String?

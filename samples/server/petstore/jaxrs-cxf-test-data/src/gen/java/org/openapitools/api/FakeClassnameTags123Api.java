@@ -46,3 +46,4 @@ public interface FakeClassnameTags123Api  {
         @ApiResponse(code = 200, message = "successful operation", response = Client.class) })
     public Client testClassname(@Valid Client body);
 }
+

@@ -20,11 +20,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.io.File;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * FileSchemaTestClass
@@ -33,19 +33,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FileSchemaTestClass.JSON_PROPERTY_FILE,
   FileSchemaTestClass.JSON_PROPERTY_FILES
 })
+@JsonTypeName("FileSchemaTestClass")
 @javax.annotation.concurrent.Immutable
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FileSchemaTestClass {
   public static final String JSON_PROPERTY_FILE = "file";
-  private File file;
+  private java.io.File file;
 
   public static final String JSON_PROPERTY_FILES = "files";
-  private List<File> files;
+  private List<java.io.File> files = null;
 
-  public FileSchemaTestClass() {
-  }
 
-  public FileSchemaTestClass file(File file) {
+  public FileSchemaTestClass file(java.io.File file) {
     
     this.file = file;
     return this;
@@ -56,30 +55,31 @@ public class FileSchemaTestClass {
    * @return file
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public File getFile() {
+  public java.io.File getFile() {
     return file;
   }
 
 
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFile(File file) {
+  public void setFile(java.io.File file) {
     this.file = file;
   }
 
 
-  public FileSchemaTestClass files(List<File> files) {
+  public FileSchemaTestClass files(List<java.io.File> files) {
     
     this.files = files;
     return this;
   }
 
-  public FileSchemaTestClass addFilesItem(File filesItem) {
+  public FileSchemaTestClass addFilesItem(java.io.File filesItem) {
     if (this.files == null) {
-      this.files = new ArrayList<>();
+      this.files = new ArrayList<java.io.File>();
     }
     this.files.add(filesItem);
     return this;
@@ -90,19 +90,21 @@ public class FileSchemaTestClass {
    * @return files
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_FILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<File> getFiles() {
+  public List<java.io.File> getFiles() {
     return files;
   }
 
 
   @JsonProperty(JSON_PROPERTY_FILES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFiles(List<File> files) {
+  public void setFiles(List<java.io.File> files) {
     this.files = files;
   }
+
 
   @Override
   public boolean equals(Object o) {

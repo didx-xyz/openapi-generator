@@ -50,14 +50,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-  repositories {
-    mavenCentral()     // Needed if the 'petstore-vertx' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'petstore-vertx' jar has been published to the local maven repo.
-  }
-
-  dependencies {
-     implementation "org.openapitools:petstore-vertx:1.0.0"
-  }
+compile "org.openapitools:petstore-vertx:1.0.0"
 ```
 
 ### Others
@@ -127,7 +120,7 @@ Class | Method | HTTP request | Description
 *FakeApi* | [**testGroupParameters**](docs/FakeApi.md#testGroupParameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional)
 *FakeApi* | [**testInlineAdditionalProperties**](docs/FakeApi.md#testInlineAdditionalProperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties
 *FakeApi* | [**testJsonFormData**](docs/FakeApi.md#testJsonFormData) | **GET** /fake/jsonFormData | test json serialization of form data
-*FakeApi* | [**testQueryParameterCollectionFormat**](docs/FakeApi.md#testQueryParameterCollectionFormat) | **PUT** /fake/test-query-parameters | 
+*FakeApi* | [**testQueryParameterCollectionFormat**](docs/FakeApi.md#testQueryParameterCollectionFormat) | **PUT** /fake/test-query-paramters | 
 *FakeClassnameTags123Api* | [**testClassname**](docs/FakeClassnameTags123Api.md#testClassname) | **PATCH** /fake_classname_test | To test class name in snake case
 *PetApi* | [**addPet**](docs/PetApi.md#addPet) | **POST** /pet | Add a new pet to the store
 *PetApi* | [**deletePet**](docs/PetApi.md#deletePet) | **DELETE** /pet/{petId} | Deletes a pet
@@ -186,8 +179,6 @@ Class | Method | HTTP request | Description
  - [MixedPropertiesAndAdditionalPropertiesClass](docs/MixedPropertiesAndAdditionalPropertiesClass.md)
  - [Model200Response](docs/Model200Response.md)
  - [ModelApiResponse](docs/ModelApiResponse.md)
- - [ModelFile](docs/ModelFile.md)
- - [ModelList](docs/ModelList.md)
  - [ModelReturn](docs/ModelReturn.md)
  - [Name](docs/Name.md)
  - [NumberOnly](docs/NumberOnly.md)
@@ -204,12 +195,28 @@ Class | Method | HTTP request | Description
  - [XmlItem](docs/XmlItem.md)
 
 
-<a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-
 Authentication schemes defined for the API:
-<a id="petstore_auth"></a>
+### api_key
+
+
+- **Type**: API key
+- **API key parameter name**: api_key
+- **Location**: HTTP header
+
+### api_key_query
+
+
+- **Type**: API key
+- **API key parameter name**: api_key_query
+- **Location**: URL query string
+
+### http_basic_test
+
+
+- **Type**: HTTP basic authentication
+
 ### petstore_auth
 
 
@@ -219,28 +226,6 @@ Authentication schemes defined for the API:
 - **Scopes**: 
   - write:pets: modify pets in your account
   - read:pets: read your pets
-
-<a id="api_key"></a>
-### api_key
-
-
-- **Type**: API key
-- **API key parameter name**: api_key
-- **Location**: HTTP header
-
-<a id="api_key_query"></a>
-### api_key_query
-
-
-- **Type**: API key
-- **API key parameter name**: api_key_query
-- **Location**: URL query string
-
-<a id="http_basic_test"></a>
-### http_basic_test
-
-
-- **Type**: HTTP basic authentication
 
 
 ## Recommendation

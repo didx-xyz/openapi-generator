@@ -4,7 +4,7 @@
 
 #include "Response.h"
 #include "Arduino.h"
-#include "Service.h"
+#include "AbstractService.h"
 #include "Helpers.h"
 #include <list>
 
@@ -18,7 +18,7 @@ namespace Tiny {
  * Generated with openapi::tiny-cpp-client
  */
 
-class PetApi : public Service {
+class PetApi : public AbstractService {
 public:
     PetApi() = default;
 

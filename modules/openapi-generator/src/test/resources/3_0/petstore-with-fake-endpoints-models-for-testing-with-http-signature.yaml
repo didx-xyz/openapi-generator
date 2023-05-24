@@ -29,24 +29,6 @@ paths:
                 properties:
                   string:
                     $ref: '#/components/schemas/Foo'
-        4XX:
-          description: client error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  string:
-                    $ref: '#/components/schemas/Foo'
-        404:
-          description: not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  string:
-                    $ref: '#/components/schemas/Foo'
   /pet:
     servers:
     - url: 'http://petstore.swagger.io/v2'
@@ -355,7 +337,7 @@ paths:
       summary: Find purchase order by ID
       description: >-
         For valid response try integer IDs with value <= 5 or > 10. Other values
-        will generate exceptions
+        will generated exceptions
       operationId: getOrderById
       parameters:
         - name: order_id
@@ -838,7 +820,7 @@ paths:
             format: int64
       responses:
         '400':
-          description: Something wrong
+          description: Someting wrong
   /fake/outer/number:
     post:
       tags:
@@ -1012,7 +994,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FileSchemaTestClass'
         required: true
-  /fake/test-query-parameters:
+  /fake/test-query-paramters:
     put:
       tags:
         - fake
@@ -1063,7 +1045,7 @@ paths:
       responses:
         "200":
           description: Success
-  /fake/test-unique-parameters:
+  /fake/test-unique-paramters:
     put:
       tags:
         - fake
@@ -1932,30 +1914,3 @@ components:
           type: boolean
       required:
         - lengthCm
-    ReadOnlyWithDefault:
-      type: object
-      properties:
-        prop1:
-          type: string
-          readOnly: true
-        prop2:
-          type: string
-          readOnly: true
-          default: 'defaultProp2'
-        prop3:
-          type: string
-          default: 'defaultProp3'
-        boolProp1:
-          default: false
-          type: boolean
-          readOnly: true
-        boolProp2:
-          type: boolean
-          default: true
-        intProp1:
-          type: number
-          default: 100
-          readOnly: true
-        intProp2:
-          type: number
-          default: 120

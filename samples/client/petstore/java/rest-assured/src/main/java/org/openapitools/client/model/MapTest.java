@@ -20,8 +20,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -34,7 +37,7 @@ import org.hibernate.validator.constraints.*;
 public class MapTest {
   public static final String SERIALIZED_NAME_MAP_MAP_OF_STRING = "map_map_of_string";
   @SerializedName(SERIALIZED_NAME_MAP_MAP_OF_STRING)
-  private Map<String, Map<String, String>> mapMapOfString = new HashMap<>();
+  private Map<String, Map<String, String>> mapMapOfString = null;
 
   /**
    * Gets or Sets inner
@@ -85,18 +88,16 @@ public class MapTest {
 
   public static final String SERIALIZED_NAME_MAP_OF_ENUM_STRING = "map_of_enum_string";
   @SerializedName(SERIALIZED_NAME_MAP_OF_ENUM_STRING)
-  private Map<String, InnerEnum> mapOfEnumString = new HashMap<>();
+  private Map<String, InnerEnum> mapOfEnumString = null;
 
   public static final String SERIALIZED_NAME_DIRECT_MAP = "direct_map";
   @SerializedName(SERIALIZED_NAME_DIRECT_MAP)
-  private Map<String, Boolean> directMap = new HashMap<>();
+  private Map<String, Boolean> directMap = null;
 
   public static final String SERIALIZED_NAME_INDIRECT_MAP = "indirect_map";
   @SerializedName(SERIALIZED_NAME_INDIRECT_MAP)
-  private Map<String, Boolean> indirectMap = new HashMap<>();
+  private Map<String, Boolean> indirectMap = null;
 
-  public MapTest() {
-  }
 
   public MapTest mapMapOfString(Map<String, Map<String, String>> mapMapOfString) {
     
@@ -106,7 +107,7 @@ public class MapTest {
 
   public MapTest putMapMapOfStringItem(String key, Map<String, String> mapMapOfStringItem) {
     if (this.mapMapOfString == null) {
-      this.mapMapOfString = new HashMap<>();
+      this.mapMapOfString = new HashMap<String, Map<String, String>>();
     }
     this.mapMapOfString.put(key, mapMapOfStringItem);
     return this;
@@ -118,7 +119,7 @@ public class MapTest {
   **/
   @javax.annotation.Nullable
   @Valid
-
+  @ApiModelProperty(value = "")
 
   public Map<String, Map<String, String>> getMapMapOfString() {
     return mapMapOfString;
@@ -138,7 +139,7 @@ public class MapTest {
 
   public MapTest putMapOfEnumStringItem(String key, InnerEnum mapOfEnumStringItem) {
     if (this.mapOfEnumString == null) {
-      this.mapOfEnumString = new HashMap<>();
+      this.mapOfEnumString = new HashMap<String, InnerEnum>();
     }
     this.mapOfEnumString.put(key, mapOfEnumStringItem);
     return this;
@@ -149,7 +150,7 @@ public class MapTest {
    * @return mapOfEnumString
   **/
   @javax.annotation.Nullable
-
+  @ApiModelProperty(value = "")
 
   public Map<String, InnerEnum> getMapOfEnumString() {
     return mapOfEnumString;
@@ -169,7 +170,7 @@ public class MapTest {
 
   public MapTest putDirectMapItem(String key, Boolean directMapItem) {
     if (this.directMap == null) {
-      this.directMap = new HashMap<>();
+      this.directMap = new HashMap<String, Boolean>();
     }
     this.directMap.put(key, directMapItem);
     return this;
@@ -180,7 +181,7 @@ public class MapTest {
    * @return directMap
   **/
   @javax.annotation.Nullable
-
+  @ApiModelProperty(value = "")
 
   public Map<String, Boolean> getDirectMap() {
     return directMap;
@@ -200,7 +201,7 @@ public class MapTest {
 
   public MapTest putIndirectMapItem(String key, Boolean indirectMapItem) {
     if (this.indirectMap == null) {
-      this.indirectMap = new HashMap<>();
+      this.indirectMap = new HashMap<String, Boolean>();
     }
     this.indirectMap.put(key, indirectMapItem);
     return this;
@@ -211,7 +212,7 @@ public class MapTest {
    * @return indirectMap
   **/
   @javax.annotation.Nullable
-
+  @ApiModelProperty(value = "")
 
   public Map<String, Boolean> getIndirectMap() {
     return indirectMap;
@@ -221,6 +222,7 @@ public class MapTest {
   public void setIndirectMap(Map<String, Boolean> indirectMap) {
     this.indirectMap = indirectMap;
   }
+
 
   @Override
   public boolean equals(Object o) {

@@ -54,14 +54,14 @@ public class OAuth implements Interceptor {
 
     public void setFlow(OAuthFlow flow) {
         switch(flow) {
-        case ACCESS_CODE:
-        case IMPLICIT:
+        case accessCode:
+        case implicit:
             tokenRequestBuilder.setGrantType(GrantType.AUTHORIZATION_CODE);
             break;
-        case PASSWORD:
+        case password:
             tokenRequestBuilder.setGrantType(GrantType.PASSWORD);
             break;
-        case APPLICATION:
+        case application:
             tokenRequestBuilder.setGrantType(GrantType.CLIENT_CREDENTIALS);
             break;
         default:

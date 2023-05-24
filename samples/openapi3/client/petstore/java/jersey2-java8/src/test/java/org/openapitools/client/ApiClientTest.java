@@ -27,8 +27,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.PrivateKey;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 public class ApiClientTest {
     ApiClient apiClient = null;
@@ -36,7 +35,7 @@ public class ApiClientTest {
     PrivateKey privateKey = null;
     PublicKey publicKey = null;
 
-    @BeforeEach
+    @Before
     public void setup() {
         apiClient = new ApiClient();
         pet = new Pet();
@@ -98,7 +97,7 @@ public class ApiClientTest {
         pet.setCategory(category);
         pet.setStatus(Pet.StatusEnum.AVAILABLE);
         pet.setPhotoUrls(Arrays.asList("A", "B", "C"));
-        org.openapitools.client.model.Tag tag = new org.openapitools.client.model.Tag();
+        Tag tag = new Tag();
         tag.setId(petId);
         tag.setName("jersey2 java8 tag");
         pet.setTags(Arrays.asList(tag));

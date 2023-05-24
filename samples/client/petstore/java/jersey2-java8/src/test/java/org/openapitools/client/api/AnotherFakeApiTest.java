@@ -15,8 +15,8 @@ package org.openapitools.client.api;
 
 import org.openapitools.client.ApiException;
 import org.openapitools.client.model.Client;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import org.junit.Test;
+import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * API tests for AnotherFakeApi
  */
-@Disabled
+@Ignore
 public class AnotherFakeApiTest {
 
     private final AnotherFakeApi api = new AnotherFakeApi();

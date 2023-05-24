@@ -23,16 +23,12 @@ type Fruit struct {
 
 // AppleAsFruit is a convenience function that returns Apple wrapped in Fruit
 func AppleAsFruit(v *Apple) Fruit {
-	return Fruit{
-		Apple: v,
-	}
+	return Fruit{ Apple: v}
 }
 
 // BananaAsFruit is a convenience function that returns Banana wrapped in Fruit
 func BananaAsFruit(v *Banana) Fruit {
-	return Fruit{
-		Banana: v,
-	}
+	return Fruit{ Banana: v}
 }
 
 
@@ -41,7 +37,7 @@ func (dst *Fruit) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into Apple
-	err = newStrictDecoder(data).Decode(&dst.Apple)
+	err = json.Unmarshal(data, &dst.Apple)
 	if err == nil {
 		jsonApple, _ := json.Marshal(dst.Apple)
 		if string(jsonApple) == "{}" { // empty struct
@@ -54,7 +50,7 @@ func (dst *Fruit) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal data into Banana
-	err = newStrictDecoder(data).Decode(&dst.Banana)
+	err = json.Unmarshal(data, &dst.Banana)
 	if err == nil {
 		jsonBanana, _ := json.Marshal(dst.Banana)
 		if string(jsonBanana) == "{}" { // empty struct
@@ -71,11 +67,11 @@ func (dst *Fruit) UnmarshalJSON(data []byte) error {
 		dst.Apple = nil
 		dst.Banana = nil
 
-		return fmt.Errorf("data matches more than one schema in oneOf(Fruit)")
+		return fmt.Errorf("Data matches more than one schema in oneOf(Fruit)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(Fruit)")
+		return fmt.Errorf("Data failed to match schemas in oneOf(Fruit)")
 	}
 }
 
@@ -94,9 +90,6 @@ func (src Fruit) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *Fruit) GetActualInstance() (interface{}) {
-	if obj == nil {
-		return nil
-	}
 	if obj.Apple != nil {
 		return obj.Apple
 	}

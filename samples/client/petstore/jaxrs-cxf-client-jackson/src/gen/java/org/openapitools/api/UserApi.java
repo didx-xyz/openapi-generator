@@ -1,6 +1,5 @@
 package org.openapitools.api;
 
-import java.util.Date;
 import org.openapitools.model.User;
 
 import java.io.InputStream;
@@ -129,3 +128,4 @@ public interface UserApi  {
         @ApiResponse(code = 404, message = "User not found") })
     public void updateUser(@PathParam("username") String username, User body);
 }
+

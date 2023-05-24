@@ -72,6 +72,7 @@ public class Client   {
     return Objects.hash(client);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

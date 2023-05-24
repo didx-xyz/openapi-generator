@@ -50,8 +50,6 @@ Name | Type | Description  | Required | Notes
 > create_users_with_array_input(user)
 Creates list of users with given input array
 
-
-
 ### Parameters
 
 
@@ -79,8 +77,6 @@ Name | Type | Description  | Required | Notes
 
 > create_users_with_list_input(user)
 Creates list of users with given input array
-
-
 
 ### Parameters
 
@@ -140,8 +136,6 @@ Name | Type | Description  | Required | Notes
 > crate::models::User get_user_by_name(username)
 Get user by user name
 
-
-
 ### Parameters
 
 
@@ -169,8 +163,6 @@ No authorization required
 
 > String login_user(username, password)
 Logs user into the system
-
-
 
 ### Parameters
 
@@ -200,8 +192,6 @@ No authorization required
 
 > logout_user()
 Logs out current logged in user session
-
-
 
 ### Parameters
 

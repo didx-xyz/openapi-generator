@@ -44,35 +44,11 @@ namespace Org.OpenAPITools.Model
         public Capitalization(string smallCamel = default(string), string capitalCamel = default(string), string smallSnake = default(string), string capitalSnake = default(string), string sCAETHFlowPoints = default(string), string aTTNAME = default(string))
         {
             this._SmallCamel = smallCamel;
-            if (this.SmallCamel != null)
-            {
-                this._flagSmallCamel = true;
-            }
             this._CapitalCamel = capitalCamel;
-            if (this.CapitalCamel != null)
-            {
-                this._flagCapitalCamel = true;
-            }
             this._SmallSnake = smallSnake;
-            if (this.SmallSnake != null)
-            {
-                this._flagSmallSnake = true;
-            }
             this._CapitalSnake = capitalSnake;
-            if (this.CapitalSnake != null)
-            {
-                this._flagCapitalSnake = true;
-            }
             this._SCAETHFlowPoints = sCAETHFlowPoints;
-            if (this.SCAETHFlowPoints != null)
-            {
-                this._flagSCAETHFlowPoints = true;
-            }
             this._ATT_NAME = aTTNAME;
-            if (this.ATT_NAME != null)
-            {
-                this._flagATT_NAME = true;
-            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -233,7 +209,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class Capitalization {\n");
             sb.Append("  SmallCamel: ").Append(SmallCamel).Append("\n");
             sb.Append("  CapitalCamel: ").Append(CapitalCamel).Append("\n");
@@ -285,33 +261,19 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.SmallCamel != null)
-                {
-                    hashCode = (hashCode * 59) + this.SmallCamel.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.SmallCamel.GetHashCode();
                 if (this.CapitalCamel != null)
-                {
-                    hashCode = (hashCode * 59) + this.CapitalCamel.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.CapitalCamel.GetHashCode();
                 if (this.SmallSnake != null)
-                {
-                    hashCode = (hashCode * 59) + this.SmallSnake.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.SmallSnake.GetHashCode();
                 if (this.CapitalSnake != null)
-                {
-                    hashCode = (hashCode * 59) + this.CapitalSnake.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.CapitalSnake.GetHashCode();
                 if (this.SCAETHFlowPoints != null)
-                {
-                    hashCode = (hashCode * 59) + this.SCAETHFlowPoints.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.SCAETHFlowPoints.GetHashCode();
                 if (this.ATT_NAME != null)
-                {
-                    hashCode = (hashCode * 59) + this.ATT_NAME.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ATT_NAME.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

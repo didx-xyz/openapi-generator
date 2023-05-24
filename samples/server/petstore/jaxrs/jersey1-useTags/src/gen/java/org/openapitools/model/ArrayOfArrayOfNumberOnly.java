@@ -35,7 +35,7 @@ import javax.validation.Valid;
 public class ArrayOfArrayOfNumberOnly   {
   public static final String JSON_PROPERTY_ARRAY_ARRAY_NUMBER = "ArrayArrayNumber";
   @JsonProperty(JSON_PROPERTY_ARRAY_ARRAY_NUMBER)
-  private List<List<BigDecimal>> arrayArrayNumber;
+  private List<List<BigDecimal>> arrayArrayNumber = null;
 
   public ArrayOfArrayOfNumberOnly arrayArrayNumber(List<List<BigDecimal>> arrayArrayNumber) {
     this.arrayArrayNumber = arrayArrayNumber;
@@ -44,7 +44,7 @@ public class ArrayOfArrayOfNumberOnly   {
 
   public ArrayOfArrayOfNumberOnly addArrayArrayNumberItem(List<BigDecimal> arrayArrayNumberItem) {
     if (this.arrayArrayNumber == null) {
-      this.arrayArrayNumber = new ArrayList<>();
+      this.arrayArrayNumber = new ArrayList<List<BigDecimal>>();
     }
     this.arrayArrayNumber.add(arrayArrayNumberItem);
     return this;
@@ -82,6 +82,7 @@ public class ArrayOfArrayOfNumberOnly   {
   public int hashCode() {
     return Objects.hash(arrayArrayNumber);
   }
+
 
   @Override
   public String toString() {
