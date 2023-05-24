@@ -2,10 +2,10 @@ package org.openapitools.client.infrastructure
 
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest.AuthenticationRequestBuilder
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest.TokenRequestBuilder
+import org.openapitools.client.auth.ApiKeyAuth
 import org.openapitools.client.auth.OAuth
 import org.openapitools.client.auth.OAuth.AccessTokenListener
 import org.openapitools.client.auth.OAuthFlow
-import org.openapitools.client.auth.ApiKeyAuth
 
 import okhttp3.Call
 import okhttp3.Interceptor
@@ -13,23 +13,17 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
-import retrofit2.CallAdapter
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import org.openapitools.client.infrastructure.Serializer.kotlinxSerializationJson
+import org.openapitools.client.infrastructure.Serializer.jvmJson
 import okhttp3.MediaType.Companion.toMediaType
 
 class ApiClient(
     private var baseUrl: String = defaultBasePath,
     private val okHttpClientBuilder: OkHttpClient.Builder? = null,
     private val callFactory : Call.Factory? = null,
-    private val callAdapterFactories: List<CallAdapter.Factory> = listOf(
-    ),
-    private val converterFactories: List<Converter.Factory> = listOf(
-        ScalarsConverterFactory.create(),
-        kotlinxSerializationJson.asConverterFactory("application/json".toMediaType()),
-    )
+    private val converterFactory: Converter.Factory? = null,
 ) {
     private val apiAuthorizations = mutableMapOf<String, Interceptor>()
     var logger: ((String) -> Unit)? = null
@@ -37,14 +31,11 @@ class ApiClient(
     private val retrofitBuilder: Retrofit.Builder by lazy {
         Retrofit.Builder()
             .baseUrl(baseUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(jvmJson.asConverterFactory("application/json".toMediaType()))
             .apply {
-                callAdapterFactories.forEach {
-                    addCallAdapterFactory(it)
-                }
-            }
-            .apply {
-                converterFactories.forEach {
-                    addConverterFactory(it)
+                if (converterFactory != null) {
+                    addConverterFactory(converterFactory)
                 }
             }
     }
@@ -56,9 +47,13 @@ class ApiClient(
     private val defaultClientBuilder: OkHttpClient.Builder by lazy {
         OkHttpClient()
             .newBuilder()
-            .addInterceptor(HttpLoggingInterceptor { message -> logger?.invoke(message) }
-                .apply { level = HttpLoggingInterceptor.Level.BODY }
-            )
+            .addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+                override fun log(message: String) {
+                    logger?.invoke(message)
+                }
+            }).apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
     }
 
     init {
@@ -73,10 +68,10 @@ class ApiClient(
     ) : this(baseUrl, okHttpClientBuilder) {
         authNames.forEach { authName ->
             val auth = when (authName) {
-                "petstore_auth" -> OAuth(OAuthFlow.implicit, "http://petstore.swagger.io/api/oauth/dialog", "", "write:pets, read:pets")"api_key" -> ApiKeyAuth("header", "api_key")
+                "api_key" -> ApiKeyAuth("header", "api_key")"petstore_auth" -> OAuth(OAuthFlow.implicit, "http://petstore.swagger.io/api/oauth/dialog", "", "write:pets, read:pets")
                 else -> throw RuntimeException("auth name $authName not found in available auth names")
             }
-            addAuthorization(authName, auth)
+            addAuthorization(authName, auth);
         }
     }
 
@@ -150,7 +145,7 @@ class ApiClient(
                 ?.setClientId(clientId)
                 ?.setRedirectURI(redirectURI)
         }
-        return this
+        return this;
     }
 
     /**
@@ -162,7 +157,7 @@ class ApiClient(
         apiAuthorizations.values.runOnFirst<Interceptor, OAuth> {
             registerAccessTokenListener(accessTokenListener)
         }
-        return this
+        return this;
     }
 
     /**
@@ -207,11 +202,8 @@ class ApiClient(
 
     companion object {
         @JvmStatic
-        protected val baseUrlKey = "org.openapitools.client.baseUrl"
-
-        @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty(baseUrlKey, "http://petstore.swagger.io/v2")
+            System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://petstore.swagger.io/v2")
         }
     }
 }

@@ -17,8 +17,9 @@ const petId = Math.floor(Math.random() * 100000);
 pet.id = petId;
 pet.name = "PetName";
 pet.photoUrls = [];
-pet.status = petstore.PetStatusEnum.Available;
+pet.status = "available";
 pet.tags = [tag];
+pet.category = undefined;
 
 Deno.test({
   name: "PetApi addPet getPetById",

@@ -14,12 +14,10 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  FooGetDefaultResponse,
-} from '../models';
 import {
-    FooGetDefaultResponseFromJSON,
-    FooGetDefaultResponseToJSON,
+    InlineResponseDefault,
+    InlineResponseDefaultFromJSON,
+    InlineResponseDefaultToJSON,
 } from '../models';
 
 /**
@@ -29,7 +27,7 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
-    async fooGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FooGetDefaultResponse>> {
+    async fooGetRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<InlineResponseDefault>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -41,12 +39,12 @@ export class DefaultApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => FooGetDefaultResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => InlineResponseDefaultFromJSON(jsonValue));
     }
 
     /**
      */
-    async fooGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FooGetDefaultResponse> {
+    async fooGet(initOverrides?: RequestInit): Promise<InlineResponseDefault> {
         const response = await this.fooGetRaw(initOverrides);
         return await response.value();
     }

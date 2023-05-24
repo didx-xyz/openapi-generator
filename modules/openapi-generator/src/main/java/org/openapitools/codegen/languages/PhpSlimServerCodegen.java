@@ -20,16 +20,12 @@ package org.openapitools.codegen.languages;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-import org.apache.commons.text.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
 import org.openapitools.codegen.meta.features.*;
-import org.openapitools.codegen.model.ApiInfoMap;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,9 +156,9 @@ public class PhpSlimServerCodegen extends AbstractPhpCodegen {
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
-        OperationMap operations = objs.getOperations();
-        List<CodegenOperation> operationList = operations.getOperation();
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+        Map<String, Object> operations = (Map<String, Object>) objs.get("operations");
+        List<CodegenOperation> operationList = (List<CodegenOperation>) operations.get("operation");
         addUserClassnameToOperations(operations);
         escapeMediaType(operationList);
         return objs;
@@ -170,16 +166,21 @@ public class PhpSlimServerCodegen extends AbstractPhpCodegen {
 
     @Override
     public Map<String, Object> postProcessSupportingFileData(Map<String, Object> objs) {
-        ApiInfoMap apiInfo = (ApiInfoMap) objs.get("apiInfo");
-        for (OperationsMap api : apiInfo.getApis()) {
-            List<CodegenOperation> operationList = api.getOperations().getOperation();
+        Map<String, Object> apiInfo = (Map<String, Object>) objs.get("apiInfo");
+        List<HashMap<String, Object>> apiList = (List<HashMap<String, Object>>) apiInfo.get("apis");
+        for (HashMap<String, Object> api : apiList) {
+            HashMap<String, Object> operations = (HashMap<String, Object>) api.get("operations");
+            List<CodegenOperation> operationList = (List<CodegenOperation>) operations.get("operation");
 
             // Sort operations to avoid static routes shadowing
             // ref: https://github.com/nikic/FastRoute/blob/master/src/DataGenerator/RegexBasedAbstract.php#L92-L101
-            operationList.sort((one, another) -> {
+            Collections.sort(operationList, new Comparator<CodegenOperation>() {
+                @Override
+                public int compare(CodegenOperation one, CodegenOperation another) {
                     if (one.getHasPathParams() && !another.getHasPathParams()) return 1;
                     if (!one.getHasPathParams() && another.getHasPathParams()) return -1;
                     return 0;
+                }
             });
         }
         return objs;
@@ -215,8 +216,8 @@ public class PhpSlimServerCodegen extends AbstractPhpCodegen {
      *
      * @param operations codegen object with operations
      */
-    private void addUserClassnameToOperations(OperationMap operations) {
-        String classname = operations.getClassname();
+    private void addUserClassnameToOperations(Map<String, Object> operations) {
+        String classname = (String) operations.get("classname");
         classname = classname.replaceAll("^" + abstractNamePrefix, "");
         classname = classname.replaceAll(abstractNameSuffix + "$", "");
         operations.put(USER_CLASSNAME_KEY, classname);
@@ -232,7 +233,7 @@ public class PhpSlimServerCodegen extends AbstractPhpCodegen {
         // remove \t, \n, \r
         // replace \ with \\
         // replace " with \"
-        // outer unescape to retain the original multi-byte characters
+        // outter unescape to retain the original multi-byte characters
         // finally escalate characters avoiding code injection
         input = super.escapeUnsafeCharacters(
                 StringEscapeUtils.unescapeJava(

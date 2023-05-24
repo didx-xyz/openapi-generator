@@ -98,7 +98,7 @@ int main() {
 		free(pair->value);
 		keyValuePair_free(pair);
 	}
-	list_freeList(elementToReturn);
+	list_free(elementToReturn);
 	apiClient_free(apiClient5);
 
 	apiClient_unsetupGlobalEnv();

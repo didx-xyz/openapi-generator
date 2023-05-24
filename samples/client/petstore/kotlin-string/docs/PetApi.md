@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**uploadFile**](PetApi.md#uploadFile) | **POST** /pet/{petId}/uploadImage | uploads an image
 
 
-<a id="addPet"></a>
+<a name="addPet"></a>
 # **addPet**
 > addPet(body)
 
@@ -57,10 +57,10 @@ Configure petstore_auth:
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/xml
  - **Accept**: Not defined
 
-<a id="deletePet"></a>
+<a name="deletePet"></a>
 # **deletePet**
 > deletePet(apiKey, petId)
 
@@ -108,7 +108,7 @@ Configure petstore_auth:
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="findPetsByStatus"></a>
+<a name="findPetsByStatus"></a>
 # **findPetsByStatus**
 > kotlin.collections.List&lt;Pet&gt; findPetsByStatus(status)
 
@@ -155,9 +155,9 @@ Configure petstore_auth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/xml, application/json
 
-<a id="findPetsByTags"></a>
+<a name="findPetsByTags"></a>
 # **findPetsByTags**
 > kotlin.collections.List&lt;Pet&gt; findPetsByTags(tags)
 
@@ -204,9 +204,9 @@ Configure petstore_auth:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/xml, application/json
 
-<a id="getPetById"></a>
+<a name="getPetById"></a>
 # **getPetById**
 > Pet getPetById(petId)
 
@@ -254,9 +254,9 @@ Configure api_key:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/xml, application/json
 
-<a id="updatePet"></a>
+<a name="updatePet"></a>
 # **updatePet**
 > updatePet(body)
 
@@ -299,10 +299,10 @@ Configure petstore_auth:
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/xml
  - **Accept**: Not defined
 
-<a id="updatePetWithForm"></a>
+<a name="updatePetWithForm"></a>
 # **updatePetWithForm**
 > updatePetWithForm(petId, name, status)
 
@@ -352,9 +352,9 @@ Configure petstore_auth:
  - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: Not defined
 
-<a id="uploadFile"></a>
+<a name="uploadFile"></a>
 # **uploadFile**
-> ModelApiResponse uploadFile(petId, additionalMetadata, file)
+> ApiResponse uploadFile(petId, additionalMetadata, file)
 
 uploads an image
 
@@ -369,7 +369,7 @@ val petId : kotlin.Long = 789 // kotlin.Long | ID of pet to update
 val additionalMetadata : kotlin.String = additionalMetadata_example // kotlin.String | Additional data to pass to server
 val file : java.io.File = BINARY_DATA_HERE // java.io.File | file to upload
 try {
-    val result : ModelApiResponse = apiInstance.uploadFile(petId, additionalMetadata, file)
+    val result : ApiResponse = apiInstance.uploadFile(petId, additionalMetadata, file)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PetApi#uploadFile")
@@ -390,7 +390,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelApiResponse**](ModelApiResponse.md)
+[**ApiResponse**](ApiResponse.md)
 
 ### Authorization
 

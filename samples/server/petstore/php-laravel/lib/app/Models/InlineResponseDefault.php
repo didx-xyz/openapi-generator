@@ -10,6 +10,6 @@ namespace app\Models;
 class InlineResponseDefault {
 
     /** @var \app\Models\Foo $string */
-    public $string;
+    private $string;
 
 }

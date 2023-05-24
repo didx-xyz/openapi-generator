@@ -153,15 +153,16 @@ Method | HTTP request | Description
  - [AnotherXmlArray](docs/AnotherXmlArray.md)
  - [AnotherXmlInner](docs/AnotherXmlInner.md)
  - [AnotherXmlObject](docs/AnotherXmlObject.md)
- - [AnyOfGet202Response](docs/AnyOfGet202Response.md)
  - [AnyOfObject](docs/AnyOfObject.md)
+ - [AnyOfObjectAnyOf](docs/AnyOfObjectAnyOf.md)
  - [AnyOfProperty](docs/AnyOfProperty.md)
  - [DuplicateXmlObject](docs/DuplicateXmlObject.md)
  - [EnumWithStarObject](docs/EnumWithStarObject.md)
  - [Err](docs/Err.md)
  - [Error](docs/Error.md)
+ - [InlineResponse201](docs/InlineResponse201.md)
  - [Model12345AnyOfObject](docs/Model12345AnyOfObject.md)
- - [MultigetGet201Response](docs/MultigetGet201Response.md)
+ - [Model12345AnyOfObjectAnyOf](docs/Model12345AnyOfObjectAnyOf.md)
  - [MyId](docs/MyId.md)
  - [MyIdList](docs/MyIdList.md)
  - [NullableTest](docs/NullableTest.md)
@@ -170,7 +171,6 @@ Method | HTTP request | Description
  - [ObjectUntypedProps](docs/ObjectUntypedProps.md)
  - [ObjectWithArrayOfObjects](docs/ObjectWithArrayOfObjects.md)
  - [Ok](docs/Ok.md)
- - [OneOfGet200Response](docs/OneOfGet200Response.md)
  - [OptionalObjectHeader](docs/OptionalObjectHeader.md)
  - [RequiredObjectHeader](docs/RequiredObjectHeader.md)
  - [Result](docs/Result.md)
@@ -184,8 +184,7 @@ Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-Authentication schemes defined for the API:
-### authScheme
+## authScheme
 - **Type**: OAuth
 - **Flow**: accessCode
 - **Authorization URL**: http://example.org

@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct Pet: Codable, JSONEncodable, Hashable {
+public struct Pet: Codable, Hashable {
 
     public enum Status: String, Codable, CaseIterable {
         case available = "available"
@@ -23,9 +23,9 @@ public struct Pet: Codable, JSONEncodable, Hashable {
     public var photoUrls: [String]
     public var tags: [Tag]?
     /** pet status in the store */
-    public var status: NullEncodable<Status>
+    public var status: Status?
 
-    public init(id: Int64? = nil, category: Category? = nil, name: String, photoUrls: [String], tags: [Tag]? = nil, status: NullEncodable<Status> = .encodeNull) {
+    public init(id: Int64? = nil, category: Category? = nil, name: String, photoUrls: [String], tags: [Tag]? = nil, status: Status? = nil) {
         self.id = id
         self.category = category
         self.name = name
@@ -52,10 +52,7 @@ public struct Pet: Codable, JSONEncodable, Hashable {
         try container.encode(name, forKey: .name)
         try container.encode(photoUrls, forKey: .photoUrls)
         try container.encodeIfPresent(tags, forKey: .tags)
-        switch status {
-        case .encodeNothing: break
-        case .encodeNull, .encodeValue: try container.encode(status, forKey: .status)
-        }
+        try container.encodeIfPresent(status, forKey: .status)
     }
 }
 

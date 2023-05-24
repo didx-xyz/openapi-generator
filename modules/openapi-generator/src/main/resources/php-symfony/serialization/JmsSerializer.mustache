@@ -5,37 +5,27 @@ namespace {{servicePackage}};
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\Naming\CamelCaseNamingStrategy;
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
-use JMS\Serializer\Serializer;
-use JMS\Serializer\Visitor\Factory\XmlDeserializationVisitorFactory;
-use DateTime;
-use RuntimeException;
+use JMS\Serializer\XmlDeserializationVisitor;
 
 class JmsSerializer implements SerializerInterface
 {
-    protected Serializer $serializer;
+    protected $serializer;
 
     public function __construct()
     {
-        $namingStrategy = new SerializedNameAnnotationStrategy(new CamelCaseNamingStrategy());
+        $naming_strategy = new SerializedNameAnnotationStrategy(new CamelCaseNamingStrategy());
         $this->serializer = SerializerBuilder::create()
-            ->setDeserializationVisitor('json', new StrictJsonDeserializationVisitorFactory())
-            ->setDeserializationVisitor('xml', new XmlDeserializationVisitorFactory())
-            ->setPropertyNamingStrategy($namingStrategy)
+            ->setDeserializationVisitor('json', new StrictJsonDeserializationVisitor($naming_strategy))
+            ->setDeserializationVisitor('xml', new XmlDeserializationVisitor($naming_strategy))
             ->build();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function serialize($data, string $format): string
+    public function serialize($data, $format)
     {
         return SerializerBuilder::create()->build()->serialize($data, $this->convertFormat($format));
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function deserialize($data, string $type, string $format)
+    public function deserialize($data, $type, $format)
     {
         if ($format == 'string') {
             return $this->deserializeString($data, $type);
@@ -45,7 +35,7 @@ class JmsSerializer implements SerializerInterface
         return $this->serializer->deserialize($data, $type, $this->convertFormat($format));
     }
 
-    private function convertFormat(string $format): ?string
+    private function convertFormat($format)
     {
         switch ($format) {
             case 'application/json':
@@ -57,7 +47,7 @@ class JmsSerializer implements SerializerInterface
         return null;
     }
 
-    private function deserializeString($data, string $type)
+    private function deserializeString($data, $type)
     {
         // Figure out if we have an array format
         if (1 === preg_match('/array<(csv|ssv|tsv|pipes),(int|string)>/i', $type, $matches)) {
@@ -80,10 +70,6 @@ class JmsSerializer implements SerializerInterface
                 break;
             case 'boolean':
             case 'bool':
-                if (is_bool($data)) {
-                    return $data;
-                }
-
                 if (strtolower($data) === 'true') {
                     return true;
                 }
@@ -93,23 +79,14 @@ class JmsSerializer implements SerializerInterface
                 }
 
                 break;
-            case 'DateTime':
-            case '\DateTime':
-                return is_null($data) ? null :new DateTime($data);
-            default:
-                throw new RuntimeException(sprintf("Type %s is unsupported", $type));
         }
 
         // If we end up here, just return data
         return $data;
     }
 
-    private function deserializeArrayString(string $format, string $type, $data): array
+    private function deserializeArrayString($format, $type, $data)
     {
-        if (empty($data)) {
-            return [];
-        }
-
         // Parse the string using the correct separator
         switch ($format) {
             case 'csv':

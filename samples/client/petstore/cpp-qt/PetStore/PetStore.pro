@@ -6,6 +6,8 @@
 
 QT       += core gui testlib network
 
+QT       -= gui
+
 TARGET = PetStore
 CONFIG   += console
 CONFIG   -= app_bundle
@@ -15,8 +17,6 @@ CONFIG   += c++11
 TEMPLATE = app
 
 include(../client/PFXclient.pri)
-
-INCLUDEPATH += ../client
 
 SOURCES += main.cpp \
            PetApiTests.cpp \

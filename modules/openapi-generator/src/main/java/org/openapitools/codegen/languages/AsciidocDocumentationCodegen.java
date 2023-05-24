@@ -89,10 +89,10 @@ public class AsciidocDocumentationCodegen extends DefaultCodegen implements Code
 
             String includeStatement = "include::{" + attributePathReference + "}" + escapeCurlyBrackets(relativeFileName) + "[opts=optional]";
             if (Files.isRegularFile(filePathToInclude)) {
-                LOGGER.debug("including {}. file into markup from: {}", ++includeCount, filePathToInclude);
+                LOGGER.debug("including {}. file into markup from: {}", ++includeCount, filePathToInclude.toString());
                 out.write("\n" + includeStatement + "\n");
             } else {
-                LOGGER.debug("{}. file not found, skip include for: {}", ++notFoundCount, filePathToInclude);
+                LOGGER.debug("{}. file not found, skip include for: {}", ++notFoundCount, filePathToInclude.toString());
                 out.write("\n// markup not found, no " + includeStatement + "\n");
             }
         }
@@ -140,10 +140,10 @@ public class AsciidocDocumentationCodegen extends DefaultCodegen implements Code
             final Path filePathToLinkTo = Paths.get(basePath, relativeFileName).toAbsolutePath();
 
             if (Files.isRegularFile(filePathToLinkTo)) {
-                LOGGER.debug("linking {}. file into markup from: {}", ++linkedCount, filePathToLinkTo);
+                LOGGER.debug("linking {}. file into markup from: {}", ++linkedCount, filePathToLinkTo.toString());
                 out.write("\n" + linkName + " link:" + relativeFileName + "[]\n");
             } else {
-                LOGGER.debug("{}. file not found, skip link for: {}", ++notFoundLinkCount, filePathToLinkTo);
+                LOGGER.debug("{}. file not found, skip link for: {}", ++notFoundLinkCount, filePathToLinkTo.toString());
                 out.write("\n// file not found, no " + linkName + " link :" + relativeFileName + "[]\n");
             }
         }
@@ -217,7 +217,7 @@ public class AsciidocDocumentationCodegen extends DefaultCodegen implements Code
         outputFolder = "generated-code" + File.separator + "asciidoc";
         embeddedTemplateDir = templateDir = "asciidoc-documentation";
 
-        defaultIncludes = new HashSet<>();
+        defaultIncludes = new HashSet<String>();
 
         cliOptions.add(new CliOption("appName", "short name of the application"));
         cliOptions.add(new CliOption("appDescription", "description of the application"));
@@ -264,10 +264,10 @@ public class AsciidocDocumentationCodegen extends DefaultCodegen implements Code
         additionalProperties.put(CodegenConstants.ARTIFACT_VERSION, artifactVersion);
 
         supportingFiles.add(new SupportingFile("index.mustache", "", "index.adoc"));
-        reservedWords = new HashSet<>();
+        reservedWords = new HashSet<String>();
 
-        languageSpecificPrimitives = new HashSet<>();
-        importMapping = new HashMap<>();
+        languageSpecificPrimitives = new HashSet<String>();
+        importMapping = new HashMap<String, String>();
 
     }
 
@@ -325,7 +325,7 @@ public class AsciidocDocumentationCodegen extends DefaultCodegen implements Code
     public void processOpts() {
         super.processOpts();
 
-        String specDir = String.valueOf(this.additionalProperties.get(SPEC_DIR));
+        String specDir = this.additionalProperties.get(SPEC_DIR) + "";
         if (!Files.isDirectory(Paths.get(specDir))) {
             LOGGER.warn("base part for include markup lambda not found: {} as {}", specDir, Paths.get(specDir).toAbsolutePath());
         }
@@ -333,7 +333,7 @@ public class AsciidocDocumentationCodegen extends DefaultCodegen implements Code
         this.includeSpecMarkupLambda = new IncludeMarkupLambda(SPEC_DIR,specDir);
         additionalProperties.put("specinclude", this.includeSpecMarkupLambda);
 
-        String snippetDir = String.valueOf(this.additionalProperties.get(SNIPPET_DIR));
+        String snippetDir = this.additionalProperties.get(SNIPPET_DIR) + "";
         if (!Files.isDirectory(Paths.get(snippetDir))) {
             LOGGER.warn("base part for include markup lambda not found: {} as {}", snippetDir, Paths.get(snippetDir).toAbsolutePath());
         }

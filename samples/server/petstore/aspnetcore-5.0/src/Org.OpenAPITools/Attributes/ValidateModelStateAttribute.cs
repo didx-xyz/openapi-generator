@@ -19,7 +19,8 @@ namespace Org.OpenAPITools.Attributes
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             // Per https://blog.markvincze.com/how-to-validate-action-parameters-with-dataannotation-attributes/
-            if (context.ActionDescriptor is ControllerActionDescriptor descriptor)
+            var descriptor = context.ActionDescriptor as ControllerActionDescriptor;
+            if (descriptor != null)
             {
                 foreach (var parameter in descriptor.MethodInfo.GetParameters())
                 {
@@ -45,7 +46,8 @@ namespace Org.OpenAPITools.Attributes
             {
                 var attributeInstance = parameter.GetCustomAttribute(attributeData.AttributeType);
 
-                if (attributeInstance is ValidationAttribute validationAttribute)
+                var validationAttribute = attributeInstance as ValidationAttribute;
+                if (validationAttribute != null)
                 {
                     var isValid = validationAttribute.IsValid(args);
                     if (!isValid)

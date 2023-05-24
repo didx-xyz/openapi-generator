@@ -2,25 +2,26 @@
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
-| Method | HTTP request | Description |
-|--------|--------------|-------------|
-| [**FakeHealthGet**](FakeApi.md#fakehealthget) | **GET** /fake/health | Health check endpoint |
-| [**FakeOuterBooleanSerialize**](FakeApi.md#fakeouterbooleanserialize) | **POST** /fake/outer/boolean |  |
-| [**FakeOuterCompositeSerialize**](FakeApi.md#fakeoutercompositeserialize) | **POST** /fake/outer/composite |  |
-| [**FakeOuterNumberSerialize**](FakeApi.md#fakeouternumberserialize) | **POST** /fake/outer/number |  |
-| [**FakeOuterStringSerialize**](FakeApi.md#fakeouterstringserialize) | **POST** /fake/outer/string |  |
-| [**GetArrayOfEnums**](FakeApi.md#getarrayofenums) | **GET** /fake/array-of-enums | Array of Enums |
-| [**TestBodyWithFileSchema**](FakeApi.md#testbodywithfileschema) | **PUT** /fake/body-with-file-schema |  |
-| [**TestBodyWithQueryParams**](FakeApi.md#testbodywithqueryparams) | **PUT** /fake/body-with-query-params |  |
-| [**TestClientModel**](FakeApi.md#testclientmodel) | **PATCH** /fake | To test \&quot;client\&quot; model |
-| [**TestEndpointParameters**](FakeApi.md#testendpointparameters) | **POST** /fake | Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트  |
-| [**TestEnumParameters**](FakeApi.md#testenumparameters) | **GET** /fake | To test enum parameters |
-| [**TestGroupParameters**](FakeApi.md#testgroupparameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional) |
-| [**TestInlineAdditionalProperties**](FakeApi.md#testinlineadditionalproperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties |
-| [**TestJsonFormData**](FakeApi.md#testjsonformdata) | **GET** /fake/jsonFormData | test json serialization of form data |
-| [**TestQueryParameterCollectionFormat**](FakeApi.md#testqueryparametercollectionformat) | **PUT** /fake/test-query-parameters |  |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**FakeHealthGet**](FakeApi.md#fakehealthget) | **GET** /fake/health | Health check endpoint
+[**FakeOuterBooleanSerialize**](FakeApi.md#fakeouterbooleanserialize) | **POST** /fake/outer/boolean | 
+[**FakeOuterCompositeSerialize**](FakeApi.md#fakeoutercompositeserialize) | **POST** /fake/outer/composite | 
+[**FakeOuterNumberSerialize**](FakeApi.md#fakeouternumberserialize) | **POST** /fake/outer/number | 
+[**FakeOuterStringSerialize**](FakeApi.md#fakeouterstringserialize) | **POST** /fake/outer/string | 
+[**GetArrayOfEnums**](FakeApi.md#getarrayofenums) | **GET** /fake/array-of-enums | Array of Enums
+[**TestBodyWithFileSchema**](FakeApi.md#testbodywithfileschema) | **PUT** /fake/body-with-file-schema | 
+[**TestBodyWithQueryParams**](FakeApi.md#testbodywithqueryparams) | **PUT** /fake/body-with-query-params | 
+[**TestClientModel**](FakeApi.md#testclientmodel) | **PATCH** /fake | To test \&quot;client\&quot; model
+[**TestEndpointParameters**](FakeApi.md#testendpointparameters) | **POST** /fake | Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
+[**TestEnumParameters**](FakeApi.md#testenumparameters) | **GET** /fake | To test enum parameters
+[**TestGroupParameters**](FakeApi.md#testgroupparameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional)
+[**TestInlineAdditionalProperties**](FakeApi.md#testinlineadditionalproperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties
+[**TestJsonFormData**](FakeApi.md#testjsonformdata) | **GET** /fake/jsonFormData | test json serialization of form data
+[**TestQueryParameterCollectionFormat**](FakeApi.md#testqueryparametercollectionformat) | **PUT** /fake/test-query-paramters | 
 
-<a id="fakehealthget"></a>
+
+<a name="fakehealthget"></a>
 # **FakeHealthGet**
 > HealthCheckResult FakeHealthGet ()
 
@@ -56,8 +57,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.FakeHealthGet: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.FakeHealthGet: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -65,28 +66,9 @@ namespace Example
 }
 ```
 
-#### Using the FakeHealthGetWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Health check endpoint
-    ApiResponse<HealthCheckResult> response = apiInstance.FakeHealthGetWithHttpInfo();
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.FakeHealthGetWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 This endpoint does not need any parameter.
+
 ### Return type
 
 [**HealthCheckResult**](HealthCheckResult.md)
@@ -108,7 +90,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="fakeouterbooleanserialize"></a>
+<a name="fakeouterbooleanserialize"></a>
 # **FakeOuterBooleanSerialize**
 > bool FakeOuterBooleanSerialize (bool? body = null)
 
@@ -146,8 +128,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.FakeOuterBooleanSerialize: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.FakeOuterBooleanSerialize: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -155,30 +137,11 @@ namespace Example
 }
 ```
 
-#### Using the FakeOuterBooleanSerializeWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    ApiResponse<bool> response = apiInstance.FakeOuterBooleanSerializeWithHttpInfo(body);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.FakeOuterBooleanSerializeWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **body** | **bool?** | Input boolean as post body | [optional]  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **bool?**| Input boolean as post body | [optional] 
 
 ### Return type
 
@@ -201,7 +164,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="fakeoutercompositeserialize"></a>
+<a name="fakeoutercompositeserialize"></a>
 # **FakeOuterCompositeSerialize**
 > OuterComposite FakeOuterCompositeSerialize (OuterComposite outerComposite = null)
 
@@ -239,8 +202,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.FakeOuterCompositeSerialize: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.FakeOuterCompositeSerialize: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -248,30 +211,11 @@ namespace Example
 }
 ```
 
-#### Using the FakeOuterCompositeSerializeWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    ApiResponse<OuterComposite> response = apiInstance.FakeOuterCompositeSerializeWithHttpInfo(outerComposite);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.FakeOuterCompositeSerializeWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **outerComposite** | [**OuterComposite**](OuterComposite.md) | Input composite as post body | [optional]  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **outerComposite** | [**OuterComposite**](OuterComposite.md)| Input composite as post body | [optional] 
 
 ### Return type
 
@@ -294,7 +238,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="fakeouternumberserialize"></a>
+<a name="fakeouternumberserialize"></a>
 # **FakeOuterNumberSerialize**
 > decimal FakeOuterNumberSerialize (decimal? body = null)
 
@@ -323,7 +267,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new FakeApi(httpClient, config, httpClientHandler);
-            var body = 8.14D;  // decimal? | Input number as post body (optional) 
+            var body = 8.14;  // decimal? | Input number as post body (optional) 
 
             try
             {
@@ -332,8 +276,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.FakeOuterNumberSerialize: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.FakeOuterNumberSerialize: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -341,30 +285,11 @@ namespace Example
 }
 ```
 
-#### Using the FakeOuterNumberSerializeWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    ApiResponse<decimal> response = apiInstance.FakeOuterNumberSerializeWithHttpInfo(body);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.FakeOuterNumberSerializeWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **body** | **decimal?** | Input number as post body | [optional]  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **decimal?**| Input number as post body | [optional] 
 
 ### Return type
 
@@ -387,9 +312,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="fakeouterstringserialize"></a>
+<a name="fakeouterstringserialize"></a>
 # **FakeOuterStringSerialize**
-> string FakeOuterStringSerialize (Guid requiredStringUuid, string body = null)
+> string FakeOuterStringSerialize (string body = null)
 
 
 
@@ -416,18 +341,17 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new FakeApi(httpClient, config, httpClientHandler);
-            var requiredStringUuid = "requiredStringUuid_example";  // Guid | Required UUID String
-            var body = "body_example";  // string | Input string as post body (optional) 
+            var body = body_example;  // string | Input string as post body (optional) 
 
             try
             {
-                string result = apiInstance.FakeOuterStringSerialize(requiredStringUuid, body);
+                string result = apiInstance.FakeOuterStringSerialize(body);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.FakeOuterStringSerialize: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.FakeOuterStringSerialize: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -435,31 +359,11 @@ namespace Example
 }
 ```
 
-#### Using the FakeOuterStringSerializeWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    ApiResponse<string> response = apiInstance.FakeOuterStringSerializeWithHttpInfo(requiredStringUuid, body);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.FakeOuterStringSerializeWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **requiredStringUuid** | **Guid** | Required UUID String |  |
-| **body** | **string** | Input string as post body | [optional]  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **string**| Input string as post body | [optional] 
 
 ### Return type
 
@@ -482,7 +386,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getarrayofenums"></a>
+<a name="getarrayofenums"></a>
 # **GetArrayOfEnums**
 > List&lt;OuterEnum&gt; GetArrayOfEnums ()
 
@@ -518,8 +422,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.GetArrayOfEnums: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.GetArrayOfEnums: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -527,28 +431,9 @@ namespace Example
 }
 ```
 
-#### Using the GetArrayOfEnumsWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Array of Enums
-    ApiResponse<List<OuterEnum>> response = apiInstance.GetArrayOfEnumsWithHttpInfo();
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.GetArrayOfEnumsWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 This endpoint does not need any parameter.
+
 ### Return type
 
 [**List&lt;OuterEnum&gt;**](OuterEnum.md)
@@ -570,7 +455,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testbodywithfileschema"></a>
+<a name="testbodywithfileschema"></a>
 # **TestBodyWithFileSchema**
 > void TestBodyWithFileSchema (FileSchemaTestClass fileSchemaTestClass)
 
@@ -607,8 +492,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestBodyWithFileSchema: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestBodyWithFileSchema: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -616,27 +501,11 @@ namespace Example
 }
 ```
 
-#### Using the TestBodyWithFileSchemaWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    apiInstance.TestBodyWithFileSchemaWithHttpInfo(fileSchemaTestClass);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestBodyWithFileSchemaWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **fileSchemaTestClass** | [**FileSchemaTestClass**](FileSchemaTestClass.md) |  |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **fileSchemaTestClass** | [**FileSchemaTestClass**](FileSchemaTestClass.md)|  | 
 
 ### Return type
 
@@ -659,7 +528,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testbodywithqueryparams"></a>
+<a name="testbodywithqueryparams"></a>
 # **TestBodyWithQueryParams**
 > void TestBodyWithQueryParams (string query, User user)
 
@@ -686,7 +555,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new FakeApi(httpClient, config, httpClientHandler);
-            var query = "query_example";  // string | 
+            var query = query_example;  // string | 
             var user = new User(); // User | 
 
             try
@@ -695,8 +564,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestBodyWithQueryParams: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestBodyWithQueryParams: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -704,28 +573,12 @@ namespace Example
 }
 ```
 
-#### Using the TestBodyWithQueryParamsWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    apiInstance.TestBodyWithQueryParamsWithHttpInfo(query, user);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestBodyWithQueryParamsWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **query** | **string** |  |  |
-| **user** | [**User**](User.md) |  |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **query** | **string**|  | 
+ **user** | [**User**](User.md)|  | 
 
 ### Return type
 
@@ -748,7 +601,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testclientmodel"></a>
+<a name="testclientmodel"></a>
 # **TestClientModel**
 > ModelClient TestClientModel (ModelClient modelClient)
 
@@ -787,8 +640,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestClientModel: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestClientModel: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -796,31 +649,11 @@ namespace Example
 }
 ```
 
-#### Using the TestClientModelWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // To test \"client\" model
-    ApiResponse<ModelClient> response = apiInstance.TestClientModelWithHttpInfo(modelClient);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestClientModelWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **modelClient** | [**ModelClient**](ModelClient.md) | client model |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **modelClient** | [**ModelClient**](ModelClient.md)| client model | 
 
 ### Return type
 
@@ -843,7 +676,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testendpointparameters"></a>
+<a name="testendpointparameters"></a>
 # **TestEndpointParameters**
 > void TestEndpointParameters (decimal number, double _double, string patternWithoutDelimiter, byte[] _byte, int? integer = null, int? int32 = null, long? int64 = null, float? _float = null, string _string = null, FileParameter binary = null, DateTime? date = null, DateTime? dateTime = null, string password = null, string callback = null)
 
@@ -876,20 +709,20 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new FakeApi(httpClient, config, httpClientHandler);
-            var number = 8.14D;  // decimal | None
+            var number = 8.14;  // decimal | None
             var _double = 1.2D;  // double | None
-            var patternWithoutDelimiter = "patternWithoutDelimiter_example";  // string | None
-            var _byte = System.Text.Encoding.ASCII.GetBytes("BYTE_ARRAY_DATA_HERE");  // byte[] | None
+            var patternWithoutDelimiter = patternWithoutDelimiter_example;  // string | None
+            var _byte = BYTE_ARRAY_DATA_HERE;  // byte[] | None
             var integer = 56;  // int? | None (optional) 
             var int32 = 56;  // int? | None (optional) 
-            var int64 = 789L;  // long? | None (optional) 
+            var int64 = 789;  // long? | None (optional) 
             var _float = 3.4F;  // float? | None (optional) 
-            var _string = "_string_example";  // string | None (optional) 
-            var binary = new System.IO.MemoryStream(System.IO.File.ReadAllBytes("/path/to/file.txt"));  // FileParameter | None (optional) 
-            var date = DateTime.Parse("2013-10-20");  // DateTime? | None (optional) 
-            var dateTime = DateTime.Parse(""2010-02-01T10:20:10.111110+01:00"");  // DateTime? | None (optional)  (default to "2010-02-01T10:20:10.111110+01:00")
-            var password = "password_example";  // string | None (optional) 
-            var callback = "callback_example";  // string | None (optional) 
+            var _string = _string_example;  // string | None (optional) 
+            var binary = BINARY_DATA_HERE;  // FileParameter | None (optional) 
+            var date = 2013-10-20;  // DateTime? | None (optional) 
+            var dateTime = 2013-10-20T19:20:30+01:00;  // DateTime? | None (optional)  (default to "2010-02-01T10:20:10.111110+01:00")
+            var password = password_example;  // string | None (optional) 
+            var callback = callback_example;  // string | None (optional) 
 
             try
             {
@@ -898,8 +731,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestEndpointParameters: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestEndpointParameters: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -907,41 +740,24 @@ namespace Example
 }
 ```
 
-#### Using the TestEndpointParametersWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
-    apiInstance.TestEndpointParametersWithHttpInfo(number, _double, patternWithoutDelimiter, _byte, integer, int32, int64, _float, _string, binary, date, dateTime, password, callback);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestEndpointParametersWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **number** | **decimal** | None |  |
-| **_double** | **double** | None |  |
-| **patternWithoutDelimiter** | **string** | None |  |
-| **_byte** | **byte[]** | None |  |
-| **integer** | **int?** | None | [optional]  |
-| **int32** | **int?** | None | [optional]  |
-| **int64** | **long?** | None | [optional]  |
-| **_float** | **float?** | None | [optional]  |
-| **_string** | **string** | None | [optional]  |
-| **binary** | **FileParameter****FileParameter** | None | [optional]  |
-| **date** | **DateTime?** | None | [optional]  |
-| **dateTime** | **DateTime?** | None | [optional] [default to &quot;2010-02-01T10:20:10.111110+01:00&quot;] |
-| **password** | **string** | None | [optional]  |
-| **callback** | **string** | None | [optional]  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **number** | **decimal**| None | 
+ **_double** | **double**| None | 
+ **patternWithoutDelimiter** | **string**| None | 
+ **_byte** | **byte[]**| None | 
+ **integer** | **int?**| None | [optional] 
+ **int32** | **int?**| None | [optional] 
+ **int64** | **long?**| None | [optional] 
+ **_float** | **float?**| None | [optional] 
+ **_string** | **string**| None | [optional] 
+ **binary** | **FileParameter****FileParameter**| None | [optional] 
+ **date** | **DateTime?**| None | [optional] 
+ **dateTime** | **DateTime?**| None | [optional] [default to &quot;2010-02-01T10:20:10.111110+01:00&quot;]
+ **password** | **string**| None | [optional] 
+ **callback** | **string**| None | [optional] 
 
 ### Return type
 
@@ -965,7 +781,7 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testenumparameters"></a>
+<a name="testenumparameters"></a>
 # **TestEnumParameters**
 > void TestEnumParameters (List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null, double? enumQueryDouble = null, List<string> enumFormStringArray = null, string enumFormString = null)
 
@@ -994,14 +810,14 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new FakeApi(httpClient, config, httpClientHandler);
-            var enumHeaderStringArray = new List<string>(); // List<string> | Header parameter enum test (string array) (optional) 
-            var enumHeaderString = "_abc";  // string | Header parameter enum test (string) (optional)  (default to -efg)
-            var enumQueryStringArray = new List<string>(); // List<string> | Query parameter enum test (string array) (optional) 
-            var enumQueryString = "_abc";  // string | Query parameter enum test (string) (optional)  (default to -efg)
-            var enumQueryInteger = 1;  // int? | Query parameter enum test (double) (optional) 
-            var enumQueryDouble = 1.1D;  // double? | Query parameter enum test (double) (optional) 
+            var enumHeaderStringArray = enumHeaderStringArray_example;  // List<string> | Header parameter enum test (string array) (optional) 
+            var enumHeaderString = enumHeaderString_example;  // string | Header parameter enum test (string) (optional)  (default to -efg)
+            var enumQueryStringArray = enumQueryStringArray_example;  // List<string> | Query parameter enum test (string array) (optional) 
+            var enumQueryString = enumQueryString_example;  // string | Query parameter enum test (string) (optional)  (default to -efg)
+            var enumQueryInteger = 56;  // int? | Query parameter enum test (double) (optional) 
+            var enumQueryDouble = 1.2D;  // double? | Query parameter enum test (double) (optional) 
             var enumFormStringArray = new List<string>(); // List<string> | Form parameter enum test (string array) (optional)  (default to $)
-            var enumFormString = "_abc";  // string | Form parameter enum test (string) (optional)  (default to -efg)
+            var enumFormString = enumFormString_example;  // string | Form parameter enum test (string) (optional)  (default to -efg)
 
             try
             {
@@ -1010,8 +826,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestEnumParameters: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestEnumParameters: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -1019,35 +835,18 @@ namespace Example
 }
 ```
 
-#### Using the TestEnumParametersWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // To test enum parameters
-    apiInstance.TestEnumParametersWithHttpInfo(enumHeaderStringArray, enumHeaderString, enumQueryStringArray, enumQueryString, enumQueryInteger, enumQueryDouble, enumFormStringArray, enumFormString);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestEnumParametersWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **enumHeaderStringArray** | [**List&lt;string&gt;**](string.md) | Header parameter enum test (string array) | [optional]  |
-| **enumHeaderString** | **string** | Header parameter enum test (string) | [optional] [default to -efg] |
-| **enumQueryStringArray** | [**List&lt;string&gt;**](string.md) | Query parameter enum test (string array) | [optional]  |
-| **enumQueryString** | **string** | Query parameter enum test (string) | [optional] [default to -efg] |
-| **enumQueryInteger** | **int?** | Query parameter enum test (double) | [optional]  |
-| **enumQueryDouble** | **double?** | Query parameter enum test (double) | [optional]  |
-| **enumFormStringArray** | [**List&lt;string&gt;**](string.md) | Form parameter enum test (string array) | [optional] [default to $] |
-| **enumFormString** | **string** | Form parameter enum test (string) | [optional] [default to -efg] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enumHeaderStringArray** | **List&lt;string&gt;**| Header parameter enum test (string array) | [optional] 
+ **enumHeaderString** | **string**| Header parameter enum test (string) | [optional] [default to -efg]
+ **enumQueryStringArray** | **List&lt;string&gt;**| Query parameter enum test (string array) | [optional] 
+ **enumQueryString** | **string**| Query parameter enum test (string) | [optional] [default to -efg]
+ **enumQueryInteger** | **int?**| Query parameter enum test (double) | [optional] 
+ **enumQueryDouble** | **double?**| Query parameter enum test (double) | [optional] 
+ **enumFormStringArray** | [**List&lt;string&gt;**](string.md)| Form parameter enum test (string array) | [optional] [default to $]
+ **enumFormString** | **string**| Form parameter enum test (string) | [optional] [default to -efg]
 
 ### Return type
 
@@ -1071,7 +870,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testgroupparameters"></a>
+<a name="testgroupparameters"></a>
 # **TestGroupParameters**
 > void TestGroupParameters (int requiredStringGroup, bool requiredBooleanGroup, long requiredInt64Group, int? stringGroup = null, bool? booleanGroup = null, long? int64Group = null)
 
@@ -1105,10 +904,10 @@ namespace Example
             var apiInstance = new FakeApi(httpClient, config, httpClientHandler);
             var requiredStringGroup = 56;  // int | Required String in group parameters
             var requiredBooleanGroup = true;  // bool | Required Boolean in group parameters
-            var requiredInt64Group = 789L;  // long | Required Integer in group parameters
+            var requiredInt64Group = 789;  // long | Required Integer in group parameters
             var stringGroup = 56;  // int? | String in group parameters (optional) 
             var booleanGroup = true;  // bool? | Boolean in group parameters (optional) 
-            var int64Group = 789L;  // long? | Integer in group parameters (optional) 
+            var int64Group = 789;  // long? | Integer in group parameters (optional) 
 
             try
             {
@@ -1117,8 +916,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestGroupParameters: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestGroupParameters: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -1126,33 +925,16 @@ namespace Example
 }
 ```
 
-#### Using the TestGroupParametersWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Fake endpoint to test group parameters (optional)
-    apiInstance.TestGroupParametersWithHttpInfo(requiredStringGroup, requiredBooleanGroup, requiredInt64Group, stringGroup, booleanGroup, int64Group);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestGroupParametersWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **requiredStringGroup** | **int** | Required String in group parameters |  |
-| **requiredBooleanGroup** | **bool** | Required Boolean in group parameters |  |
-| **requiredInt64Group** | **long** | Required Integer in group parameters |  |
-| **stringGroup** | **int?** | String in group parameters | [optional]  |
-| **booleanGroup** | **bool?** | Boolean in group parameters | [optional]  |
-| **int64Group** | **long?** | Integer in group parameters | [optional]  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **requiredStringGroup** | **int**| Required String in group parameters | 
+ **requiredBooleanGroup** | **bool**| Required Boolean in group parameters | 
+ **requiredInt64Group** | **long**| Required Integer in group parameters | 
+ **stringGroup** | **int?**| String in group parameters | [optional] 
+ **booleanGroup** | **bool?**| Boolean in group parameters | [optional] 
+ **int64Group** | **long?**| Integer in group parameters | [optional] 
 
 ### Return type
 
@@ -1171,11 +953,11 @@ void (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Something wrong |  -  |
+| **400** | Someting wrong |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testinlineadditionalproperties"></a>
+<a name="testinlineadditionalproperties"></a>
 # **TestInlineAdditionalProperties**
 > void TestInlineAdditionalProperties (Dictionary<string, string> requestBody)
 
@@ -1211,8 +993,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestInlineAdditionalProperties: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestInlineAdditionalProperties: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -1220,28 +1002,11 @@ namespace Example
 }
 ```
 
-#### Using the TestInlineAdditionalPropertiesWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // test inline additionalProperties
-    apiInstance.TestInlineAdditionalPropertiesWithHttpInfo(requestBody);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestInlineAdditionalPropertiesWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **requestBody** | [**Dictionary&lt;string, string&gt;**](string.md) | request body |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **requestBody** | [**Dictionary&lt;string, string&gt;**](string.md)| request body | 
 
 ### Return type
 
@@ -1264,7 +1029,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testjsonformdata"></a>
+<a name="testjsonformdata"></a>
 # **TestJsonFormData**
 > void TestJsonFormData (string param, string param2)
 
@@ -1291,8 +1056,8 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new FakeApi(httpClient, config, httpClientHandler);
-            var param = "param_example";  // string | field1
-            var param2 = "param2_example";  // string | field2
+            var param = param_example;  // string | field1
+            var param2 = param2_example;  // string | field2
 
             try
             {
@@ -1301,8 +1066,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestJsonFormData: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestJsonFormData: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -1310,29 +1075,12 @@ namespace Example
 }
 ```
 
-#### Using the TestJsonFormDataWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // test json serialization of form data
-    apiInstance.TestJsonFormDataWithHttpInfo(param, param2);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestJsonFormDataWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **param** | **string** | field1 |  |
-| **param2** | **string** | field2 |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **param** | **string**| field1 | 
+ **param2** | **string**| field2 | 
 
 ### Return type
 
@@ -1355,7 +1103,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="testqueryparametercollectionformat"></a>
+<a name="testqueryparametercollectionformat"></a>
 # **TestQueryParameterCollectionFormat**
 > void TestQueryParameterCollectionFormat (List<string> pipe, List<string> ioutil, List<string> http, List<string> url, List<string> context)
 
@@ -1396,8 +1144,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling FakeApi.TestQueryParameterCollectionFormat: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling FakeApi.TestQueryParameterCollectionFormat: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -1405,31 +1153,15 @@ namespace Example
 }
 ```
 
-#### Using the TestQueryParameterCollectionFormatWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    apiInstance.TestQueryParameterCollectionFormatWithHttpInfo(pipe, ioutil, http, url, context);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling FakeApi.TestQueryParameterCollectionFormatWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **pipe** | [**List&lt;string&gt;**](string.md) |  |  |
-| **ioutil** | [**List&lt;string&gt;**](string.md) |  |  |
-| **http** | [**List&lt;string&gt;**](string.md) |  |  |
-| **url** | [**List&lt;string&gt;**](string.md) |  |  |
-| **context** | [**List&lt;string&gt;**](string.md) |  |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pipe** | [**List&lt;string&gt;**](string.md)|  | 
+ **ioutil** | [**List&lt;string&gt;**](string.md)|  | 
+ **http** | [**List&lt;string&gt;**](string.md)|  | 
+ **url** | [**List&lt;string&gt;**](string.md)|  | 
+ **context** | [**List&lt;string&gt;**](string.md)|  | 
 
 ### Return type
 

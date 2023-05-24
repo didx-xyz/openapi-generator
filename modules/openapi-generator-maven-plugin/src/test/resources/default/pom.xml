@@ -34,7 +34,6 @@
                     <configOptions>
                         <dateLibrary>joda</dateLibrary>
                     </configOptions>
-                    <apiNameSuffix>Suffix</apiNameSuffix>
                     <library>jersey2</library>
                     <output>${basedir}/target/generated-sources/common-maven/remote-openapi</output>
                     <apiPackage>remote.org.openapitools.client.api</apiPackage>

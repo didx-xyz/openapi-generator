@@ -1,5 +1,7 @@
 package org.openapitools.model
 
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
 import java.util.ArrayList
 import java.util.List
 import org.openapitools.model.ReadOnlyFirst
@@ -12,34 +14,34 @@ import jakarta.inject.Inject
  */
 @MicronautTest
 public class ArrayTestSpec extends Specification {
-    private final ArrayTest model = null
+    private final ArrayTest model = new ArrayTest()
 
     /**
      * Model tests for ArrayTest
      */
-    void 'ArrayTest test'() {
+    void "ArrayTest test"() {
         // TODO: test ArrayTest
     }
 
     /**
      * Test the property 'arrayOfString'
      */
-    void 'ArrayTest property arrayOfString test'() {
-        // TODO: test arrayOfString property of ArrayTest
+    void "ArrayTest property arrayOfString test"() {
+        // TODO: test arrayOfString
     }
 
     /**
      * Test the property 'arrayArrayOfInteger'
      */
-    void 'ArrayTest property arrayArrayOfInteger test'() {
-        // TODO: test arrayArrayOfInteger property of ArrayTest
+    void "ArrayTest property arrayArrayOfInteger test"() {
+        // TODO: test arrayArrayOfInteger
     }
 
     /**
      * Test the property 'arrayArrayOfModel'
      */
-    void 'ArrayTest property arrayArrayOfModel test'() {
-        // TODO: test arrayArrayOfModel property of ArrayTest
+    void "ArrayTest property arrayArrayOfModel test"() {
+        // TODO: test arrayArrayOfModel
     }
 
 }

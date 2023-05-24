@@ -17,7 +17,7 @@ All URIs are relative to *{{basePath}}*
 
 ## {{operationId}}
 
-> {{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}<{{{returnType}}}>{{/returnTypeIsPrimitive}} {{/returnType}}{{operationId}}{{#hasParams}}({{^vendorExtensions.x-group-parameters}}{{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}opts{{/vendorExtensions.x-group-parameters}}){{/hasParams}}
+> {{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}<{{{returnType}}}>{{/returnTypeIsPrimitive}} {{/returnType}}{{operationId}}{{#hasParams}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}){{/hasParams}}
 
 {{{summary}}}{{#notes}}
 
@@ -46,7 +46,6 @@ require '{{{gemName}}}'
 {{/hasAuthMethods}}
 
 api_instance = {{{moduleName}}}::{{{classname}}}.new
-{{^vendorExtensions.x-group-parameters}}
 {{#requiredParams}}
 {{{paramName}}} = {{{vendorExtensions.x-ruby-example}}} # {{{dataType}}} | {{{description}}}
 {{/requiredParams}}
@@ -59,23 +58,10 @@ opts = {
 }
 {{/-last}}
 {{/optionalParams}}
-{{/vendorExtensions.x-group-parameters}}
-{{#vendorExtensions.x-group-parameters}}
-{{#hasParams}}
-opts = {
-{{#requiredParams}}
-    {{{paramName}}}: {{{vendorExtensions.x-ruby-example}}}, # {{{dataType}}} | {{{description}}} (required)
-{{/requiredParams}}
-{{#optionalParams}}
-    {{{paramName}}}: {{{vendorExtensions.x-ruby-example}}}, # {{{dataType}}} | {{{description}}}
-{{/optionalParams}}
-}
-{{/hasParams}}
-{{/vendorExtensions.x-group-parameters}}
 
 begin
   {{#summary}}# {{{.}}}{{/summary}}
-  {{#returnType}}result = {{/returnType}}api_instance.{{{operationId}}}{{#hasParams}}({{^vendorExtensions.x-group-parameters}}{{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}opts{{/vendorExtensions.x-group-parameters}}){{/hasParams}}
+  {{#returnType}}result = {{/returnType}}api_instance.{{{operationId}}}{{#hasParams}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}){{/hasParams}}
   {{#returnType}}
   p result
   {{/returnType}}
@@ -88,12 +74,12 @@ end
 
 This returns an Array which contains the response data{{^returnType}} (`nil` in this case){{/returnType}}, status code and headers.
 
-> <Array({{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}<{{{returnType}}}>{{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}nil{{/returnType}}, Integer, Hash)> {{operationId}}_with_http_info{{#hasParams}}({{^vendorExtensions.x-group-parameters}}{{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}opts{{/vendorExtensions.x-group-parameters}}){{/hasParams}}
+> <Array({{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}<{{{returnType}}}>{{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}nil{{/returnType}}, Integer, Hash)> {{operationId}}_with_http_info{{#hasParams}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}){{/hasParams}}
 
 ```ruby
 begin
   {{#summary}}# {{{.}}}{{/summary}}
-  data, status_code, headers = api_instance.{{{operationId}}}_with_http_info{{#hasParams}}({{^vendorExtensions.x-group-parameters}}{{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}{{/vendorExtensions.x-group-parameters}}{{#vendorExtensions.x-group-parameters}}opts{{/vendorExtensions.x-group-parameters}}){{/hasParams}}
+  data, status_code, headers = api_instance.{{{operationId}}}_with_http_info{{#hasParams}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}){{/hasParams}}
   p status_code # => 2xx
   p headers # => { ... }
   p data # => {{#returnType}}{{#returnTypeIsPrimitive}}{{returnType}}{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}<{{{returnType}}}>{{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}nil{{/returnType}}

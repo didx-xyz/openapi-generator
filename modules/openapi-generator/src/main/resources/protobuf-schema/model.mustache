@@ -1,7 +1,7 @@
 {{>partial_header}}
 syntax = "proto3";
 
-package {{#lambda.lowercase}}{{{packageName}}};{{/lambda.lowercase}}
+package {{{packageName}}};
 
 {{#imports}}
 {{#import}}
@@ -11,7 +11,7 @@ import public "{{{modelPackage}}}/{{{import}}}.proto";
 
 {{#models}}
 {{#model}}
-{{#isEnum}}{{>enum}}{{/isEnum}}{{^isEnum}}message {{classname}} {
+message {{classname}} {
 
   {{#vars}}
   {{#description}}
@@ -34,6 +34,5 @@ import public "{{{modelPackage}}}/{{{import}}}.proto";
 
   {{/vars}}
 }
-{{/isEnum}}
 {{/model}}
 {{/models}}

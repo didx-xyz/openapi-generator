@@ -1,16 +1,16 @@
 # OpenAPI\Client\DefaultApi
 
-All URIs are relative to http://petstore.swagger.io:80/v2, except if the operation defines another base path.
+All URIs are relative to http://petstore.swagger.io:80/v2.
 
-| Method | HTTP request | Description |
-| ------------- | ------------- | ------------- |
-| [**fooGet()**](DefaultApi.md#fooGet) | **GET** /foo |  |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**fooGet()**](DefaultApi.md#fooGet) | **GET** /foo | 
 
 
 ## `fooGet()`
 
 ```php
-fooGet(): \OpenAPI\Client\Model\FooGetDefaultResponse
+fooGet(): \OpenAPI\Client\Model\InlineResponseDefault
 ```
 
 
@@ -43,7 +43,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**\OpenAPI\Client\Model\FooGetDefaultResponse**](../Model/FooGetDefaultResponse.md)
+[**\OpenAPI\Client\Model\InlineResponseDefault**](../Model/InlineResponseDefault.md)
 
 ### Authorization
 

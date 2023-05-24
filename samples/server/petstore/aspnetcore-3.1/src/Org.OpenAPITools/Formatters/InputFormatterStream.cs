@@ -5,23 +5,15 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Org.OpenAPITools.Formatters
 {
-    /// <inheritdoc />
+    // Input Type Formatter to allow model binding to Streams
     public class InputFormatterStream : InputFormatter
     {
-        /// <inheritdoc />
         public InputFormatterStream()
         {
             SupportedMediaTypes.Add("application/octet-stream");
             SupportedMediaTypes.Add("image/jpeg");
         }
 
-        /// <inheritdoc />
-        public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
-        {
-            return InputFormatterResult.SuccessAsync(context.HttpContext.Request.Body);
-        }
-
-        /// <inheritdoc />
         protected override bool CanReadType(Type type)
         {
             if (type == typeof(Stream))
@@ -30,6 +22,11 @@ namespace Org.OpenAPITools.Formatters
             }
 
             return false;
+        }
+
+        public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
+        {
+            return InputFormatterResult.SuccessAsync(context.HttpContext.Request.Body);
         }
     }
 }

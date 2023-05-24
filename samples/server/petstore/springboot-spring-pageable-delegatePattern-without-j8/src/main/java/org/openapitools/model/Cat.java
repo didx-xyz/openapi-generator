@@ -1,44 +1,23 @@
 package org.openapitools.model;
 
-import java.net.URI;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.model.Animal;
+import org.openapitools.model.CatAllOf;
 import org.openapitools.jackson.nullable.JsonNullable;
-import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-
-
-import java.util.*;
-import javax.annotation.Generated;
 
 /**
  * Cat
  */
-
-
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class Cat extends Animal {
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
+public class Cat extends Animal  {
+  @JsonProperty("declawed")
   private Boolean declawed;
-
-  public Cat() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Cat(String className) {
-    super(className);
-  }
 
   public Cat declawed(Boolean declawed) {
     this.declawed = declawed;
@@ -49,9 +28,9 @@ public class Cat extends Animal {
    * Get declawed
    * @return declawed
   */
-  
   @ApiModelProperty(value = "")
-  @JsonProperty("declawed")
+
+
   public Boolean getDeclawed() {
     return declawed;
   }
@@ -60,15 +39,6 @@ public class Cat extends Animal {
     this.declawed = declawed;
   }
 
-  public Cat className(String className) {
-    super.setClassName(className);
-    return this;
-  }
-
-  public Cat color(String color) {
-    super.setColor(color);
-    return this;
-  }
 
   @Override
   public boolean equals(Object o) {

@@ -23,7 +23,6 @@ import org.openapitools.codegen.CliOption;
 import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
-import org.openapitools.codegen.languages.features.BeanValidationFeatures;
 import org.openapitools.codegen.meta.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,25 +33,16 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanValidationFeatures {
-
-    public static final String INTERFACE_ONLY = "interfaceOnly";
-    public static final String USE_COROUTINES = "useCoroutines";
-    public static final String RETURN_RESPONSE = "returnResponse";
+public class KotlinServerCodegen extends AbstractKotlinCodegen {
     public static final String DEFAULT_LIBRARY = Constants.KTOR;
     private final Logger LOGGER = LoggerFactory.getLogger(KotlinServerCodegen.class);
-
     private Boolean autoHeadFeatureEnabled = true;
     private Boolean conditionalHeadersFeatureEnabled = false;
     private Boolean hstsFeatureEnabled = true;
     private Boolean corsFeatureEnabled = false;
     private Boolean compressionFeatureEnabled = true;
-    private Boolean resourcesFeatureEnabled = true;
+    private Boolean locationsFeatureEnabled = true;
     private Boolean metricsFeatureEnabled = true;
-    private boolean interfaceOnly = false;
-    private boolean useBeanValidation = false;
-    private boolean useCoroutines = false;
-    private boolean returnResponse = false;
 
     // This is here to potentially warn the user when an option is not supported by the target framework.
     private Map<String, List<String>> optionsSupportedPerFramework = new ImmutableMap.Builder<String, List<String>>()
@@ -62,7 +52,7 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
                     Constants.HSTS,
                     Constants.CORS,
                     Constants.COMPRESSION,
-                    Constants.RESOURCES,
+                    Constants.LOCATIONS,
                     Constants.METRICS
             ))
             .build();
@@ -112,7 +102,6 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
         modelPackage = packageName + ".models";
 
         supportedLibraries.put(Constants.KTOR, "ktor framework");
-        supportedLibraries.put(Constants.JAXRS_SPEC, "JAX-RS spec only");
 
         // TODO: Configurable server engine. Defaults to netty in build.gradle.
         CliOption library = new CliOption(CodegenConstants.LIBRARY, CodegenConstants.LIBRARY_DESC);
@@ -126,14 +115,8 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
         addSwitch(Constants.HSTS, Constants.HSTS_DESC, getHstsFeatureEnabled());
         addSwitch(Constants.CORS, Constants.CORS_DESC, getCorsFeatureEnabled());
         addSwitch(Constants.COMPRESSION, Constants.COMPRESSION_DESC, getCompressionFeatureEnabled());
-        addSwitch(Constants.RESOURCES, Constants.RESOURCES_DESC, getResourcesFeatureEnabled());
+        addSwitch(Constants.LOCATIONS, Constants.LOCATIONS_DESC, getLocationsFeatureEnabled());
         addSwitch(Constants.METRICS, Constants.METRICS_DESC, getMetricsFeatureEnabled());
-
-        cliOptions.add(CliOption.newBoolean(INTERFACE_ONLY, "Whether to generate only API interface stubs without the server files. This option is currently supported only when using jaxrs-spec library.").defaultValue(String.valueOf(interfaceOnly)));
-        cliOptions.add(CliOption.newBoolean(USE_BEANVALIDATION, "Use BeanValidation API annotations. This option is currently supported only when using jaxrs-spec library.", useBeanValidation));
-        cliOptions.add(CliOption.newBoolean(USE_COROUTINES, "Whether to use the Coroutines. This option is currently supported only when using jaxrs-spec library.", useCoroutines));
-        cliOptions.add(CliOption.newBoolean(RETURN_RESPONSE, "Whether generate API interface should return javax.ws.rs.core.Response instead of a deserialized entity. Only useful if interfaceOnly is true. This option is currently supported only when using jaxrs-spec library.").defaultValue(String.valueOf(returnResponse)));
-        cliOptions.add(CliOption.newBoolean(USE_JAKARTA_EE, "whether to use Jakarta EE namespace instead of javax", useJakartaEe));
     }
 
     public Boolean getAutoHeadFeatureEnabled() {
@@ -180,12 +163,12 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
         this.hstsFeatureEnabled = hstsFeatureEnabled;
     }
 
-    public Boolean getResourcesFeatureEnabled() {
-        return resourcesFeatureEnabled;
+    public Boolean getLocationsFeatureEnabled() {
+        return locationsFeatureEnabled;
     }
 
-    public void setResourcesFeatureEnabled(Boolean resourcesFeatureEnabled) {
-        this.resourcesFeatureEnabled = resourcesFeatureEnabled;
+    public void setLocationsFeatureEnabled(Boolean locationsFeatureEnabled) {
+        this.locationsFeatureEnabled = locationsFeatureEnabled;
     }
 
     public Boolean getMetricsFeatureEnabled() {
@@ -208,40 +191,9 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
     public void processOpts() {
         super.processOpts();
 
-        if (isModelMutable()) {
-            typeMapping.put("array", "kotlin.collections.MutableList");
-        }
-
         if (additionalProperties.containsKey(CodegenConstants.LIBRARY)) {
             this.setLibrary((String) additionalProperties.get(CodegenConstants.LIBRARY));
         }
-
-        if (additionalProperties.containsKey(INTERFACE_ONLY)) {
-            interfaceOnly = Boolean.parseBoolean(additionalProperties.get(INTERFACE_ONLY).toString());
-            if (!interfaceOnly) {
-                additionalProperties.remove(INTERFACE_ONLY);
-            }
-        }
-
-        if (additionalProperties.containsKey(USE_COROUTINES)) {
-            useCoroutines = Boolean.parseBoolean(additionalProperties.get(USE_COROUTINES).toString());
-            if (!useCoroutines) {
-                additionalProperties.remove(USE_COROUTINES);
-            }
-        }
-
-        if (additionalProperties.containsKey(RETURN_RESPONSE)) {
-            returnResponse = Boolean.parseBoolean(additionalProperties.get(RETURN_RESPONSE).toString());
-            if (!returnResponse) {
-                additionalProperties.remove(RETURN_RESPONSE);
-            }
-        }
-
-        if (additionalProperties.containsKey(USE_BEANVALIDATION)) {
-            setUseBeanValidation(convertPropertyToBoolean(USE_BEANVALIDATION));
-        }
-
-        writePropertyBack(USE_BEANVALIDATION, useBeanValidation);
 
         // set default library to "ktor"
         if (StringUtils.isEmpty(library)) {
@@ -280,10 +232,10 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
             additionalProperties.put(Constants.COMPRESSION, getCompressionFeatureEnabled());
         }
 
-        if (additionalProperties.containsKey(Constants.RESOURCES)) {
-            setResourcesFeatureEnabled(convertPropertyToBooleanAndWriteBack(Constants.RESOURCES));
+        if (additionalProperties.containsKey(Constants.LOCATIONS)) {
+            setLocationsFeatureEnabled(convertPropertyToBooleanAndWriteBack(Constants.LOCATIONS));
         } else {
-            additionalProperties.put(Constants.RESOURCES, getResourcesFeatureEnabled());
+            additionalProperties.put(Constants.LOCATIONS, getLocationsFeatureEnabled());
         }
 
         if (additionalProperties.containsKey(Constants.METRICS)) {
@@ -294,42 +246,32 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
 
         boolean generateApis = additionalProperties.containsKey(CodegenConstants.GENERATE_APIS) && (Boolean) additionalProperties.get(CodegenConstants.GENERATE_APIS);
         String packageFolder = (sourceFolder + File.separator + packageName).replace(".", File.separator);
+        String resourcesFolder = "src/main/resources"; // not sure this can be user configurable.
 
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-
-        if (library.equals(Constants.KTOR)) {
-            supportingFiles.add(new SupportingFile("Dockerfile.mustache", "", "Dockerfile"));
-        }
+        supportingFiles.add(new SupportingFile("Dockerfile.mustache", "", "Dockerfile"));
 
         supportingFiles.add(new SupportingFile("build.gradle.mustache", "", "build.gradle"));
         supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
         supportingFiles.add(new SupportingFile("gradle.properties", "", "gradle.properties"));
 
-        if (library.equals(Constants.KTOR)) {
-            supportingFiles.add(new SupportingFile("AppMain.kt.mustache", packageFolder, "AppMain.kt"));
-            supportingFiles.add(new SupportingFile("Configuration.kt.mustache", packageFolder, "Configuration.kt"));
+        supportingFiles.add(new SupportingFile("AppMain.kt.mustache", packageFolder, "AppMain.kt"));
+        supportingFiles.add(new SupportingFile("Configuration.kt.mustache", packageFolder, "Configuration.kt"));
 
-            if (generateApis && resourcesFeatureEnabled) {
-                supportingFiles.add(new SupportingFile("Paths.kt.mustache", packageFolder, "Paths.kt"));
-            }
-
-            supportingFiles.add(new SupportingFile("application.conf.mustache", resourcesFolder, "application.conf"));
-            supportingFiles.add(new SupportingFile("logback.xml", resourcesFolder, "logback.xml"));
-
-            final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", File.separator);
-
-            supportingFiles.add(new SupportingFile("ApiKeyAuth.kt.mustache", infrastructureFolder, "ApiKeyAuth.kt"));
+        if (generateApis && locationsFeatureEnabled) {
+            supportingFiles.add(new SupportingFile("Paths.kt.mustache", packageFolder, "Paths.kt"));
         }
-    }
 
-    @Override
-    public void setUseBeanValidation(boolean useBeanValidation) {
-        this.useBeanValidation = useBeanValidation;
+        supportingFiles.add(new SupportingFile("application.conf.mustache", resourcesFolder, "application.conf"));
+        supportingFiles.add(new SupportingFile("logback.xml", resourcesFolder, "logback.xml"));
+
+        final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", File.separator);
+
+        supportingFiles.add(new SupportingFile("ApiKeyAuth.kt.mustache", infrastructureFolder, "ApiKeyAuth.kt"));
     }
 
     public static class Constants {
         public final static String KTOR = "ktor";
-        public final static String JAXRS_SPEC = "jaxrs-spec";
         public final static String AUTOMATIC_HEAD_REQUESTS = "featureAutoHead";
         public final static String AUTOMATIC_HEAD_REQUESTS_DESC = "Automatically provide responses to HEAD requests for existing routes that have the GET verb defined.";
         public final static String CONDITIONAL_HEADERS = "featureConditionalHeaders";
@@ -340,8 +282,8 @@ public class KotlinServerCodegen extends AbstractKotlinCodegen implements BeanVa
         public final static String CORS_DESC = "Ktor by default provides an interceptor for implementing proper support for Cross-Origin Resource Sharing (CORS). See enable-cors.org.";
         public final static String COMPRESSION = "featureCompression";
         public final static String COMPRESSION_DESC = "Adds ability to compress outgoing content using gzip, deflate or custom encoder and thus reduce size of the response.";
-        public final static String RESOURCES = "featureResources";
-        public final static String RESOURCES_DESC = "Generates routes in a typed way, for both: constructing URLs and reading the parameters.";
+        public final static String LOCATIONS = "featureLocations";
+        public final static String LOCATIONS_DESC = "Generates routes in a typed way, for both: constructing URLs and reading the parameters.";
         public final static String METRICS = "featureMetrics";
         public final static String METRICS_DESC = "Enables metrics feature.";
     }

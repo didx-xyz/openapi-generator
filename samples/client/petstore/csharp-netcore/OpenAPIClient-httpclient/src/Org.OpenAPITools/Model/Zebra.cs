@@ -56,6 +56,7 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "grevys")]
             Grevys = 3
+
         }
 
 
@@ -80,11 +81,7 @@ namespace Org.OpenAPITools.Model
         public Zebra(TypeEnum? type = default(TypeEnum?), string className = default(string)) : base()
         {
             // to ensure "className" is required (not null)
-            if (className == null)
-            {
-                throw new ArgumentNullException("className is a required property for Zebra and cannot be null");
-            }
-            this.ClassName = className;
+            this.ClassName = className ?? throw new ArgumentNullException("className is a required property for Zebra and cannot be null");
             this.Type = type;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
@@ -92,7 +89,7 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets ClassName
         /// </summary>
-        [DataMember(Name = "className", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "className", IsRequired = true, EmitDefaultValue = false)]
         public string ClassName { get; set; }
 
         /// <summary>
@@ -107,7 +104,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class Zebra {\n");
             sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
@@ -155,15 +152,11 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 59) + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ClassName != null)
-                {
-                    hashCode = (hashCode * 59) + this.ClassName.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ClassName.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

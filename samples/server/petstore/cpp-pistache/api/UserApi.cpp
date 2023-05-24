@@ -22,7 +22,7 @@ using namespace org::openapitools::server::model;
 const std::string UserApi::base = "/v2";
 
 UserApi::UserApi(const std::shared_ptr<Pistache::Rest::Router>& rtr)
-    : ApiBase(rtr)
+    : router(rtr)
 {
 }
 
@@ -106,8 +106,7 @@ void UserApi::create_users_with_array_input_handler(const Pistache::Rest::Reques
     
     try {
         nlohmann::json::parse(request.body()).get_to(body);
-        for (const auto& validationParam : body)
-             validationParam.validate();
+        body.validate();
     } catch (std::exception &e) {
         const std::pair<Pistache::Http::Code, std::string> errorInfo = this->handleParsingException(e);
         response.send(errorInfo.first, errorInfo.second);
@@ -139,8 +138,7 @@ void UserApi::create_users_with_list_input_handler(const Pistache::Rest::Request
     
     try {
         nlohmann::json::parse(request.body()).get_to(body);
-        for (const auto& validationParam : body)
-             validationParam.validate();
+        body.validate();
     } catch (std::exception &e) {
         const std::pair<Pistache::Http::Code, std::string> errorInfo = this->handleParsingException(e);
         response.send(errorInfo.first, errorInfo.second);
@@ -213,19 +211,19 @@ void UserApi::login_user_handler(const Pistache::Rest::Request &request, Pistach
 
     // Getting the query params
     auto usernameQuery = request.query().get("username");
-    std::optional<std::string> username;
-    if(usernameQuery.has_value()){
+    Pistache::Optional<std::string> username;
+    if(!usernameQuery.isEmpty()){
         std::string valueQuery_instance;
-        if(fromStringValue(usernameQuery.value(), valueQuery_instance)){
-            username = valueQuery_instance;
+        if(fromStringValue(usernameQuery.get(), valueQuery_instance)){
+            username = Pistache::Some(valueQuery_instance);
         }
     }
     auto passwordQuery = request.query().get("password");
-    std::optional<std::string> password;
-    if(passwordQuery.has_value()){
+    Pistache::Optional<std::string> password;
+    if(!passwordQuery.isEmpty()){
         std::string valueQuery_instance;
-        if(fromStringValue(passwordQuery.value(), valueQuery_instance)){
-            password = valueQuery_instance;
+        if(fromStringValue(passwordQuery.get(), valueQuery_instance)){
+            password = Pistache::Some(valueQuery_instance);
         }
     }
     

@@ -2,7 +2,7 @@
 /**
  * UserTest
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Model
@@ -29,147 +29,110 @@
 
 namespace OpenAPI\Server\Model;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * UserTest Class Doc Comment
  *
- * @category    Class
- * @description A User who is purchasing from the pet store
+ * @category    Class */
+// * @description A User who is purchasing from the pet store
+/**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \OpenAPI\Server\Model\User
  */
 class UserTest extends TestCase
 {
-    protected User|MockObject $object;
 
     /**
      * Setup before running any test case
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass()
     {
     }
 
     /**
      * Setup before running each test case
      */
-    public function setUp(): void
+    public function setUp()
     {
-         $this->object = $this->getMockBuilder(User::class)->getMockForAbstractClass();
     }
 
     /**
      * Clean up after running each test case
      */
-    public function tearDown(): void
+    public function tearDown()
     {
     }
 
     /**
      * Clean up after running all test cases
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownAfterClass()
     {
     }
 
     /**
-     * @group integration
-     * @small
+     * Test "User"
      */
-    public function testTestClassExists(): void
+    public function testUser()
     {
-        $this->assertTrue(class_exists(User::class));
-        $this->assertInstanceOf(User::class, $this->object);
+        $testUser = new User();
     }
 
     /**
      * Test attribute "id"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyId(): void
+    public function testPropertyId()
     {
-        $this->markTestSkipped('Test for property id not implemented');
     }
 
     /**
      * Test attribute "username"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyUsername(): void
+    public function testPropertyUsername()
     {
-        $this->markTestSkipped('Test for property username not implemented');
     }
 
     /**
      * Test attribute "firstName"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyFirstName(): void
+    public function testPropertyFirstName()
     {
-        $this->markTestSkipped('Test for property firstName not implemented');
     }
 
     /**
      * Test attribute "lastName"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyLastName(): void
+    public function testPropertyLastName()
     {
-        $this->markTestSkipped('Test for property lastName not implemented');
     }
 
     /**
      * Test attribute "email"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyEmail(): void
+    public function testPropertyEmail()
     {
-        $this->markTestSkipped('Test for property email not implemented');
     }
 
     /**
      * Test attribute "password"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyPassword(): void
+    public function testPropertyPassword()
     {
-        $this->markTestSkipped('Test for property password not implemented');
     }
 
     /**
      * Test attribute "phone"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyPhone(): void
+    public function testPropertyPhone()
     {
-        $this->markTestSkipped('Test for property phone not implemented');
     }
 
     /**
      * Test attribute "userStatus"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyUserStatus(): void
+    public function testPropertyUserStatus()
     {
-        $this->markTestSkipped('Test for property userStatus not implemented');
     }
 }

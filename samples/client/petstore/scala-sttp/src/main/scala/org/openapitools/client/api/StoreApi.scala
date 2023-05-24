@@ -13,7 +13,7 @@ package org.openapitools.client.api
 
 import org.openapitools.client.model.Order
 import org.openapitools.client.core.JsonSupport._
-import sttp.client3._
+import sttp.client._
 import sttp.model.Method
 
 object StoreApi {
@@ -33,7 +33,7 @@ class StoreApi(baseUrl: String) {
    * @param orderId ID of the order that needs to be deleted
    */
   def deleteOrder(orderId: String
-): Request[Either[ResponseException[String, Exception], Unit], Any] =
+): Request[Either[ResponseError[Exception], Unit], Nothing] =
     basicRequest
       .method(Method.DELETE, uri"$baseUrl/store/order/${orderId}")
       .contentType("application/json")
@@ -49,7 +49,7 @@ class StoreApi(baseUrl: String) {
    *   api_key (apiKey)
    */
   def getInventory(apiKey: String)(
-): Request[Either[ResponseException[String, Exception], Map[String, Int]], Any] =
+): Request[Either[ResponseError[Exception], Map[String, Int]], Nothing] =
     basicRequest
       .method(Method.GET, uri"$baseUrl/store/inventory")
       .contentType("application/json")
@@ -57,7 +57,7 @@ class StoreApi(baseUrl: String) {
       .response(asJson[Map[String, Int]])
 
   /**
-   * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+   * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
    * 
    * Expected answers:
    *   code 200 : Order (successful operation)
@@ -67,15 +67,13 @@ class StoreApi(baseUrl: String) {
    * @param orderId ID of pet that needs to be fetched
    */
   def getOrderById(orderId: Long
-): Request[Either[ResponseException[String, Exception], Order], Any] =
+): Request[Either[ResponseError[Exception], Order], Nothing] =
     basicRequest
       .method(Method.GET, uri"$baseUrl/store/order/${orderId}")
       .contentType("application/json")
       .response(asJson[Order])
 
   /**
-   * 
-   * 
    * Expected answers:
    *   code 200 : Order (successful operation)
    *   code 400 :  (Invalid Order)
@@ -83,7 +81,7 @@ class StoreApi(baseUrl: String) {
    * @param order order placed for purchasing the pet
    */
   def placeOrder(order: Order
-): Request[Either[ResponseException[String, Exception], Order], Any] =
+): Request[Either[ResponseError[Exception], Order], Nothing] =
     basicRequest
       .method(Method.POST, uri"$baseUrl/store/order")
       .contentType("application/json")

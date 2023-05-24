@@ -62,14 +62,14 @@ void pet_free(pet_t *pet) {
         list_ForEach(listEntry, pet->photo_urls) {
             free(listEntry->data);
         }
-        list_freeList(pet->photo_urls);
+        list_free(pet->photo_urls);
         pet->photo_urls = NULL;
     }
     if (pet->tags) {
         list_ForEach(listEntry, pet->tags) {
             tag_free(listEntry->data);
         }
-        list_freeList(pet->tags);
+        list_free(pet->tags);
         pet->tags = NULL;
     }
     free(pet);
@@ -79,15 +79,15 @@ cJSON *pet_convertToJSON(pet_t *pet) {
     cJSON *item = cJSON_CreateObject();
 
     // pet->id
-    if(pet->id) {
+    if(pet->id) { 
     if(cJSON_AddNumberToObject(item, "id", pet->id) == NULL) {
     goto fail; //Numeric
     }
-    }
+     } 
 
 
     // pet->category
-    if(pet->category) {
+    if(pet->category) { 
     cJSON *category_local_JSON = category_convertToJSON(pet->category);
     if(category_local_JSON == NULL) {
     goto fail; //model
@@ -96,13 +96,14 @@ cJSON *pet_convertToJSON(pet_t *pet) {
     if(item->child == NULL) {
     goto fail;
     }
-    }
+     } 
 
 
     // pet->name
     if (!pet->name) {
         goto fail;
     }
+    
     if(cJSON_AddStringToObject(item, "name", pet->name) == NULL) {
     goto fail; //String
     }
@@ -112,6 +113,7 @@ cJSON *pet_convertToJSON(pet_t *pet) {
     if (!pet->photo_urls) {
         goto fail;
     }
+    
     cJSON *photo_urls = cJSON_AddArrayToObject(item, "photoUrls");
     if(photo_urls == NULL) {
         goto fail; //primitive container
@@ -127,7 +129,7 @@ cJSON *pet_convertToJSON(pet_t *pet) {
 
 
     // pet->tags
-    if(pet->tags) {
+    if(pet->tags) { 
     cJSON *tags = cJSON_AddArrayToObject(item, "tags");
     if(tags == NULL) {
     goto fail; //nonprimitive container
@@ -143,16 +145,16 @@ cJSON *pet_convertToJSON(pet_t *pet) {
     cJSON_AddItemToArray(tags, itemLocal);
     }
     }
-    }
+     } 
 
 
     // pet->status
-    if(pet->status != openapi_petstore_pet_STATUS_NULL) {
+    
     if(cJSON_AddStringToObject(item, "status", statuspet_ToString(pet->status)) == NULL)
     {
     goto fail; //Enum
     }
-    }
+    
 
     return item;
 fail:
@@ -166,15 +168,6 @@ pet_t *pet_parseFromJSON(cJSON *petJSON){
 
     pet_t *pet_local_var = NULL;
 
-    // define the local variable for pet->category
-    category_t *category_local_nonprim = NULL;
-
-    // define the local list for pet->photo_urls
-    list_t *photo_urlsList = NULL;
-
-    // define the local list for pet->tags
-    list_t *tagsList = NULL;
-
     // pet->id
     cJSON *id = cJSON_GetObjectItemCaseSensitive(petJSON, "id");
     if (id) { 
@@ -186,6 +179,7 @@ pet_t *pet_parseFromJSON(cJSON *petJSON){
 
     // pet->category
     cJSON *category = cJSON_GetObjectItemCaseSensitive(petJSON, "category");
+    category_t *category_local_nonprim = NULL;
     if (category) { 
     category_local_nonprim = category_parseFromJSON(category); //nonprimitive
     }
@@ -208,12 +202,13 @@ pet_t *pet_parseFromJSON(cJSON *petJSON){
         goto end;
     }
 
+    list_t *photo_urlsList;
     
-    cJSON *photo_urls_local = NULL;
+    cJSON *photo_urls_local;
     if(!cJSON_IsArray(photo_urls)) {
         goto end;//primitive container
     }
-    photo_urlsList = list_createList();
+    photo_urlsList = list_create();
 
     cJSON_ArrayForEach(photo_urls_local, photo_urls)
     {
@@ -226,13 +221,14 @@ pet_t *pet_parseFromJSON(cJSON *petJSON){
 
     // pet->tags
     cJSON *tags = cJSON_GetObjectItemCaseSensitive(petJSON, "tags");
+    list_t *tagsList;
     if (tags) { 
-    cJSON *tags_local_nonprimitive = NULL;
+    cJSON *tags_local_nonprimitive;
     if(!cJSON_IsArray(tags)){
         goto end; //nonprimitive container
     }
 
-    tagsList = list_createList();
+    tagsList = list_create();
 
     cJSON_ArrayForEach(tags_local_nonprimitive,tags )
     {
@@ -271,24 +267,6 @@ end:
     if (category_local_nonprim) {
         category_free(category_local_nonprim);
         category_local_nonprim = NULL;
-    }
-    if (photo_urlsList) {
-        listEntry_t *listEntry = NULL;
-        list_ForEach(listEntry, photo_urlsList) {
-            free(listEntry->data);
-            listEntry->data = NULL;
-        }
-        list_freeList(photo_urlsList);
-        photo_urlsList = NULL;
-    }
-    if (tagsList) {
-        listEntry_t *listEntry = NULL;
-        list_ForEach(listEntry, tagsList) {
-            tag_free(listEntry->data);
-            listEntry->data = NULL;
-        }
-        list_freeList(tagsList);
-        tagsList = NULL;
     }
     return NULL;
 

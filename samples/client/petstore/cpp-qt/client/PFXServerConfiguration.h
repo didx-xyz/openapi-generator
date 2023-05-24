@@ -14,11 +14,9 @@
  */
 #ifndef PFX_SERVERVCONFIGURATION_H
 #define PFX_SERVERVCONFIGURATION_H
-
 #include <QString>
 #include <QMap>
 #include <QRegularExpression>
-#include <QUrl>
 #include <stdexcept>
 #include "PFXServerVariable.h"
 
@@ -54,7 +52,7 @@ public:
                 QString value = serverVariable._defaultValue;
 
                 if (!serverVariable._enumValues.empty() && !serverVariable._enumValues.contains(value)) {
-                    throw std::runtime_error(QString("The variable " + name + " in the server URL has invalid value " + value + ".").toUtf8().toStdString());
+                    throw std::runtime_error(QString("The variable " + name + " in the server URL has invalid value " + value + ".").toUtf8());
                 }
                 QRegularExpression regex(QString("\\{" + name + "\\}"));
                 url = url.replace(regex, value);

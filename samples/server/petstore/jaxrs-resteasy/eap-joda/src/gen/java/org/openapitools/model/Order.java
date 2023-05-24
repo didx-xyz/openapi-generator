@@ -14,9 +14,13 @@ import io.swagger.annotations.*;
 @ApiModel(description="An order for a pets from the pet store")@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaResteasyEapServerCodegen")
 public class Order   {
   
+
   private Long id;
+
   private Long petId;
+
   private Integer quantity;
+
   private DateTime shipDate;
 
   /**
@@ -41,7 +45,9 @@ public class Order   {
     }
   }
 
+
   private StatusEnum status;
+
   private Boolean complete = false;
 
   /**

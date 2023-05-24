@@ -11,31 +11,17 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("Capitalization")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class Capitalization  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class Capitalization  implements Serializable {
+  
   private @Valid String smallCamel;
   private @Valid String capitalCamel;
   private @Valid String smallSnake;
   private @Valid String capitalSnake;
   private @Valid String scAETHFlowPoints;
   private @Valid String ATT_NAME;
-
-  protected Capitalization(CapitalizationBuilder<?, ?> b) {
-    this.smallCamel = b.smallCamel;
-    this.capitalCamel = b.capitalCamel;
-    this.smallSnake = b.smallSnake;
-    this.capitalSnake = b.capitalSnake;
-    this.scAETHFlowPoints = b.scAETHFlowPoints;
-    this.ATT_NAME = b.ATT_NAME;
-  }
-
-  public Capitalization() {
-  }
 
   /**
    **/
@@ -45,23 +31,26 @@ public class Capitalization  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("smallCamel")
   public String getSmallCamel() {
     return smallCamel;
   }
 
-  @JsonProperty("smallCamel")
   public void setSmallCamel(String smallCamel) {
     this.smallCamel = smallCamel;
   }
 
-  /**
+/**
    **/
   public Capitalization capitalCamel(String capitalCamel) {
     this.capitalCamel = capitalCamel;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -70,17 +59,18 @@ public class Capitalization  implements Serializable {
     return capitalCamel;
   }
 
-  @JsonProperty("CapitalCamel")
   public void setCapitalCamel(String capitalCamel) {
     this.capitalCamel = capitalCamel;
   }
 
-  /**
+/**
    **/
   public Capitalization smallSnake(String smallSnake) {
     this.smallSnake = smallSnake;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -89,17 +79,18 @@ public class Capitalization  implements Serializable {
     return smallSnake;
   }
 
-  @JsonProperty("small_Snake")
   public void setSmallSnake(String smallSnake) {
     this.smallSnake = smallSnake;
   }
 
-  /**
+/**
    **/
   public Capitalization capitalSnake(String capitalSnake) {
     this.capitalSnake = capitalSnake;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -108,17 +99,18 @@ public class Capitalization  implements Serializable {
     return capitalSnake;
   }
 
-  @JsonProperty("Capital_Snake")
   public void setCapitalSnake(String capitalSnake) {
     this.capitalSnake = capitalSnake;
   }
 
-  /**
+/**
    **/
   public Capitalization scAETHFlowPoints(String scAETHFlowPoints) {
     this.scAETHFlowPoints = scAETHFlowPoints;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -127,12 +119,11 @@ public class Capitalization  implements Serializable {
     return scAETHFlowPoints;
   }
 
-  @JsonProperty("SCA_ETH_Flow_Points")
   public void setScAETHFlowPoints(String scAETHFlowPoints) {
     this.scAETHFlowPoints = scAETHFlowPoints;
   }
 
-  /**
+/**
    * Name of the pet 
    **/
   public Capitalization ATT_NAME(String ATT_NAME) {
@@ -141,13 +132,14 @@ public class Capitalization  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "Name of the pet ")
   @JsonProperty("ATT_NAME")
   public String getATTNAME() {
     return ATT_NAME;
   }
 
-  @JsonProperty("ATT_NAME")
   public void setATTNAME(String ATT_NAME) {
     this.ATT_NAME = ATT_NAME;
   }
@@ -202,58 +194,5 @@ public class Capitalization  implements Serializable {
   }
 
 
-  public static CapitalizationBuilder<?, ?> builder() {
-    return new CapitalizationBuilderImpl();
-  }
-
-  private static final class CapitalizationBuilderImpl extends CapitalizationBuilder<Capitalization, CapitalizationBuilderImpl> {
-
-    @Override
-    protected CapitalizationBuilderImpl self() {
-      return this;
-    }
-
-    @Override
-    public Capitalization build() {
-      return new Capitalization(this);
-    }
-  }
-
-  public static abstract class CapitalizationBuilder<C extends Capitalization, B extends CapitalizationBuilder<C, B>>  {
-    private String smallCamel;
-    private String capitalCamel;
-    private String smallSnake;
-    private String capitalSnake;
-    private String scAETHFlowPoints;
-    private String ATT_NAME;
-    protected abstract B self();
-
-    public abstract C build();
-
-    public B smallCamel(String smallCamel) {
-      this.smallCamel = smallCamel;
-      return self();
-    }
-    public B capitalCamel(String capitalCamel) {
-      this.capitalCamel = capitalCamel;
-      return self();
-    }
-    public B smallSnake(String smallSnake) {
-      this.smallSnake = smallSnake;
-      return self();
-    }
-    public B capitalSnake(String capitalSnake) {
-      this.capitalSnake = capitalSnake;
-      return self();
-    }
-    public B scAETHFlowPoints(String scAETHFlowPoints) {
-      this.scAETHFlowPoints = scAETHFlowPoints;
-      return self();
-    }
-    public B ATT_NAME(String ATT_NAME) {
-      this.ATT_NAME = ATT_NAME;
-      return self();
-    }
-  }
 }
 

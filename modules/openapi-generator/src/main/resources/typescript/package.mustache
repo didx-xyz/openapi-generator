@@ -3,10 +3,6 @@
   "version": "{{npmVersion}}",
   "description": "OpenAPI client for {{npmName}}",
   "author": "OpenAPI-Generator Contributors",
-  "repository": {
-    "type": "git",
-    "url": "https://{{gitHost}}/{{gitUserId}}/{{gitRepoId}}.git"
-  },
   "keywords": [
     "fetch",
     "typescript",
@@ -15,24 +11,6 @@
   ],
   "license": "Unlicense",
   "main": "./dist/index.js",
-  {{#supportsES6}}
-  "type": "module",
-  "module": "./dist/index.js",
-  {{/supportsES6}}
-  {{^supportsES6}}
-  "type": "commonjs",
-  {{/supportsES6}}
-  "exports": {
-    ".": {
-      {{#supportsES6}}
-      "import": "./dist/index.js",
-      {{/supportsES6}}
-      {{^supportsES6}}
-      "require": "./dist/index.js",
-      {{/supportsES6}}
-      "types": "./dist/index.d.js"
-    }
-  },
   "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
@@ -60,6 +38,7 @@
       {{#node}}
     "@types/node": "*",
     "form-data": "^2.5.0",
+    "btoa": "^1.2.1",
       {{/node}}
     {{/platforms}}
     {{#useRxJS}}
@@ -72,8 +51,7 @@
     "url-parse": "^1.4.3"
   },
   "devDependencies": {
-    "typescript": "^4.0",
-    "@types/url-parse": "1.4.4"
+    "typescript": "^3.9.3"
   }{{#npmRepository}},{{/npmRepository}}
 {{#npmRepository}}
   "publishConfig":{

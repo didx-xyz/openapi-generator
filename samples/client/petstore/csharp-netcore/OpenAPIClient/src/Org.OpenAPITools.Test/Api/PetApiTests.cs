@@ -12,7 +12,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using RestSharp;
@@ -77,7 +76,7 @@ namespace Org.OpenAPITools.Test
         }
 
         public PetApiTests()
-        {
+        { 
             instance = new PetApi();
 
             // create pet
@@ -87,7 +86,7 @@ namespace Org.OpenAPITools.Test
             PetApi petApi = new PetApi("http://petstore.swagger.io/v2/");
             petApi.AddPet(p);
         }
-
+        
         /// <summary>
         /// Test an instance of PetApi
         /// </summary>
@@ -97,7 +96,7 @@ namespace Org.OpenAPITools.Test
             Assert.IsType<PetApi>(instance);
         }
 
-
+        
         /// <summary>
         /// Test AddPet
         /// </summary>
@@ -108,7 +107,7 @@ namespace Org.OpenAPITools.Test
             Pet p = createPet();
             instance.AddPet(p);
         }
-
+        
         /// <summary>
         /// Test DeletePet
         /// </summary>
@@ -117,7 +116,7 @@ namespace Org.OpenAPITools.Test
         {
             // no need to test as it'c covered by Cleanup() already
         }
-
+        
         /// <summary>
         /// Test FindPetsByStatus
         /// </summary>
@@ -134,7 +133,7 @@ namespace Org.OpenAPITools.Test
                 Assert.Equal("available", pet.Tags[0].Name);
             }
         }
-
+        
         /// <summary>
         /// Test FindPetsByTags
         /// </summary>
@@ -145,7 +144,7 @@ namespace Org.OpenAPITools.Test
             var response = instance.FindPetsByTags(tags);
             Assert.IsType<List<Pet>>(response);
         }
-
+        
         /// <summary>
         /// Test GetPetById
         /// </summary>
@@ -211,7 +210,7 @@ namespace Org.OpenAPITools.Test
             Assert.IsType<System.IO.MemoryStream>(response);
             StreamReader reader = new StreamReader(response);
             // the following will fail for sure
-            //Assert.Equal("something", reader.ReadToEnd());
+            //Assert.Equal("someting", reader.ReadToEnd());
         }
         */
 
@@ -245,7 +244,7 @@ namespace Org.OpenAPITools.Test
             Assert.Equal(56, response.Category.Id);
             Assert.Equal("sample category name2", response.Category.Name);
         }
-
+        
         /// <summary>
         /// Test UpdatePet
         /// </summary>
@@ -256,9 +255,9 @@ namespace Org.OpenAPITools.Test
             // create pet
             Pet p = createPet();
             instance.UpdatePet(p);
-
+            
         }
-
+        
         /// <summary>
         /// Test UpdatePetWithForm
         /// </summary>
@@ -284,7 +283,7 @@ namespace Org.OpenAPITools.Test
             Pet response2 = petApi.GetPetById(petId);
             Assert.Equal("new form name2", response2.Name);
         }
-
+        
         /// <summary>
         /// Test UploadFile
         /// </summary>
@@ -301,7 +300,7 @@ namespace Org.OpenAPITools.Test
             // using optional parameter syntax introduced at .net 4.0
             petApi.UploadFile(petId: petId, file: _imageStream);
         }
-
+        
         /// <summary>
         /// Test UploadFileWithRequiredFile
         /// </summary>
@@ -365,6 +364,7 @@ namespace Org.OpenAPITools.Test
             at.ArrayOfString = new List<string> { "Something here ..." };
 
             Assert.Equal("{\"array_of_string\":[\"Something here ...\"]}", JsonConvert.SerializeObject(at, _serializerSettings));
+
         }
 
         public void Dispose()
@@ -374,4 +374,5 @@ namespace Org.OpenAPITools.Test
             petApi.DeletePet(petId, "test key");
         }
     }
+
 }

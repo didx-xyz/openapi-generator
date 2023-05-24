@@ -36,7 +36,7 @@ namespace Org.OpenAPITools.Converters
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<T>(@"""" + value + @"""");
+            return JsonConvert.DeserializeObject<T>(@"""" + value.ToString() + @"""");
         }
     }
 }

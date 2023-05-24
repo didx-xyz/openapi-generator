@@ -31,7 +31,6 @@ router = APIRouter()
     },
     tags=["store"],
     summary="Delete purchase order by ID",
-    response_model_by_alias=True,
 )
 async def delete_order(
     orderId: str = Path(None, description="ID of the order that needs to be deleted"),
@@ -47,7 +46,6 @@ async def delete_order(
     },
     tags=["store"],
     summary="Returns pet inventories by status",
-    response_model_by_alias=True,
 )
 async def get_inventory(
     token_api_key: TokenModel = Security(
@@ -67,12 +65,11 @@ async def get_inventory(
     },
     tags=["store"],
     summary="Find purchase order by ID",
-    response_model_by_alias=True,
 )
 async def get_order_by_id(
     orderId: int = Path(None, description="ID of pet that needs to be fetched", ge=1, le=5),
 ) -> Order:
-    """For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions"""
+    """For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions"""
     ...
 
 
@@ -84,10 +81,8 @@ async def get_order_by_id(
     },
     tags=["store"],
     summary="Place an order for a pet",
-    response_model_by_alias=True,
 )
 async def place_order(
     order: Order = Body(None, description="order placed for purchasing the pet"),
 ) -> Order:
-    """"""
     ...

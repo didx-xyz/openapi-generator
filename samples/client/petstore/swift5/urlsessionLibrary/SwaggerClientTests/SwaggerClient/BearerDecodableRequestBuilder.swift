@@ -20,18 +20,10 @@ class BearerRequestBuilderFactory: RequestBuilderFactory {
 }
 
 class BearerRequestBuilder<T>: URLSessionRequestBuilder<T> {
-
-    @discardableResult
-    override func execute(_ apiResponseQueue: DispatchQueue = PetstoreClientAPI.apiResponseQueue, _ completion: @escaping (Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
-
-        guard self.requiresAuthentication else {
-            return super.execute(apiResponseQueue, completion)
-        }
-
+    override func execute(_ apiResponseQueue: DispatchQueue = PetstoreClientAPI.apiResponseQueue, _ completion: @escaping (Result<Response<T>, Error>) -> Void) {
+        
         // Before making the request, we can validate if we have a bearer token to be able to make a request
-        BearerTokenHandler.refreshTokenIfDoesntExist { token in
-            
-            self.addHeaders(["Authorization": "Bearer \(token)"])
+        BearerTokenHandler.refreshTokenIfDoesntExist {
             
             // Here we make the request
             super.execute(apiResponseQueue) { result in
@@ -51,12 +43,10 @@ class BearerRequestBuilder<T>: URLSessionRequestBuilder<T> {
                             data: data,
                             response: response,
                             error: error
-                        ) { (wasTokenRefreshed, newToken) in
+                        ) { wasTokenRefreshed in
                             
-                            if wasTokenRefreshed, let newToken = newToken {
-                                
+                            if wasTokenRefreshed {
                                 // If the token was refreshed, it's because it was a 401 error, so we refreshed the token, and we are going to retry the request by calling self.execute()
-                                self.addHeaders(["Authorization": "Bearer \(newToken)"])
                                 self.execute(apiResponseQueue, completion)
                             } else {
                                 // If the token was not refreshed, it's because it was not a 401 error, so we send the response to the completion block
@@ -71,24 +61,14 @@ class BearerRequestBuilder<T>: URLSessionRequestBuilder<T> {
                 }
             }
         }
-        
-        return requestTask
     }
 }
 
 class BearerDecodableRequestBuilder<T: Decodable>: URLSessionDecodableRequestBuilder<T> {
-
-    @discardableResult
-    override func execute(_ apiResponseQueue: DispatchQueue = PetstoreClientAPI.apiResponseQueue, _ completion: @escaping (Result<Response<T>, ErrorResponse>) -> Void) -> RequestTask {
+    override func execute(_ apiResponseQueue: DispatchQueue = PetstoreClientAPI.apiResponseQueue, _ completion: @escaping (Result<Response<T>, Error>) -> Void) {
         
-        guard self.requiresAuthentication else {
-            return super.execute(apiResponseQueue, completion)
-        }
-
         // Before making the request, we can validate if we have a bearer token to be able to make a request
-        BearerTokenHandler.refreshTokenIfDoesntExist { token in
-            
-            self.addHeaders(["Authorization": "Bearer \(token)"])
+        BearerTokenHandler.refreshTokenIfDoesntExist {
             
             // Here we make the request
             super.execute(apiResponseQueue) { result in
@@ -108,12 +88,10 @@ class BearerDecodableRequestBuilder<T: Decodable>: URLSessionDecodableRequestBui
                             data: data,
                             response: response,
                             error: error
-                        ) { (wasTokenRefreshed, newToken) in
+                        ) { wasTokenRefreshed in
                             
-                            if wasTokenRefreshed, let newToken = newToken {
-                                
+                            if wasTokenRefreshed {
                                 // If the token was refreshed, it's because it was a 401 error, so we refreshed the token, and we are going to retry the request by calling self.execute()
-                                self.addHeaders(["Authorization": "Bearer \(newToken)"])
                                 self.execute(apiResponseQueue, completion)
                             } else {
                                 // If the token was not refreshed, it's because it was not a 401 error, so we send the response to the completion block
@@ -128,40 +106,39 @@ class BearerDecodableRequestBuilder<T: Decodable>: URLSessionDecodableRequestBui
                 }
             }
         }
-        
-        return requestTask
     }
 }
 
 class BearerTokenHandler {
     private static var bearerToken: String? = nil
     
-    static func refreshTokenIfDoesntExist(completionHandler: @escaping (String) -> Void) {
-        if let bearerToken = bearerToken {
-            completionHandler(bearerToken)
+    static func refreshTokenIfDoesntExist(completionHandler: @escaping () -> Void) {
+        if bearerToken != nil {
+            completionHandler()
         } else {
-            startRefreshingToken { token in
-                completionHandler(token)
+            startRefreshingToken {
+                completionHandler()
             }
         }
     }
     
-    static func refreshTokenIfUnauthorizedRequestResponse(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Bool, String?) -> Void) {
+    static func refreshTokenIfUnauthorizedRequestResponse(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Bool) -> Void) {
         if let response = response as? HTTPURLResponse, response.statusCode == 401 {
-            startRefreshingToken { token in
-                completionHandler(true, token)
+            startRefreshingToken {
+                completionHandler(true)
             }
         } else {
-            completionHandler(false, nil)
+            completionHandler(false)
         }
     }
     
-    private static func startRefreshingToken(completionHandler: @escaping (String) -> Void) {
+    private static func startRefreshingToken(completionHandler: @escaping () -> Void) {
         // Get a bearer token
         let dummyBearerToken = "..."
         
         bearerToken = dummyBearerToken
+        PetstoreClientAPI.customHeaders["Authorization"] = "Bearer \(dummyBearerToken)"
 
-        completionHandler(dummyBearerToken)
+        completionHandler()
     }
 }

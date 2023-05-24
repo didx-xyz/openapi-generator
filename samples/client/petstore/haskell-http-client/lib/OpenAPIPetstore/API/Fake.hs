@@ -507,7 +507,7 @@ instance Produces TestJsonFormData MimeNoContent
 
 -- *** testQueryParameterCollectionFormat
 
--- | @PUT \/fake\/test-query-parameters@
+-- | @PUT \/fake\/test-query-paramters@
 -- 
 -- To test the collection format in query parameters
 -- 
@@ -519,7 +519,7 @@ testQueryParameterCollectionFormat
   -> Context -- ^ "context"
   -> OpenAPIPetstoreRequest TestQueryParameterCollectionFormat MimeNoContent NoContent MimeNoContent
 testQueryParameterCollectionFormat (Pipe pipe) (Ioutil ioutil) (Http http) (Url url) (Context context) =
-  _mkRequest "PUT" ["/fake/test-query-parameters"]
+  _mkRequest "PUT" ["/fake/test-query-paramters"]
     `addQuery` toQueryColl CommaSeparated ("pipe", Just pipe)
     `addQuery` toQueryColl CommaSeparated ("ioutil", Just ioutil)
     `addQuery` toQueryColl SpaceSeparated ("http", Just http)

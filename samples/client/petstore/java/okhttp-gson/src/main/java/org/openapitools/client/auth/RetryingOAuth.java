@@ -1,6 +1,5 @@
 package org.openapitools.client.auth;
 
-import org.openapitools.client.ApiException;
 import org.openapitools.client.Pair;
 
 import okhttp3.Interceptor;
@@ -19,7 +18,6 @@ import org.apache.oltu.oauth2.common.message.types.GrantType;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.util.Map;
 import java.util.List;
 
@@ -28,31 +26,22 @@ public class RetryingOAuth extends OAuth implements Interceptor {
 
     private TokenRequestBuilder tokenRequestBuilder;
 
-    /**
-     * @param client An OkHttp client
-     * @param tokenRequestBuilder A token request builder
-     */
     public RetryingOAuth(OkHttpClient client, TokenRequestBuilder tokenRequestBuilder) {
         this.oAuthClient = new OAuthClient(new OAuthOkHttpClient(client));
         this.tokenRequestBuilder = tokenRequestBuilder;
     }
 
-    /**
-     * @param tokenRequestBuilder A token request builder
-     */
     public RetryingOAuth(TokenRequestBuilder tokenRequestBuilder) {
         this(new OkHttpClient(), tokenRequestBuilder);
     }
 
     /**
-     * @param tokenUrl The token URL to be used for this OAuth2 flow.
-     *   Applicable to the following OAuth2 flows: "password", "clientCredentials" and "authorizationCode".
-     *   The value must be an absolute URL.
-     * @param clientId The OAuth2 client ID for the "clientCredentials" flow.
-     * @param flow OAuth flow.
-     * @param clientSecret The OAuth2 client secret for the "clientCredentials" flow.
-     * @param parameters A map of string.
-     */
+    @param tokenUrl The token URL to be used for this OAuth2 flow.
+        Applicable to the following OAuth2 flows: "password", "clientCredentials" and "authorizationCode".
+        The value must be an absolute URL.
+    @param clientId The OAuth2 client ID for the "clientCredentials" flow.
+    @param clientSecret The OAuth2 client secret for the "clientCredentials" flow.
+    */
     public RetryingOAuth(
             String tokenUrl,
             String clientId,
@@ -65,29 +54,24 @@ public class RetryingOAuth extends OAuth implements Interceptor {
                 .setClientSecret(clientSecret));
         setFlow(flow);
         if (parameters != null) {
-            for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                tokenRequestBuilder.setParameter(entry.getKey(), entry.getValue());
+            for (String paramName : parameters.keySet()) {
+                tokenRequestBuilder.setParameter(paramName, parameters.get(paramName));
             }
         }
     }
 
-    /**
-     * Set the OAuth flow
-     *
-     * @param flow The OAuth flow.
-     */
     public void setFlow(OAuthFlow flow) {
         switch(flow) {
-            case ACCESS_CODE:
+            case accessCode:
                 tokenRequestBuilder.setGrantType(GrantType.AUTHORIZATION_CODE);
                 break;
-            case IMPLICIT:
+            case implicit:
                 tokenRequestBuilder.setGrantType(GrantType.IMPLICIT);
                 break;
-            case PASSWORD:
+            case password:
                 tokenRequestBuilder.setGrantType(GrantType.PASSWORD);
                 break;
-            case APPLICATION:
+            case application:
                 tokenRequestBuilder.setGrantType(GrantType.CLIENT_CREDENTIALS);
                 break;
             default:
@@ -129,8 +113,8 @@ public class RetryingOAuth extends OAuth implements Interceptor {
             }
 
             Map<String, String> headers = oAuthRequest.getHeaders();
-            for (Map.Entry<String, String> entry : headers.entrySet()) {
-                requestBuilder.addHeader(entry.getKey(), entry.getValue());
+            for (String headerName : headers.keySet()) {
+                requestBuilder.addHeader(headerName, headers.get(headerName));
             }
             requestBuilder.url(oAuthRequest.getLocationUri());
 
@@ -161,12 +145,8 @@ public class RetryingOAuth extends OAuth implements Interceptor {
         }
     }
 
-    /**
+    /*
      * Returns true if the access token has been updated
-     *
-     * @param requestAccessToken the request access token
-     * @return True if the update is successful
-     * @throws java.io.IOException If fail to update the access token
      */
     public synchronized boolean updateAccessToken(String requestAccessToken) throws IOException {
         if (getAccessToken() == null || getAccessToken().equals(requestAccessToken)) {
@@ -183,28 +163,17 @@ public class RetryingOAuth extends OAuth implements Interceptor {
         return getAccessToken() == null || !getAccessToken().equals(requestAccessToken);
     }
 
-    /**
-     * Gets the token request builder
-     *
-     * @return A token request builder
-     */
     public TokenRequestBuilder getTokenRequestBuilder() {
         return tokenRequestBuilder;
     }
 
-    /**
-     * Sets the token request builder
-     *
-     * @param tokenRequestBuilder Token request builder
-     */
     public void setTokenRequestBuilder(TokenRequestBuilder tokenRequestBuilder) {
         this.tokenRequestBuilder = tokenRequestBuilder;
     }
 
     // Applying authorization to parameters is performed in the retryingIntercept method
     @Override
-    public void applyToParams(List<Pair> queryParams, Map<String, String> headerParams, Map<String, String> cookieParams,
-                             String payload, String method, URI uri) throws ApiException {
+    public void applyToParams(List<Pair> queryParams, Map<String, String> headerParams, Map<String, String> cookieParams) {
         // No implementation necessary
     }
 }

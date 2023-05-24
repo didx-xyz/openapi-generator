@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-public struct DogAllOf: Codable, JSONEncodable {
+public struct DogAllOf: Codable {
 
     public var breed: String?
 

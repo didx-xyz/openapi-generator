@@ -54,7 +54,7 @@ public class ValidationRule {
     }
 
     /**
-     * Evaluate an instance of an object against this rule.
+     * Evalute an instance of an object against this rule.
      *
      * @param input The instance to be evaluated.
      *

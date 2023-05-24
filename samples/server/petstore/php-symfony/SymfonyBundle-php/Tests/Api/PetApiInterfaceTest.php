@@ -1,7 +1,7 @@
 <?php
 /**
  * PetApiInterfaceTest
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Tests\Api
@@ -28,7 +28,10 @@
 
 namespace OpenAPI\Server\Tests\Api;
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use OpenAPI\Server\Configuration;
+use OpenAPI\Server\ApiClient;
+use OpenAPI\Server\ApiException;
+use OpenAPI\Server\ObjectSerializer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -38,41 +41,35 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * @package  OpenAPI\Server\Tests\Api
  * @author   openapi-generator contributors
  * @link     https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \OpenAPI\Server\Api\PetApiInterface
  */
 class PetApiInterfaceTest extends WebTestCase
 {
-    private static ?KernelBrowser $client = null;
 
     /**
      * Setup before running any test cases
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass()
     {
     }
 
     /**
      * Setup before running each test case
      */
-    public function setUp(): void
+    public function setUp()
     {
-        if (null === self::$client) {
-            self::$client = static::createClient();
-        }
     }
 
     /**
      * Clean up after running each test case
      */
-    public function tearDown(): void
+    public function tearDown()
     {
-        static::ensureKernelShutdown();
     }
 
     /**
      * Clean up after running all test cases
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownAfterClass()
     {
     }
 
@@ -82,14 +79,13 @@ class PetApiInterfaceTest extends WebTestCase
      * Add a new pet to the store.
      *
      */
-    public function testAddPet(): void
+    public function testAddPet()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet';
 
         $crawler = $client->request('POST', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
-        $this->markTestSkipped('Test for addPet not implemented');
     }
 
     /**
@@ -98,9 +94,9 @@ class PetApiInterfaceTest extends WebTestCase
      * Deletes a pet.
      *
      */
-    public function testDeletePet(): void
+    public function testDeletePet()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet/{petId}';
         $pattern = '{petId}';
@@ -108,7 +104,6 @@ class PetApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
-        $this->markTestSkipped('Test for deletePet not implemented');
     }
 
     /**
@@ -117,14 +112,13 @@ class PetApiInterfaceTest extends WebTestCase
      * Finds Pets by status.
      *
      */
-    public function testFindPetsByStatus(): void
+    public function testFindPetsByStatus()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet/findByStatus';
 
         $crawler = $client->request('GET', $path);
-        $this->markTestSkipped('Test for findPetsByStatus not implemented');
     }
 
     /**
@@ -133,14 +127,13 @@ class PetApiInterfaceTest extends WebTestCase
      * Finds Pets by tags.
      *
      */
-    public function testFindPetsByTags(): void
+    public function testFindPetsByTags()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet/findByTags';
 
         $crawler = $client->request('GET', $path);
-        $this->markTestSkipped('Test for findPetsByTags not implemented');
     }
 
     /**
@@ -149,9 +142,9 @@ class PetApiInterfaceTest extends WebTestCase
      * Find pet by ID.
      *
      */
-    public function testGetPetById(): void
+    public function testGetPetById()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet/{petId}';
         $pattern = '{petId}';
@@ -159,7 +152,6 @@ class PetApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
-        $this->markTestSkipped('Test for getPetById not implemented');
     }
 
     /**
@@ -168,14 +160,13 @@ class PetApiInterfaceTest extends WebTestCase
      * Update an existing pet.
      *
      */
-    public function testUpdatePet(): void
+    public function testUpdatePet()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet';
 
         $crawler = $client->request('PUT', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
-        $this->markTestSkipped('Test for updatePet not implemented');
     }
 
     /**
@@ -184,9 +175,9 @@ class PetApiInterfaceTest extends WebTestCase
      * Updates a pet in the store with form data.
      *
      */
-    public function testUpdatePetWithForm(): void
+    public function testUpdatePetWithForm()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet/{petId}';
         $pattern = '{petId}';
@@ -194,7 +185,6 @@ class PetApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('POST', $path);
-        $this->markTestSkipped('Test for updatePetWithForm not implemented');
     }
 
     /**
@@ -203,9 +193,9 @@ class PetApiInterfaceTest extends WebTestCase
      * uploads an image.
      *
      */
-    public function testUploadFile(): void
+    public function testUploadFile()
     {
-        $client = self::$client;
+        $client = static::createClient();
 
         $path = '/pet/{petId}/uploadImage';
         $pattern = '{petId}';
@@ -213,20 +203,15 @@ class PetApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('POST', $path);
-        $this->markTestSkipped('Test for uploadFile not implemented');
     }
 
-    /**
-     * @param string $regexp
-     * @return mixed
-     */
-    protected function genTestData(string $regexp)
+    protected function genTestData($regexp)
     {
-        $grammar = new \Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
+        $grammar  = new \Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
         $compiler = \Hoa\Compiler\Llk\Llk::load($grammar);
-        $ast = $compiler->parse($regexp);
+        $ast      = $compiler->parse($regexp);
         $generator = new \Hoa\Regex\Visitor\Isotropic(new \Hoa\Math\Sampler\Random());
 
-        return $generator->visit($ast);
+        return $generator->visit($ast); 
     }
 }

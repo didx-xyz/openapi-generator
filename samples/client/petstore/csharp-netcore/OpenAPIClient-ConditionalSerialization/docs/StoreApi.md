@@ -2,14 +2,15 @@
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
-| Method | HTTP request | Description |
-|--------|--------------|-------------|
-| [**DeleteOrder**](StoreApi.md#deleteorder) | **DELETE** /store/order/{order_id} | Delete purchase order by ID |
-| [**GetInventory**](StoreApi.md#getinventory) | **GET** /store/inventory | Returns pet inventories by status |
-| [**GetOrderById**](StoreApi.md#getorderbyid) | **GET** /store/order/{order_id} | Find purchase order by ID |
-| [**PlaceOrder**](StoreApi.md#placeorder) | **POST** /store/order | Place an order for a pet |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**DeleteOrder**](StoreApi.md#deleteorder) | **DELETE** /store/order/{order_id} | Delete purchase order by ID
+[**GetInventory**](StoreApi.md#getinventory) | **GET** /store/inventory | Returns pet inventories by status
+[**GetOrderById**](StoreApi.md#getorderbyid) | **GET** /store/order/{order_id} | Find purchase order by ID
+[**PlaceOrder**](StoreApi.md#placeorder) | **POST** /store/order | Place an order for a pet
 
-<a id="deleteorder"></a>
+
+<a name="deleteorder"></a>
 # **DeleteOrder**
 > void DeleteOrder (string orderId)
 
@@ -34,7 +35,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "http://petstore.swagger.io:80/v2";
             var apiInstance = new StoreApi(config);
-            var orderId = "orderId_example";  // string | ID of the order that needs to be deleted
+            var orderId = orderId_example;  // string | ID of the order that needs to be deleted
 
             try
             {
@@ -43,8 +44,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling StoreApi.DeleteOrder: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling StoreApi.DeleteOrder: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -52,28 +53,11 @@ namespace Example
 }
 ```
 
-#### Using the DeleteOrderWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Delete purchase order by ID
-    apiInstance.DeleteOrderWithHttpInfo(orderId);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling StoreApi.DeleteOrderWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **orderId** | **string** | ID of the order that needs to be deleted |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | **string**| ID of the order that needs to be deleted | 
 
 ### Return type
 
@@ -97,7 +81,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getinventory"></a>
+<a name="getinventory"></a>
 # **GetInventory**
 > Dictionary&lt;string, int&gt; GetInventory ()
 
@@ -136,8 +120,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling StoreApi.GetInventory: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling StoreApi.GetInventory: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -145,28 +129,9 @@ namespace Example
 }
 ```
 
-#### Using the GetInventoryWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Returns pet inventories by status
-    ApiResponse<Dictionary<string, int>> response = apiInstance.GetInventoryWithHttpInfo();
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling StoreApi.GetInventoryWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 This endpoint does not need any parameter.
+
 ### Return type
 
 **Dictionary<string, int>**
@@ -188,13 +153,13 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getorderbyid"></a>
+<a name="getorderbyid"></a>
 # **GetOrderById**
 > Order GetOrderById (long orderId)
 
 Find purchase order by ID
 
-For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
 
 ### Example
 ```csharp
@@ -213,7 +178,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "http://petstore.swagger.io:80/v2";
             var apiInstance = new StoreApi(config);
-            var orderId = 789L;  // long | ID of pet that needs to be fetched
+            var orderId = 789;  // long | ID of pet that needs to be fetched
 
             try
             {
@@ -223,8 +188,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling StoreApi.GetOrderById: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling StoreApi.GetOrderById: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -232,31 +197,11 @@ namespace Example
 }
 ```
 
-#### Using the GetOrderByIdWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Find purchase order by ID
-    ApiResponse<Order> response = apiInstance.GetOrderByIdWithHttpInfo(orderId);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling StoreApi.GetOrderByIdWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **orderId** | **long** | ID of pet that needs to be fetched |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | **long**| ID of pet that needs to be fetched | 
 
 ### Return type
 
@@ -281,7 +226,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="placeorder"></a>
+<a name="placeorder"></a>
 # **PlaceOrder**
 > Order PlaceOrder (Order order)
 
@@ -314,8 +259,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling StoreApi.PlaceOrder: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print("Exception when calling StoreApi.PlaceOrder: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -323,31 +268,11 @@ namespace Example
 }
 ```
 
-#### Using the PlaceOrderWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Place an order for a pet
-    ApiResponse<Order> response = apiInstance.PlaceOrderWithHttpInfo(order);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling StoreApi.PlaceOrderWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
 ### Parameters
 
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **order** | [**Order**](Order.md) | order placed for purchasing the pet |  |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **order** | [**Order**](Order.md)| order placed for purchasing the pet | 
 
 ### Return type
 

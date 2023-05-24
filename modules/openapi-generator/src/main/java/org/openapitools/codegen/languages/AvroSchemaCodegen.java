@@ -21,12 +21,11 @@ import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
 
 import org.openapitools.codegen.meta.features.*;
-import org.openapitools.codegen.model.ModelsMap;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.Map;
 
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 
@@ -124,7 +123,7 @@ public class AvroSchemaCodegen extends DefaultCodegen implements CodegenConfig {
     }
 
     @Override
-    public ModelsMap postProcessModels(ModelsMap objs) {
+    public Map<String, Object> postProcessModels(Map<String, Object> objs) {
         return postProcessModelsEnum(objs);
     }
 

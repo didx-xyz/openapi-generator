@@ -5,10 +5,9 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-|**$specialPropertyName** | **Long** |  |  [optional] |
-|**specialModelName** | **String** |  |  [optional] |
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**$specialPropertyName** | **Long** |  |  [optional]
 
 
 

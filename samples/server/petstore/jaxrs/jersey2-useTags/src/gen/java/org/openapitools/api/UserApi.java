@@ -1,12 +1,12 @@
 package org.openapitools.api;
 
+import org.openapitools.model.*;
 import org.openapitools.api.UserApiService;
 import org.openapitools.api.factories.UserApiServiceFactory;
 
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
-import java.util.Date;
 import java.util.List;
 import org.openapitools.model.User;
 
@@ -56,7 +56,7 @@ public class UserApi  {
       this.delegate = delegate;
    }
 
-    @javax.ws.rs.POST
+    @POST
     
     
     
@@ -68,7 +68,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.createUser(body, securityContext);
     }
-    @javax.ws.rs.POST
+    @POST
     @Path("/createWithArray")
     
     
@@ -80,7 +80,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.createUsersWithArrayInput(body, securityContext);
     }
-    @javax.ws.rs.POST
+    @POST
     @Path("/createWithList")
     
     
@@ -92,7 +92,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.createUsersWithListInput(body, securityContext);
     }
-    @javax.ws.rs.DELETE
+    @DELETE
     @Path("/{username}")
     
     
@@ -105,7 +105,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.deleteUser(username, securityContext);
     }
-    @javax.ws.rs.GET
+    @GET
     @Path("/{username}")
     
     @Produces({ "application/xml", "application/json" })
@@ -119,7 +119,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.getUserByName(username, securityContext);
     }
-    @javax.ws.rs.GET
+    @GET
     @Path("/login")
     
     @Produces({ "application/xml", "application/json" })
@@ -132,7 +132,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.loginUser(username, password, securityContext);
     }
-    @javax.ws.rs.GET
+    @GET
     @Path("/logout")
     
     
@@ -144,7 +144,7 @@ public class UserApi  {
     throws NotFoundException {
         return delegate.logoutUser(securityContext);
     }
-    @javax.ws.rs.PUT
+    @PUT
     @Path("/{username}")
     
     

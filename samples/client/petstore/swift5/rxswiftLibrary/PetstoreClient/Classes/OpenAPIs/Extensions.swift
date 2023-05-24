@@ -10,54 +10,42 @@ import AnyCodable
 #endif
 
 extension Bool: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any { return self as Any }
 }
 
 extension Float: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any { return self as Any }
 }
 
 extension Int: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any { return self as Any }
 }
 
 extension Int32: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any { return NSNumber(value: self as Int32) }
 }
 
 extension Int64: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any { return NSNumber(value: self as Int64) }
 }
 
 extension Double: JSONEncodable {
-    func encodeToJSON() -> Any { self }
-}
-
-extension Decimal: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any { return self as Any }
 }
 
 extension String: JSONEncodable {
-    func encodeToJSON() -> Any { self }
-}
-
-extension URL: JSONEncodable {
-    func encodeToJSON() -> Any { self }
-}
-
-extension UUID: JSONEncodable {
-    func encodeToJSON() -> Any { self }
+    func encodeToJSON() -> Any { return self as Any }
 }
 
 extension RawRepresentable where RawValue: JSONEncodable {
-    func encodeToJSON() -> Any { return self.rawValue }
+    func encodeToJSON() -> Any { return self.rawValue as Any }
 }
 
 private func encodeIfPossible<T>(_ object: T) -> Any {
     if let encodableObject = object as? JSONEncodable {
         return encodableObject.encodeToJSON()
     } else {
-        return object
+        return object as Any
     }
 }
 
@@ -79,7 +67,7 @@ extension Dictionary: JSONEncodable {
         for (key, value) in self {
             dictionary[key] = encodeIfPossible(value)
         }
-        return dictionary
+        return dictionary as Any
     }
 }
 
@@ -91,21 +79,24 @@ extension Data: JSONEncodable {
 
 extension Date: JSONEncodable {
     func encodeToJSON() -> Any {
-        return CodableHelper.dateFormatter.string(from: self)
+        return CodableHelper.dateFormatter.string(from: self) as Any
     }
 }
 
-extension JSONEncodable where Self: Encodable {
+extension URL: JSONEncodable {
     func encodeToJSON() -> Any {
-        guard let data = try? CodableHelper.jsonEncoder.encode(self) else {
-            fatalError("Could not encode to json: \(self)")
-        }
-        return data.encodeToJSON()
+        return self
+    }
+}
+
+extension UUID: JSONEncodable {
+    func encodeToJSON() -> Any {
+        return self.uuidString
     }
 }
 
 extension HTTPURLResponse {
     var isStatusCodeSuccessful: Bool {
-        return Configuration.successfulStatusCodeRange.contains(statusCode)
+        return Array(200 ..< 300).contains(statusCode)
     }
 }

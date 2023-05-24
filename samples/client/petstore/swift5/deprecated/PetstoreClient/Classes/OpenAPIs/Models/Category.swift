@@ -11,9 +11,8 @@ import AnyCodable
 #endif
 
 /** A category for a pet */
-public struct Category: Codable, JSONEncodable, Hashable {
+public struct Category: Codable, Hashable {
 
-    static let nameRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^[a-zA-Z0-9]+[a-zA-Z0-9\\.\\-_]*[a-zA-Z0-9]+$/")
     public var id: Int64?
     public var name: String?
 

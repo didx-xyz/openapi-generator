@@ -14,7 +14,6 @@
 package org.openapitools.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -34,8 +33,8 @@ import javax.validation.Valid;
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJerseyServerCodegen")@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "className", visible = true)
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = Cat.class, name = "CAT"),
-  @JsonSubTypes.Type(value = Dog.class, name = "DOG"),
+  @JsonSubTypes.Type(value = Cat.class, name = "Cat"),
+  @JsonSubTypes.Type(value = Dog.class, name = "Dog"),
 })
 
 public class Animal   {
@@ -105,6 +104,7 @@ public class Animal   {
   public int hashCode() {
     return Objects.hash(className, color);
   }
+
 
   @Override
   public String toString() {

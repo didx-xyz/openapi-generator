@@ -2,7 +2,7 @@
 /**
  * User
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -41,7 +41,6 @@ use JMS\Serializer\Annotation\SerializedName;
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-
 class User 
 {
         /**
@@ -50,7 +49,7 @@ class User
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $id = null;
+    protected $id;
 
     /**
      * @var string|null
@@ -58,7 +57,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $username = null;
+    protected $username;
 
     /**
      * @var string|null
@@ -66,7 +65,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $firstName = null;
+    protected $firstName;
 
     /**
      * @var string|null
@@ -74,7 +73,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $lastName = null;
+    protected $lastName;
 
     /**
      * @var string|null
@@ -82,7 +81,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $email = null;
+    protected $email;
 
     /**
      * @var string|null
@@ -90,7 +89,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $password = null;
+    protected $password;
 
     /**
      * @var string|null
@@ -98,7 +97,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $phone = null;
+    protected $phone;
 
     /**
      * User Status
@@ -108,22 +107,22 @@ class User
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $userStatus = null;
+    protected $userStatus;
 
     /**
      * Constructor
-     * @param array|null $data Associated array of property values initializing the model
+     * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->id = $data['id'] ?? null;
-        $this->username = $data['username'] ?? null;
-        $this->firstName = $data['firstName'] ?? null;
-        $this->lastName = $data['lastName'] ?? null;
-        $this->email = $data['email'] ?? null;
-        $this->password = $data['password'] ?? null;
-        $this->phone = $data['phone'] ?? null;
-        $this->userStatus = $data['userStatus'] ?? null;
+        $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->username = isset($data['username']) ? $data['username'] : null;
+        $this->firstName = isset($data['firstName']) ? $data['firstName'] : null;
+        $this->lastName = isset($data['lastName']) ? $data['lastName'] : null;
+        $this->email = isset($data['email']) ? $data['email'] : null;
+        $this->password = isset($data['password']) ? $data['password'] : null;
+        $this->phone = isset($data['phone']) ? $data['phone'] : null;
+        $this->userStatus = isset($data['userStatus']) ? $data['userStatus'] : null;
     }
 
     /**
@@ -131,7 +130,7 @@ class User
      *
      * @return int|null
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
@@ -143,7 +142,7 @@ class User
      *
      * @return $this
      */
-    public function setId(?int $id = null): self
+    public function setId($id = null)
     {
         $this->id = $id;
 
@@ -155,7 +154,7 @@ class User
      *
      * @return string|null
      */
-    public function getUsername(): ?string
+    public function getUsername()
     {
         return $this->username;
     }
@@ -167,7 +166,7 @@ class User
      *
      * @return $this
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername($username = null)
     {
         $this->username = $username;
 
@@ -179,7 +178,7 @@ class User
      *
      * @return string|null
      */
-    public function getFirstName(): ?string
+    public function getFirstName()
     {
         return $this->firstName;
     }
@@ -191,7 +190,7 @@ class User
      *
      * @return $this
      */
-    public function setFirstName(?string $firstName = null): self
+    public function setFirstName($firstName = null)
     {
         $this->firstName = $firstName;
 
@@ -203,7 +202,7 @@ class User
      *
      * @return string|null
      */
-    public function getLastName(): ?string
+    public function getLastName()
     {
         return $this->lastName;
     }
@@ -215,7 +214,7 @@ class User
      *
      * @return $this
      */
-    public function setLastName(?string $lastName = null): self
+    public function setLastName($lastName = null)
     {
         $this->lastName = $lastName;
 
@@ -227,7 +226,7 @@ class User
      *
      * @return string|null
      */
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -239,7 +238,7 @@ class User
      *
      * @return $this
      */
-    public function setEmail(?string $email = null): self
+    public function setEmail($email = null)
     {
         $this->email = $email;
 
@@ -251,7 +250,7 @@ class User
      *
      * @return string|null
      */
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -263,7 +262,7 @@ class User
      *
      * @return $this
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword($password = null)
     {
         $this->password = $password;
 
@@ -275,7 +274,7 @@ class User
      *
      * @return string|null
      */
-    public function getPhone(): ?string
+    public function getPhone()
     {
         return $this->phone;
     }
@@ -287,7 +286,7 @@ class User
      *
      * @return $this
      */
-    public function setPhone(?string $phone = null): self
+    public function setPhone($phone = null)
     {
         $this->phone = $phone;
 
@@ -299,7 +298,7 @@ class User
      *
      * @return int|null
      */
-    public function getUserStatus(): ?int
+    public function getUserStatus()
     {
         return $this->userStatus;
     }
@@ -311,7 +310,7 @@ class User
      *
      * @return $this
      */
-    public function setUserStatus(?int $userStatus = null): self
+    public function setUserStatus($userStatus = null)
     {
         $this->userStatus = $userStatus;
 

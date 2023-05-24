@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AdditionalPropertiesClass';
-export * from './AllOfWithSingleRef';
 export * from './Animal';
 export * from './ArrayOfArrayOfNumberOnly';
 export * from './ArrayOfNumberOnly';
@@ -20,10 +19,10 @@ export * from './EnumClass';
 export * from './EnumTest';
 export * from './FileSchemaTestClass';
 export * from './Foo';
-export * from './FooGetDefaultResponse';
 export * from './FormatTest';
 export * from './HasOnlyReadOnly';
 export * from './HealthCheckResult';
+export * from './InlineResponseDefault';
 export * from './List';
 export * from './MapTest';
 export * from './MixedPropertiesAndAdditionalPropertiesClass';
@@ -44,7 +43,6 @@ export * from './OuterObjectWithEnumProperty';
 export * from './Pet';
 export * from './ReadOnlyFirst';
 export * from './Return';
-export * from './SingleRefType';
 export * from './SpecialModelName';
 export * from './Tag';
 export * from './User';

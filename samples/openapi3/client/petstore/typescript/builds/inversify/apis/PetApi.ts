@@ -1,13 +1,12 @@
 // TODO: better import syntax?
-import {BaseAPIRequestFactory, RequiredError, COLLECTION_FORMATS} from './baseapi';
+import { BaseAPIRequestFactory, RequiredError } from './baseapi';
 import {Configuration} from '../configuration';
-import {RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http';
+import { RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http';
 import * as FormData from "form-data";
 import { URLSearchParams } from 'url';
 import {ObjectSerializer} from '../models/ObjectSerializer';
 import {ApiException} from './exception';
 import {canConsumeForm, isCodeInRange} from '../util';
-import {SecurityAuthentication} from '../auth/auth';
 
 import { injectable } from "inversify";
 
@@ -21,7 +20,6 @@ import { Pet } from '../models/Pet';
 export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * 
      * Add a new pet to the store
      * @param pet Pet object that needs to be added to the store
      */
@@ -30,7 +28,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'pet' is not null or undefined
         if (pet === null || pet === undefined) {
-            throw new RequiredError("PetApi", "addPet", "pet");
+            throw new RequiredError('Required parameter pet was null or undefined when calling addPet.');
         }
 
 
@@ -55,19 +53,17 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
         );
         requestContext.setBody(serializedBody);
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["petstore_auth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
 
     /**
-     * 
      * Deletes a pet
      * @param petId Pet id to delete
      * @param apiKey 
@@ -77,7 +73,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'petId' is not null or undefined
         if (petId === null || petId === undefined) {
-            throw new RequiredError("PetApi", "deletePet", "petId");
+            throw new RequiredError('Required parameter petId was null or undefined when calling deletePet.');
         }
 
 
@@ -94,13 +90,12 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("api_key", ObjectSerializer.serialize(apiKey, "string", ""));
 
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["petstore_auth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
@@ -115,7 +110,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'status' is not null or undefined
         if (status === null || status === undefined) {
-            throw new RequiredError("PetApi", "findPetsByStatus", "status");
+            throw new RequiredError('Required parameter status was null or undefined when calling findPetsByStatus.');
         }
 
 
@@ -132,13 +127,12 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["petstore_auth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
@@ -153,7 +147,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'tags' is not null or undefined
         if (tags === null || tags === undefined) {
-            throw new RequiredError("PetApi", "findPetsByTags", "tags");
+            throw new RequiredError('Required parameter tags was null or undefined when calling findPetsByTags.');
         }
 
 
@@ -170,13 +164,12 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["petstore_auth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
@@ -191,7 +184,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'petId' is not null or undefined
         if (petId === null || petId === undefined) {
-            throw new RequiredError("PetApi", "getPetById", "petId");
+            throw new RequiredError('Required parameter petId was null or undefined when calling getPetById.');
         }
 
 
@@ -204,19 +197,17 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["api_key"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
 
     /**
-     * 
      * Update an existing pet
      * @param pet Pet object that needs to be added to the store
      */
@@ -225,7 +216,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'pet' is not null or undefined
         if (pet === null || pet === undefined) {
-            throw new RequiredError("PetApi", "updatePet", "pet");
+            throw new RequiredError('Required parameter pet was null or undefined when calling updatePet.');
         }
 
 
@@ -250,19 +241,17 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
         );
         requestContext.setBody(serializedBody);
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["petstore_auth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
 
     /**
-     * 
      * Updates a pet in the store with form data
      * @param petId ID of pet that needs to be updated
      * @param name Updated name of the pet
@@ -273,7 +262,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'petId' is not null or undefined
         if (petId === null || petId === undefined) {
-            throw new RequiredError("PetApi", "updatePetWithForm", "petId");
+            throw new RequiredError('Required parameter petId was null or undefined when calling updatePetWithForm.');
         }
 
 
@@ -317,19 +306,17 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
             requestContext.setHeaderParam("Content-Type", contentType);
         }
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["petstore_auth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
 
     /**
-     * 
      * uploads an image
      * @param petId ID of pet to update
      * @param additionalMetadata Additional data to pass to server
@@ -340,7 +327,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
 
         // verify required parameter 'petId' is not null or undefined
         if (petId === null || petId === undefined) {
-            throw new RequiredError("PetApi", "uploadFile", "petId");
+            throw new RequiredError('Required parameter petId was null or undefined when calling uploadFile.');
         }
 
 
@@ -372,9 +359,7 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
         }
         if (file !== undefined) {
              // TODO: replace .append with .set
-             if (localVarFormParams instanceof FormData) {
-                 localVarFormParams.append('file', file.data, file.name);
-             }
+             localVarFormParams.append('file', file.data, file.name);
         }
 
         requestContext.setBody(localVarFormParams);
@@ -386,13 +371,12 @@ export class PetApiRequestFactory extends BaseAPIRequestFactory {
             requestContext.setHeaderParam("Content-Type", contentType);
         }
 
-        let authMethod: SecurityAuthentication | undefined;
+        let authMethod = null;
         // Apply auth methods
         authMethod = _config.authMethods["petstore_auth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
         }
-        
 
         return requestContext;
     }
@@ -419,7 +403,7 @@ export class PetApiResponseProcessor {
             return body;
         }
         if (isCodeInRange("405", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid input", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Invalid input");
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -431,7 +415,8 @@ export class PetApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
     /**
@@ -444,7 +429,7 @@ export class PetApiResponseProcessor {
      public async deletePet(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("400", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid pet value", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Invalid pet value");
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -452,7 +437,8 @@ export class PetApiResponseProcessor {
             return;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
     /**
@@ -472,7 +458,7 @@ export class PetApiResponseProcessor {
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid status value", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Invalid status value");
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -484,7 +470,8 @@ export class PetApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
     /**
@@ -504,7 +491,7 @@ export class PetApiResponseProcessor {
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid tag value", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Invalid tag value");
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -516,7 +503,8 @@ export class PetApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
     /**
@@ -536,10 +524,10 @@ export class PetApiResponseProcessor {
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid ID supplied", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Invalid ID supplied");
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Pet not found", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Pet not found");
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -551,7 +539,8 @@ export class PetApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
     /**
@@ -571,13 +560,13 @@ export class PetApiResponseProcessor {
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid ID supplied", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Invalid ID supplied");
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Pet not found", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Pet not found");
         }
         if (isCodeInRange("405", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Validation exception", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Validation exception");
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -589,7 +578,8 @@ export class PetApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
     /**
@@ -602,7 +592,7 @@ export class PetApiResponseProcessor {
      public async updatePetWithForm(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("405", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Invalid input", undefined, response.headers);
+            throw new ApiException<string>(response.httpStatusCode, "Invalid input");
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -610,7 +600,8 @@ export class PetApiResponseProcessor {
             return;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
     /**
@@ -639,7 +630,8 @@ export class PetApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        let body = response.body || "";
+        throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
     }
 
 }

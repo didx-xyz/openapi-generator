@@ -39,10 +39,6 @@ namespace Org.OpenAPITools.Model
         public ClassModel(string _class = default(string))
         {
             this._Class = _class;
-            if (this.Class != null)
-            {
-                this._flagClass = true;
-            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -82,7 +78,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class ClassModel {\n");
             sb.Append("  Class: ").Append(Class).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
@@ -129,13 +125,9 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.Class != null)
-                {
-                    hashCode = (hashCode * 59) + this.Class.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.Class.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

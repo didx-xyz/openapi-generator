@@ -1,54 +1,37 @@
 package org.openapitools.virtualan.model;
 
-import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
-import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-
-import java.util.*;
-import javax.annotation.Generated;
 
 /**
  * TypeHolderDefault
  */
-
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class TypeHolderDefault {
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
+public class TypeHolderDefault   {
+  @JsonProperty("string_item")
   private String stringItem = "what";
 
-  private BigDecimal numberItem = new BigDecimal("1.234");
+  @JsonProperty("number_item")
+  private BigDecimal numberItem;
 
-  private Integer integerItem = -2;
+  @JsonProperty("integer_item")
+  private Integer integerItem;
 
+  @JsonProperty("bool_item")
   private Boolean boolItem = true;
 
+  @JsonProperty("array_item")
   @Valid
-  private List<Integer> arrayItem = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
-
-  public TypeHolderDefault() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public TypeHolderDefault(String stringItem, BigDecimal numberItem, Integer integerItem, Boolean boolItem, List<Integer> arrayItem) {
-    this.stringItem = stringItem;
-    this.numberItem = numberItem;
-    this.integerItem = integerItem;
-    this.boolItem = boolItem;
-    this.arrayItem = arrayItem;
-  }
+  private List<Integer> arrayItem = new ArrayList<>();
 
   public TypeHolderDefault stringItem(String stringItem) {
     this.stringItem = stringItem;
@@ -59,9 +42,10 @@ public class TypeHolderDefault {
    * Get stringItem
    * @return stringItem
   */
-  @NotNull 
-  @Schema(name = "string_item", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("string_item")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
   public String getStringItem() {
     return stringItem;
   }
@@ -79,9 +63,11 @@ public class TypeHolderDefault {
    * Get numberItem
    * @return numberItem
   */
-  @NotNull @Valid 
-  @Schema(name = "number_item", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("number_item")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+  @Valid
+
   public BigDecimal getNumberItem() {
     return numberItem;
   }
@@ -99,9 +85,10 @@ public class TypeHolderDefault {
    * Get integerItem
    * @return integerItem
   */
-  @NotNull 
-  @Schema(name = "integer_item", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("integer_item")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
   public Integer getIntegerItem() {
     return integerItem;
   }
@@ -119,9 +106,10 @@ public class TypeHolderDefault {
    * Get boolItem
    * @return boolItem
   */
-  @NotNull 
-  @Schema(name = "bool_item", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("bool_item")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
   public Boolean getBoolItem() {
     return boolItem;
   }
@@ -136,9 +124,6 @@ public class TypeHolderDefault {
   }
 
   public TypeHolderDefault addArrayItemItem(Integer arrayItemItem) {
-    if (this.arrayItem == null) {
-      this.arrayItem = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
-    }
     this.arrayItem.add(arrayItemItem);
     return this;
   }
@@ -147,9 +132,10 @@ public class TypeHolderDefault {
    * Get arrayItem
    * @return arrayItem
   */
-  @NotNull 
-  @Schema(name = "array_item", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("array_item")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
   public List<Integer> getArrayItem() {
     return arrayItem;
   }
@@ -157,6 +143,7 @@ public class TypeHolderDefault {
   public void setArrayItem(List<Integer> arrayItem) {
     this.arrayItem = arrayItem;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -183,6 +170,7 @@ public class TypeHolderDefault {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TypeHolderDefault {\n");
+    
     sb.append("    stringItem: ").append(toIndentedString(stringItem)).append("\n");
     sb.append("    numberItem: ").append(toIndentedString(numberItem)).append("\n");
     sb.append("    integerItem: ").append(toIndentedString(integerItem)).append("\n");

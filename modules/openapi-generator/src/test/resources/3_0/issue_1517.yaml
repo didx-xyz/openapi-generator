@@ -45,11 +45,6 @@ paths:
           schema:
             type: string
             pattern: '/^pattern\d{3}$/i'
-        - name: pattern_with_backslash_after_bracket
-          in: header
-          schema:
-            type: string
-            pattern: '/^[\pattern\d{3}$/i'
 
       responses:
         '200':

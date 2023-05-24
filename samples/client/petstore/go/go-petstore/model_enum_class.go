@@ -25,8 +25,7 @@ const (
 	XYZ EnumClass = "(xyz)"
 )
 
-// All allowed values of EnumClass enum
-var AllowedEnumClassEnumValues = []EnumClass{
+var allowedEnumClassEnumValues = []EnumClass{
 	"_abc",
 	"-efg",
 	"(xyz)",
@@ -39,7 +38,7 @@ func (v *EnumClass) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := EnumClass(value)
-	for _, existing := range AllowedEnumClassEnumValues {
+	for _, existing := range allowedEnumClassEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -56,13 +55,13 @@ func NewEnumClassFromValue(v string) (*EnumClass, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for EnumClass: valid values are %v", v, AllowedEnumClassEnumValues)
+		return nil, fmt.Errorf("invalid value '%v' for EnumClass: valid values are %v", v, allowedEnumClassEnumValues)
 	}
 }
 
 // IsValid return true if the value is valid for the enum, false otherwise
 func (v EnumClass) IsValid() bool {
-	for _, existing := range AllowedEnumClassEnumValues {
+	for _, existing := range allowedEnumClassEnumValues {
 		if existing == v {
 			return true
 		}

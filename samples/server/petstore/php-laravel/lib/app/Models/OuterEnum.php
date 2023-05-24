@@ -7,27 +7,6 @@ namespace app\Models;
 /**
  * OuterEnum
  */
-class OuterEnum
-{
-    /**
-     * Possible values of this enum
-     */
-    const PLACED = 'placed';
+class OuterEnum {
 
-    const APPROVED = 'approved';
-
-    const DELIVERED = 'delivered';
-
-    /**
-     * Gets allowable values of the enum
-     * @return string[]
-     */
-    public static function getAllowableEnumValues()
-    {
-        return [
-            self::PLACED,
-            self::APPROVED,
-            self::DELIVERED
-        ];
-    }
 }

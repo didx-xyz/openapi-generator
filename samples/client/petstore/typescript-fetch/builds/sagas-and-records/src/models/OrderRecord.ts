@@ -66,7 +66,6 @@ class OrderRecordUtils extends ApiRecordUtils<Order, OrderRecord> {
 
     public *toInlined(entityId?: string | null) {
         if (!entityId) {return undefined; }
-        // @ts-ignore
         const entity = yield select(apiEntityOrderSelector, {id: entityId});
         if (!entity) {return undefined; }
 
@@ -88,7 +87,6 @@ class OrderRecordUtils extends ApiRecordUtils<Order, OrderRecord> {
         if (!entityIds) {return null; }
         let entities = List<OrderRecord>();
         for (let entityIndex = 0; entityIndex < entityIds.count(); entityIndex++) {
-            // @ts-ignore
             const entity = yield call(this.toInlined, entityIds.get(entityIndex));
             if (entity) {
                 entities.push(entity);

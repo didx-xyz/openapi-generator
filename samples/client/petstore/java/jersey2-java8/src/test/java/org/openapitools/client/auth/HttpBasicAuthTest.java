@@ -7,14 +7,14 @@ import java.util.List;
 
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Pair;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 
 public class HttpBasicAuthTest {
     HttpBasicAuth auth = null;
 
-    @BeforeEach
+    @Before
     public void setup() {
         auth = new HttpBasicAuth();
     }

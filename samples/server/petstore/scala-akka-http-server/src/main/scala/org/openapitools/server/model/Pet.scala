@@ -14,11 +14,11 @@ package org.openapitools.server.model
  * @param status pet status in the store for example: ''null''
 */
 final case class Pet (
-  id: Option[Long] = None,
-  category: Option[Category] = None,
+  id: Option[Long],
+  category: Option[Category],
   name: String,
   photoUrls: Seq[String],
-  tags: Option[Seq[Tag]] = None,
-  status: Option[String] = None
+  tags: Option[Seq[Tag]],
+  status: Option[String]
 )
 

@@ -2,7 +2,7 @@
 /**
  * ApiServer
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Api
@@ -29,12 +29,10 @@
 
 namespace OpenAPI\Server\Api;
 
-use Symfony\Component\DependencyInjection\Reference;
-
 /**
  * ApiServer Class Doc Comment
  *
- * PHP version 8.1.1
+ * PHP version 5
  *
  * @category Class
  * @package  OpenAPI\Server\Api
@@ -47,7 +45,7 @@ class ApiServer
     /**
      * @var array
      */
-    private array $apis = array();
+    private $apis = array();
 
     /**
      * Adds an API handler to the server.
@@ -55,7 +53,7 @@ class ApiServer
      * @param string $api An API name of the handle
      * @param mixed $handler A handler to set for the given API
      */
-    public function addApiHandler(string $api, $handler): void
+    public function addApiHandler($api, $handler)
     {
         if (isset($this->apis[$api])) {
             throw new \InvalidArgumentException('API has already a handler: '.$api);
@@ -71,7 +69,7 @@ class ApiServer
      * @return mixed Returns a handler
      * @throws \InvalidArgumentException When no such handler exists
      */
-    public function getApiHandler(string $api)
+    public function getApiHandler($api)
     {
         if (!isset($this->apis[$api])) {
             throw new \InvalidArgumentException('No handler for '.$api.' implemented.');

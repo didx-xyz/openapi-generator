@@ -21,7 +21,7 @@ public class OauthClientCredentialsGrant extends OAuth {
 
   @Override
   protected OAuthFlow getFlow() {
-    return OAuthFlow.APPLICATION;
+    return OAuthFlow.application;
   }
 
   /**

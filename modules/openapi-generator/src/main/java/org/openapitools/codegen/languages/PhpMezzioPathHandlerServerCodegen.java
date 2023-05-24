@@ -30,9 +30,6 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.features.*;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,9 +84,8 @@ public class PhpMezzioPathHandlerServerCodegen extends AbstractPhpCodegen {
                 )
         );
 
-        // remove these from primitive types to make the output works
-        languageSpecificPrimitives.remove("\\DateTime");
-        languageSpecificPrimitives.remove("\\SplFileObject");
+        //no point to use double - http://php.net/manual/en/language.types.float.php , especially because of PHP 7+ float type declaration
+        typeMapping.put("double", "float");
 
         embeddedTemplateDir = templateDir = "php-mezzio-ph";
         invokerPackage = "App";
@@ -197,14 +193,12 @@ public class PhpMezzioPathHandlerServerCodegen extends AbstractPhpCodegen {
     protected void generateParameterSchemas(OpenAPI openAPI) {
         Map<String, PathItem> paths = openAPI.getPaths();
         if (paths != null) {
-            for (Map.Entry<String, PathItem> pathsEntry : paths.entrySet()) {
-                String pathname = pathsEntry.getKey();
-                PathItem path = pathsEntry.getValue();
+            for (String pathname : paths.keySet()) {
+                PathItem path = paths.get(pathname);
                 Map<HttpMethod, Operation> operationMap = path.readOperationsMap();
                 if (operationMap != null) {
-                    for (Map.Entry<HttpMethod, Operation> operationMapEntry : operationMap.entrySet()) {
-                        HttpMethod method = operationMapEntry.getKey();
-                        Operation operation = operationMapEntry.getValue();
+                    for (HttpMethod method : operationMap.keySet()) {
+                        Operation operation = operationMap.get(method);
                         Map<String, Schema> propertySchemas = new HashMap<>();
                         if (operation == null || operation.getParameters() == null) {
                             continue;
@@ -415,10 +409,10 @@ public class PhpMezzioPathHandlerServerCodegen extends AbstractPhpCodegen {
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
         objs = super.postProcessOperationsWithModels(objs, allModels);
-        OperationMap operations = objs.getOperations();
-        List<CodegenOperation> operationList = operations.getOperation();
+        Map<String, Object> operations = (Map<String, Object>) objs.get("operations");
+        List<CodegenOperation> operationList = (List<CodegenOperation>) operations.get("operation");
         String httpMethodDeclaration;
         String pathPattern = null;
         for (CodegenOperation op : operationList) {

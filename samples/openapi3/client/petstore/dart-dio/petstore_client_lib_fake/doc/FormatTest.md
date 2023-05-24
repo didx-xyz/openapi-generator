@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **string** | **String** |  | [optional] 
 **byte** | **String** |  | 
 **binary** | [**Uint8List**](Uint8List.md) |  | [optional] 
-**date** | [**Date**](Date.md) |  | 
+**date** | [**DateTime**](DateTime.md) |  | 
 **dateTime** | [**DateTime**](DateTime.md) |  | [optional] 
 **uuid** | **String** |  | [optional] 
 **password** | **String** |  | 

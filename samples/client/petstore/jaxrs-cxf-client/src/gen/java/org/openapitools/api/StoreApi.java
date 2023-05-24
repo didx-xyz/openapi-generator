@@ -58,7 +58,7 @@ public interface StoreApi  {
     /**
      * Find purchase order by ID
      *
-     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
      *
      */
     @GET
@@ -84,3 +84,4 @@ public interface StoreApi  {
         @ApiResponse(code = 400, message = "Invalid Order") })
     public Order placeOrder(Order body);
 }
+

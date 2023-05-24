@@ -75,6 +75,7 @@ public class AdditionalPropertiesBoolean extends HashMap<String, Boolean>  {
     return Objects.hash(name, super.hashCode());
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

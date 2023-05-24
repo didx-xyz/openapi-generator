@@ -46,3 +46,4 @@ public interface AnotherFakeApi  {
         @ApiResponse(code = 200, message = "successful operation", response = Client.class) })
     public Client call123testSpecialTags(@Valid Client body);
 }
+

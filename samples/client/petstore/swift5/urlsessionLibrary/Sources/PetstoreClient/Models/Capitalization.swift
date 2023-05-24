@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.Capitalization")
-public typealias Capitalization = PetstoreClientAPI.Capitalization
+@available(*, deprecated, renamed: "PetstoreClient.Capitalization")
+public typealias Capitalization = PetstoreClient.Capitalization
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class Capitalization: Codable, JSONEncodable, Hashable {
+public final class Capitalization: Codable, Hashable {
 
     public var smallCamel: String?
     public var capitalCamel: String?

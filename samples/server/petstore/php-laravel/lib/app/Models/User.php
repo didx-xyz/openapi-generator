@@ -10,27 +10,27 @@ namespace app\Models;
 class User {
 
     /** @var int $id */
-    public $id = 0;
+    private $id;
 
     /** @var string $username */
-    public $username = "";
+    private $username;
 
     /** @var string $firstName */
-    public $firstName = "";
+    private $firstName;
 
     /** @var string $lastName */
-    public $lastName = "";
+    private $lastName;
 
     /** @var string $email */
-    public $email = "";
+    private $email;
 
     /** @var string $password */
-    public $password = "";
+    private $password;
 
     /** @var string $phone */
-    public $phone = "";
+    private $phone;
 
     /** @var int $userStatus User Status*/
-    public $userStatus = 0;
+    private $userStatus;
 
 }

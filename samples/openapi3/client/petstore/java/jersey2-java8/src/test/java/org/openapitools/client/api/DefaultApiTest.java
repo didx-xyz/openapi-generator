@@ -15,11 +15,10 @@ package org.openapitools.client.api;
 
 import org.openapitools.client.*;
 import org.openapitools.client.auth.*;
-import org.openapitools.client.model.FooGetDefaultResponse;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.openapitools.client.model.InlineResponseDefault;
+import org.junit.Test;
+import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,11 +33,16 @@ public class DefaultApiTest {
     private final DefaultApi api = new DefaultApi();
 
     /**
-     * @throws ApiException if the Api call fails
+     * 
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void fooGetTest() throws ApiException {
-        //FooGetDefaultResponse response = api.fooGet();
+        //InlineResponseDefault response = api.fooGet();
         // TODO: test validations
     }
 

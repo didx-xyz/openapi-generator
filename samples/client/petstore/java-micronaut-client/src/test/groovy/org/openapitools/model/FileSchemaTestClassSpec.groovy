@@ -1,8 +1,9 @@
 package org.openapitools.model
 
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
 import java.util.ArrayList
 import java.util.List
-import org.openapitools.model.ModelFile
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 import jakarta.inject.Inject
@@ -12,27 +13,27 @@ import jakarta.inject.Inject
  */
 @MicronautTest
 public class FileSchemaTestClassSpec extends Specification {
-    private final FileSchemaTestClass model = null
+    private final FileSchemaTestClass model = new FileSchemaTestClass()
 
     /**
      * Model tests for FileSchemaTestClass
      */
-    void 'FileSchemaTestClass test'() {
+    void "FileSchemaTestClass test"() {
         // TODO: test FileSchemaTestClass
     }
 
     /**
-     * Test the property '_file'
+     * Test the property 'file'
      */
-    void 'FileSchemaTestClass property _file test'() {
-        // TODO: test _file property of FileSchemaTestClass
+    void "FileSchemaTestClass property file test"() {
+        // TODO: test file
     }
 
     /**
      * Test the property 'files'
      */
-    void 'FileSchemaTestClass property files test'() {
-        // TODO: test files property of FileSchemaTestClass
+    void "FileSchemaTestClass property files test"() {
+        // TODO: test files
     }
 
 }

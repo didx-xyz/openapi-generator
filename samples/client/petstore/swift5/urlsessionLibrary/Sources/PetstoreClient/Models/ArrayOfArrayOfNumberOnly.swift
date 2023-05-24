@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.ArrayOfArrayOfNumberOnly")
-public typealias ArrayOfArrayOfNumberOnly = PetstoreClientAPI.ArrayOfArrayOfNumberOnly
+@available(*, deprecated, renamed: "PetstoreClient.ArrayOfArrayOfNumberOnly")
+public typealias ArrayOfArrayOfNumberOnly = PetstoreClient.ArrayOfArrayOfNumberOnly
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class ArrayOfArrayOfNumberOnly: Codable, JSONEncodable, Hashable {
+public final class ArrayOfArrayOfNumberOnly: Codable, Hashable {
 
     public var arrayArrayNumber: [[Double]]?
 

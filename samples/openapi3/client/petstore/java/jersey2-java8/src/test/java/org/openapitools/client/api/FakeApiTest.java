@@ -23,12 +23,10 @@ import org.openapitools.client.model.HealthCheckResult;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import org.openapitools.client.model.OuterComposite;
-import org.openapitools.client.model.OuterEnum;
 import org.openapitools.client.model.User;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.Ignore;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +43,10 @@ public class FakeApiTest {
     /**
      * Health check endpoint
      *
-     * @throws ApiException if the Api call fails
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void fakeHealthGetTest() throws ApiException {
@@ -54,9 +55,12 @@ public class FakeApiTest {
     }
 
     /**
+     * 
+     *
      * Test serialization of outer boolean types
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void fakeOuterBooleanSerializeTest() throws ApiException {
@@ -66,9 +70,12 @@ public class FakeApiTest {
     }
 
     /**
+     * 
+     *
      * Test serialization of object with outer number type
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void fakeOuterCompositeSerializeTest() throws ApiException {
@@ -78,9 +85,12 @@ public class FakeApiTest {
     }
 
     /**
+     * 
+     *
      * Test serialization of outer number types
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void fakeOuterNumberSerializeTest() throws ApiException {
@@ -90,9 +100,12 @@ public class FakeApiTest {
     }
 
     /**
+     * 
+     *
      * Test serialization of outer string types
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void fakeOuterStringSerializeTest() throws ApiException {
@@ -102,20 +115,12 @@ public class FakeApiTest {
     }
 
     /**
-     * Array of Enums
+     * 
      *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getArrayOfEnumsTest() throws ApiException {
-        //List<OuterEnum> response = api.getArrayOfEnums();
-        // TODO: test validations
-    }
-
-    /**
      * For this test, the body for this request much reference a schema named &#x60;File&#x60;.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testBodyWithFileSchemaTest() throws ApiException {
@@ -125,7 +130,12 @@ public class FakeApiTest {
     }
 
     /**
-     * @throws ApiException if the Api call fails
+     * 
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testBodyWithQueryParamsTest() throws ApiException {
@@ -140,7 +150,8 @@ public class FakeApiTest {
      *
      * To test \&quot;client\&quot; model
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testClientModelTest() throws ApiException {
@@ -154,7 +165,8 @@ public class FakeApiTest {
      *
      * Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testEndpointParametersTest() throws ApiException {
@@ -181,7 +193,8 @@ public class FakeApiTest {
      *
      * To test enum parameters
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testEnumParametersTest() throws ApiException {
@@ -202,7 +215,8 @@ public class FakeApiTest {
      *
      * Fake endpoint to test group parameters (optional)
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testGroupParametersTest() throws ApiException {
@@ -228,7 +242,8 @@ public class FakeApiTest {
      *
      * 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testInlineAdditionalPropertiesTest() throws ApiException {
@@ -242,7 +257,8 @@ public class FakeApiTest {
      *
      * 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testJsonFormDataTest() throws ApiException {
@@ -253,9 +269,12 @@ public class FakeApiTest {
     }
 
     /**
+     * 
+     *
      * To test the collection format in query parameters
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void testQueryParameterCollectionFormatTest() throws ApiException {

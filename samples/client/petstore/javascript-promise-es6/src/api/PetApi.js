@@ -38,7 +38,6 @@ export default class PetApi {
 
     /**
      * Add a new pet to the store
-     * 
      * @param {module:model/Pet} pet Pet object that needs to be added to the store
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
@@ -81,7 +80,6 @@ export default class PetApi {
 
     /**
      * Add a new pet to the store
-     * 
      * @param {module:model/Pet} pet Pet object that needs to be added to the store
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -95,10 +93,9 @@ export default class PetApi {
 
     /**
      * Deletes a pet
-     * 
      * @param {Number} petId Pet id to delete
      * @param {Object} opts Optional parameters
-     * @param {String} [apiKey] 
+     * @param {String} opts.apiKey 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
     deletePetWithHttpInfo(petId, opts) {
@@ -133,7 +130,6 @@ export default class PetApi {
 
     /**
      * Deletes a pet
-     * 
      * @param {Number} petId Pet id to delete
      * @param {Object} opts Optional parameters
      * @param {String} opts.apiKey 
@@ -293,7 +289,6 @@ export default class PetApi {
 
     /**
      * Update an existing pet
-     * 
      * @param {module:model/Pet} pet Pet object that needs to be added to the store
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
@@ -336,7 +331,6 @@ export default class PetApi {
 
     /**
      * Update an existing pet
-     * 
      * @param {module:model/Pet} pet Pet object that needs to be added to the store
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -350,11 +344,10 @@ export default class PetApi {
 
     /**
      * Updates a pet in the store with form data
-     * 
      * @param {Number} petId ID of pet that needs to be updated
      * @param {Object} opts Optional parameters
-     * @param {String} [name] Updated name of the pet
-     * @param {String} [status] Updated status of the pet
+     * @param {String} opts.name Updated name of the pet
+     * @param {String} opts.status Updated status of the pet
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
     updatePetWithFormWithHttpInfo(petId, opts) {
@@ -390,7 +383,6 @@ export default class PetApi {
 
     /**
      * Updates a pet in the store with form data
-     * 
      * @param {Number} petId ID of pet that needs to be updated
      * @param {Object} opts Optional parameters
      * @param {String} opts.name Updated name of the pet
@@ -407,11 +399,10 @@ export default class PetApi {
 
     /**
      * uploads an image
-     * 
      * @param {Number} petId ID of pet to update
      * @param {Object} opts Optional parameters
-     * @param {String} [additionalMetadata] Additional data to pass to server
-     * @param {File} [file] file to upload
+     * @param {String} opts.additionalMetadata Additional data to pass to server
+     * @param {File} opts.file file to upload
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiResponse} and HTTP response
      */
     uploadFileWithHttpInfo(petId, opts) {
@@ -447,7 +438,6 @@ export default class PetApi {
 
     /**
      * uploads an image
-     * 
      * @param {Number} petId ID of pet to update
      * @param {Object} opts Optional parameters
      * @param {String} opts.additionalMetadata Additional data to pass to server
@@ -464,11 +454,10 @@ export default class PetApi {
 
     /**
      * uploads an image (required)
-     * 
      * @param {Number} petId ID of pet to update
      * @param {File} requiredFile file to upload
      * @param {Object} opts Optional parameters
-     * @param {String} [additionalMetadata] Additional data to pass to server
+     * @param {String} opts.additionalMetadata Additional data to pass to server
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiResponse} and HTTP response
      */
     uploadFileWithRequiredFileWithHttpInfo(petId, requiredFile, opts) {
@@ -508,7 +497,6 @@ export default class PetApi {
 
     /**
      * uploads an image (required)
-     * 
      * @param {Number} petId ID of pet to update
      * @param {File} requiredFile file to upload
      * @param {Object} opts Optional parameters

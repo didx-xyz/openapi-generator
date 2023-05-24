@@ -19,8 +19,8 @@ package org.openapitools.codegen.languages.features;
 
 public interface GzipTestFeatures {
 
-    String USE_GZIP_FEATURE_FOR_TESTS = "useGzipFeatureForTests";
+    public static final String USE_GZIP_FEATURE_FOR_TESTS = "useGzipFeatureForTests";
 
-    void setUseGzipFeatureForTests(boolean useGzipFeatureForTests);
+    public void setUseGzipFeatureForTests(boolean useGzipFeatureForTests);
 
 }

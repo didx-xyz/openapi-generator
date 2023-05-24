@@ -2,7 +2,6 @@ package org.openapitools.codegen.languages;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.*;
-import org.openapitools.codegen.model.*;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
@@ -112,23 +111,23 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
      * version of this method to: - fix the model imports, go from model name to the
      * full import string with toModelImport + globalImportFixer
      *
-     * @param objs a map going from the model name to a object holding the model
+     * @param objects a map going from the model name to a object holding the model
      *                info
-     * @return the updated objs
+     * @return the updated objects
      */
     @Override
-    public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
-        objs = super.postProcessAllModels(objs);
+    public Map<String, Object> postProcessAllModels(Map<String, Object> objects) {
+        super.postProcessAllModels(objects);
 
         Map<String, Schema> allDefinitions = ModelUtils.getSchemas(this.openAPI);
         for (String schemaName : allDefinitions.keySet()) {
             String modelName = toModelName(schemaName);
 
-            ModelsMap objModel = objs.get(modelName);
+            HashMap<String, Object> objModel = (HashMap<String, Object>) objects.get(modelName);
             if (objModel != null) { // to avoid form parameter's models that are not generated (skipFormModel=true)
-                List<ModelMap> models = objModel.getModels();
-                for (ModelMap model : models) {
-                    CodegenModel cm = model.getModel();
+                List<Map<String, Object>> models = (List<Map<String, Object>>) objModel.get("models");
+                for (Map<String, Object> model : models) {
+                    CodegenModel cm = (CodegenModel) model.get("model");
 
                     // Transform imports
                     String[] importModelNames = cm.imports.toArray(new String[0]);
@@ -161,15 +160,14 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
             }
         }
 
-        return objs;
+        return objects;
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> operations, List<Object> models) {
         @SuppressWarnings("unchecked")
-        OperationMap operations = objs.getOperations();
-        List<CodegenOperation> operationList = operations.getOperation();
-
+        Map<String, Object> operationsMap = (Map<String, Object>) operations.get("operations");
+        List<CodegenOperation> operationList = (List<CodegenOperation>) operationsMap.get("operation");
         for (CodegenOperation operation : operationList) {
             if (operation.hasProduces) {
                 for (Map<String, String> produces : operation.produces) {
@@ -190,7 +188,7 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
             }
         }
 
-        return objs;
+        return operations;
     }
 
     @Override

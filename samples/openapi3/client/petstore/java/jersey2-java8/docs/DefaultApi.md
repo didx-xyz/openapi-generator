@@ -2,15 +2,15 @@
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
-| Method | HTTP request | Description |
-|------------- | ------------- | -------------|
-| [**fooGet**](DefaultApi.md#fooGet) | **GET** /foo |  |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**fooGet**](DefaultApi.md#fooGet) | **GET** /foo | 
 
 
 
 ## fooGet
 
-> FooGetDefaultResponse fooGet()
+> InlineResponseDefault fooGet()
 
 
 
@@ -31,7 +31,7 @@ public class Example {
 
         DefaultApi apiInstance = new DefaultApi(defaultClient);
         try {
-            FooGetDefaultResponse result = apiInstance.fooGet();
+            InlineResponseDefault result = apiInstance.fooGet();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#fooGet");
@@ -50,7 +50,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**FooGetDefaultResponse**](FooGetDefaultResponse.md)
+[**InlineResponseDefault**](InlineResponseDefault.md)
 
 ### Authorization
 

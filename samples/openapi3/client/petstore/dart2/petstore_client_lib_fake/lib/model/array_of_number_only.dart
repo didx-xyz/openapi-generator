@@ -1,11 +1,10 @@
 //
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
-// @dart=2.12
+// @dart=2.0
 
 // ignore_for_file: unused_element, unused_import
 // ignore_for_file: always_put_required_named_parameters_first
-// ignore_for_file: constant_identifier_names
 // ignore_for_file: lines_longer_than_80_chars
 
 part of openapi.api;
@@ -24,87 +23,51 @@ class ArrayOfNumberOnly {
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (arrayNumber.hashCode);
+    (arrayNumber == null ? 0 : arrayNumber.hashCode);
 
   @override
   String toString() => 'ArrayOfNumberOnly[arrayNumber=$arrayNumber]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'ArrayNumber'] = this.arrayNumber;
+    if (arrayNumber != null) {
+      json[r'ArrayNumber'] = arrayNumber;
+    }
     return json;
   }
 
   /// Returns a new [ArrayOfNumberOnly] instance and imports its values from
-  /// [value] if it's a [Map], null otherwise.
-  // ignore: prefer_constructors_over_static_methods
-  static ArrayOfNumberOnly? fromJson(dynamic value) {
-    if (value is Map) {
-      final json = value.cast<String, dynamic>();
+  /// [json] if it's non-null, null if [json] is null.
+  static ArrayOfNumberOnly fromJson(Map<String, dynamic> json) => json == null
+    ? null
+    : ArrayOfNumberOnly(
+        arrayNumber: json[r'ArrayNumber'] == null
+          ? null
+          : (json[r'ArrayNumber'] as List).cast<num>(),
+    );
 
-      // Ensure that the map contains the required keys.
-      // Note 1: the values aren't checked for validity beyond being non-null.
-      // Note 2: this code is stripped in release mode!
-      assert(() {
-        requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "ArrayOfNumberOnly[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "ArrayOfNumberOnly[$key]" has a null value in JSON.');
-        });
-        return true;
-      }());
+  static List<ArrayOfNumberOnly> listFromJson(List<dynamic> json, {bool emptyIsNull, bool growable,}) =>
+    json == null || json.isEmpty
+      ? true == emptyIsNull ? null : <ArrayOfNumberOnly>[]
+      : json.map((dynamic value) => ArrayOfNumberOnly.fromJson(value)).toList(growable: true == growable);
 
-      return ArrayOfNumberOnly(
-        arrayNumber: json[r'ArrayNumber'] is Iterable
-            ? (json[r'ArrayNumber'] as Iterable).cast<num>().toList(growable: false)
-            : const [],
-      );
-    }
-    return null;
-  }
-
-  static List<ArrayOfNumberOnly> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <ArrayOfNumberOnly>[];
-    if (json is List && json.isNotEmpty) {
-      for (final row in json) {
-        final value = ArrayOfNumberOnly.fromJson(row);
-        if (value != null) {
-          result.add(value);
-        }
-      }
-    }
-    return result.toList(growable: growable);
-  }
-
-  static Map<String, ArrayOfNumberOnly> mapFromJson(dynamic json) {
+  static Map<String, ArrayOfNumberOnly> mapFromJson(Map<String, dynamic> json) {
     final map = <String, ArrayOfNumberOnly>{};
-    if (json is Map && json.isNotEmpty) {
-      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
-      for (final entry in json.entries) {
-        final value = ArrayOfNumberOnly.fromJson(entry.value);
-        if (value != null) {
-          map[entry.key] = value;
-        }
-      }
+    if (json?.isNotEmpty == true) {
+      json.forEach((key, value) => map[key] = ArrayOfNumberOnly.fromJson(value));
     }
     return map;
   }
 
   // maps a json object with a list of ArrayOfNumberOnly-objects as value to a dart map
-  static Map<String, List<ArrayOfNumberOnly>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<ArrayOfNumberOnly>> mapListFromJson(Map<String, dynamic> json, {bool emptyIsNull, bool growable,}) {
     final map = <String, List<ArrayOfNumberOnly>>{};
-    if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
-      for (final entry in json.entries) {
-        map[entry.key] = ArrayOfNumberOnly.listFromJson(entry.value, growable: growable,);
-      }
+    if (json?.isNotEmpty == true) {
+      json.forEach((key, value) {
+        map[key] = ArrayOfNumberOnly.listFromJson(value, emptyIsNull: emptyIsNull, growable: growable,);
+      });
     }
     return map;
   }
-
-  /// The list of required keys that must be present in a JSON.
-  static const requiredKeys = <String>{
-  };
 }
 

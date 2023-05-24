@@ -20,12 +20,15 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.time.OffsetDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.openapitools.client.model.Animal;
+import org.threeten.bp.OffsetDateTime;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import org.hibernate.validator.constraints.*;
@@ -45,10 +48,8 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
 
   public static final String SERIALIZED_NAME_MAP = "map";
   @SerializedName(SERIALIZED_NAME_MAP)
-  private Map<String, Animal> map = new HashMap<>();
+  private Map<String, Animal> map = null;
 
-  public MixedPropertiesAndAdditionalPropertiesClass() {
-  }
 
   public MixedPropertiesAndAdditionalPropertiesClass uuid(UUID uuid) {
     
@@ -62,7 +63,7 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
   **/
   @javax.annotation.Nullable
   @Valid
-
+  @ApiModelProperty(value = "")
 
   public UUID getUuid() {
     return uuid;
@@ -86,7 +87,7 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
   **/
   @javax.annotation.Nullable
   @Valid
-
+  @ApiModelProperty(value = "")
 
   public OffsetDateTime getDateTime() {
     return dateTime;
@@ -106,7 +107,7 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
 
   public MixedPropertiesAndAdditionalPropertiesClass putMapItem(String key, Animal mapItem) {
     if (this.map == null) {
-      this.map = new HashMap<>();
+      this.map = new HashMap<String, Animal>();
     }
     this.map.put(key, mapItem);
     return this;
@@ -118,7 +119,7 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
   **/
   @javax.annotation.Nullable
   @Valid
-
+  @ApiModelProperty(value = "")
 
   public Map<String, Animal> getMap() {
     return map;
@@ -128,6 +129,7 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
   public void setMap(Map<String, Animal> map) {
     this.map = map;
   }
+
 
   @Override
   public boolean equals(Object o) {

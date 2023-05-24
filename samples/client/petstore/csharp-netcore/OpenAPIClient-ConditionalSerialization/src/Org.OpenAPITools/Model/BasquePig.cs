@@ -47,18 +47,14 @@ namespace Org.OpenAPITools.Model
         public BasquePig(string className = default(string))
         {
             // to ensure "className" is required (not null)
-            if (className == null)
-            {
-                throw new ArgumentNullException("className is a required property for BasquePig and cannot be null");
-            }
-            this._ClassName = className;
+            this._ClassName = className ?? throw new ArgumentNullException("className is a required property for BasquePig and cannot be null");
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
         /// Gets or Sets ClassName
         /// </summary>
-        [DataMember(Name = "className", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "className", IsRequired = true, EmitDefaultValue = false)]
         public string ClassName
         {
             get{ return _ClassName;}
@@ -91,7 +87,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class BasquePig {\n");
             sb.Append("  ClassName: ").Append(ClassName).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
@@ -138,13 +134,9 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.ClassName != null)
-                {
-                    hashCode = (hashCode * 59) + this.ClassName.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ClassName.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

@@ -7,6 +7,8 @@ use futures::{future, Stream, StreamExt, TryFutureExt, TryStreamExt};
 use hyper::server::conn::Http;
 use hyper::service::Service;
 use log::info;
+#[cfg(not(any(target_os = "macos", target_os = "windows", target_os = "ios")))]
+use openssl::ssl::SslAcceptorBuilder;
 use std::future::Future;
 use std::marker::PhantomData;
 use std::net::SocketAddr;
@@ -18,7 +20,7 @@ use swagger::EmptyContext;
 use tokio::net::TcpListener;
 
 #[cfg(not(any(target_os = "macos", target_os = "windows", target_os = "ios")))]
-use openssl::ssl::{Ssl, SslAcceptor, SslAcceptorBuilder, SslFiletype, SslMethod};
+use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 use openapi_v3::models;
 
@@ -32,7 +34,6 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
-    #[allow(unused_mut)]
     let mut service =
         openapi_v3::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -50,28 +51,29 @@ pub async fn create(addr: &str, https: bool) {
 
             // Server authentication
             ssl.set_private_key_file("examples/server-key.pem", SslFiletype::PEM).expect("Failed to set private key");
-            ssl.set_certificate_chain_file("examples/server-chain.pem").expect("Failed to set certificate chain");
+            ssl.set_certificate_chain_file("examples/server-chain.pem").expect("Failed to set cerificate chain");
             ssl.check_private_key().expect("Failed to check private key");
 
-            let tls_acceptor = ssl.build();
-            let tcp_listener = TcpListener::bind(&addr).await.unwrap();
+            let tls_acceptor = Arc::new(ssl.build());
+            let mut tcp_listener = TcpListener::bind(&addr).await.unwrap();
+            let mut incoming = tcp_listener.incoming();
 
-            loop {
-                if let Ok((tcp, _)) = tcp_listener.accept().await {
-                    let ssl = Ssl::new(tls_acceptor.context()).unwrap();
+            while let (Some(tcp), rest) = incoming.into_future().await {
+                if let Ok(tcp) = tcp {
                     let addr = tcp.peer_addr().expect("Unable to get remote address");
                     let service = service.call(addr);
+                    let tls_acceptor = Arc::clone(&tls_acceptor);
 
                     tokio::spawn(async move {
-                        let tls = tokio_openssl::SslStream::new(ssl, tcp).map_err(|_| ())?;
+                        let tls = tokio_openssl::accept(&*tls_acceptor, tcp).await.map_err(|_| ())?;
+
                         let service = service.await.map_err(|_| ())?;
 
-                        Http::new()
-                            .serve_connection(tls, service)
-                            .await
-                            .map_err(|_| ())
+                        Http::new().serve_connection(tls, service).await.map_err(|_| ())
                     });
                 }
+
+                incoming = rest;
             }
         }
     } else {
@@ -135,7 +137,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("any_of_get({:?}) - X-Span-ID: {:?}", any_of, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn callback_with_header_post(
@@ -145,7 +147,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("callback_with_header_post(\"{}\") - X-Span-ID: {:?}", url, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn complex_query_param_get(
@@ -155,7 +157,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("complex_query_param_get({:?}) - X-Span-ID: {:?}", list_of_strings, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn enum_in_path_path_param_get(
@@ -165,7 +167,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("enum_in_path_path_param_get({:?}) - X-Span-ID: {:?}", path_param, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn json_complex_query_param_get(
@@ -175,7 +177,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("json_complex_query_param_get({:?}) - X-Span-ID: {:?}", list_of_strings, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn mandatory_request_header_get(
@@ -185,7 +187,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("mandatory_request_header_get(\"{}\") - X-Span-ID: {:?}", x_header, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn merge_patch_json_get(
@@ -194,7 +196,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("merge_patch_json_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// Get some stuff.
@@ -204,7 +206,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("multiget_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn multiple_auth_scheme_get(
@@ -213,7 +215,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("multiple_auth_scheme_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn one_of_get(
@@ -222,7 +224,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("one_of_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn override_server_get(
@@ -231,7 +233,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("override_server_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// Get some stuff with parameters.
@@ -244,7 +246,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("paramget_get({:?}, {:?}, {:?}) - X-Span-ID: {:?}", uuid, some_object, some_list, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn readonly_auth_scheme_get(
@@ -253,7 +255,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("readonly_auth_scheme_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn register_callback_post(
@@ -263,7 +265,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("register_callback_post(\"{}\") - X-Span-ID: {:?}", url, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn required_octet_stream_put(
@@ -273,7 +275,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("required_octet_stream_put({:?}) - X-Span-ID: {:?}", body, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn responses_with_headers_get(
@@ -282,7 +284,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("responses_with_headers_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn rfc7807_get(
@@ -291,7 +293,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("rfc7807_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn untyped_property_get(
@@ -301,7 +303,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("untyped_property_get({:?}) - X-Span-ID: {:?}", object_untyped_props, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn uuid_get(
@@ -310,7 +312,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("uuid_get() - X-Span-ID: {:?}", context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn xml_extra_post(
@@ -320,7 +322,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("xml_extra_post({:?}) - X-Span-ID: {:?}", duplicate_xml_object, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn xml_other_post(
@@ -330,7 +332,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("xml_other_post({:?}) - X-Span-ID: {:?}", another_xml_object, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn xml_other_put(
@@ -340,7 +342,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("xml_other_put({:?}) - X-Span-ID: {:?}", another_xml_array, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     /// Post an array
@@ -351,7 +353,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("xml_post({:?}) - X-Span-ID: {:?}", xml_array, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn xml_put(
@@ -361,7 +363,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("xml_put({:?}) - X-Span-ID: {:?}", xml_object, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn create_repo(
@@ -371,7 +373,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("create_repo({:?}) - X-Span-ID: {:?}", object_param, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
     async fn get_repo_info(
@@ -381,7 +383,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
     {
         let context = context.clone();
         info!("get_repo_info(\"{}\") - X-Span-ID: {:?}", repo_id, context.get().0.clone());
-        Err(ApiError("Generic failure".into()))
+        Err("Generic failuare".into())
     }
 
 }

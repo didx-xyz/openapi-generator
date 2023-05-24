@@ -1,5 +1,7 @@
 package org.openapitools.model
 
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 import jakarta.inject.Inject
@@ -9,27 +11,27 @@ import jakarta.inject.Inject
  */
 @MicronautTest
 public class TagSpec extends Specification {
-    private final Tag model = null
+    private final Tag model = new Tag()
 
     /**
      * Model tests for Tag
      */
-    void 'Tag test'() {
+    void "Tag test"() {
         // TODO: test Tag
     }
 
     /**
      * Test the property 'id'
      */
-    void 'Tag property id test'() {
-        // TODO: test id property of Tag
+    void "Tag property id test"() {
+        // TODO: test id
     }
 
     /**
      * Test the property 'name'
      */
-    void 'Tag property name test'() {
-        // TODO: test name property of Tag
+    void "Tag property name test"() {
+        // TODO: test name
     }
 
 }

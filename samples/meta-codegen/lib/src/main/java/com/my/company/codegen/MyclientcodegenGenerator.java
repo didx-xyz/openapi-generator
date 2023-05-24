@@ -1,7 +1,6 @@
 package com.my.company.codegen;
 
 import org.openapitools.codegen.*;
-import org.openapitools.codegen.model.*;
 import io.swagger.models.properties.*;
 
 import java.util.*;
@@ -36,17 +35,18 @@ public class MyclientcodegenGenerator extends DefaultCodegen implements CodegenC
   /**
    * Provides an opportunity to inspect and modify operation data before the code is generated.
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
+  public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
 
     // to try debugging your code generator:
     // set a break point on the next line.
     // then debug the JUnit test called LaunchGeneratorInDebugger
 
-    OperationsMap results = super.postProcessOperationsWithModels(objs, allModels);
+    Map<String, Object> results = super.postProcessOperationsWithModels(objs, allModels);
 
-    OperationMap ops = results.getOperations();
-    List<CodegenOperation> opList = ops.getOperation();
+    Map<String, Object> ops = (Map<String, Object>)results.get("operations");
+    ArrayList<CodegenOperation> opList = (ArrayList<CodegenOperation>)ops.get("operation");
 
     // iterate over the operation and perhaps modify something
     for(CodegenOperation co : opList){

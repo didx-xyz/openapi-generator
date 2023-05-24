@@ -1,13 +1,10 @@
 package org.openapitools.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 public class SpecialModelName  {
   
@@ -31,22 +28,6 @@ public class SpecialModelName  {
     return this;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SpecialModelName $specialModelName = (SpecialModelName) o;
-    return Objects.equals($specialPropertyName, $specialModelName.$specialPropertyName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash($specialPropertyName);
-  }
 
   @Override
   public String toString() {

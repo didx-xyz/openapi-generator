@@ -19,8 +19,8 @@ package org.openapitools.codegen.languages.features;
 
 public interface JbossFeature {
 
-    String GENERATE_JBOSS_DEPLOYMENT_DESCRIPTOR = "generateJbossDeploymentDescriptor";
+    public static final String GENERATE_JBOSS_DEPLOYMENT_DESCRIPTOR = "generateJbossDeploymentDescriptor";
 
-    void setGenerateJbossDeploymentDescriptor(boolean generateJbossDeploymentDescriptor);
+    public void setGenerateJbossDeploymentDescriptor(boolean generateJbossDeploymentDescriptor);
 
 }

@@ -1,13 +1,7 @@
 {{>licenseInfo}}
 /* tslint:disable:no-unused-variable member-ordering */
 
-{{#useAxiosHttpModule}}
-import { Inject, Injectable, Optional } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-{{/useAxiosHttpModule}}
-{{^useAxiosHttpModule}}
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
-{{/useAxiosHttpModule}}
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 {{#imports}}
@@ -34,7 +28,7 @@ export class {{classname}} {
 {{/withInterfaces}}
 
     protected basePath = '{{{basePath}}}';
-    public defaultHeaders: Record<string,string> = {};
+    public defaultHeaders = new Map()
     public configuration = new Configuration();
 
     constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
@@ -76,9 +70,9 @@ export class {{classname}} {
 {{/allParams}}
 
 {{#hasQueryParams}}
-        let queryParameters = new URLSearchParams();
+        let queryParameters = {};
 {{#queryParams}}
-        {{#isArray}}
+        {{#isListContainer}}
         if ({{paramName}}) {
         {{#isCollectionFormatMulti}}
             {{paramName}}.forEach((element) => {
@@ -89,32 +83,32 @@ export class {{classname}} {
             queryParameters['{{baseName}}'] = {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']);
         {{/isCollectionFormatMulti}}
         }
-        {{/isArray}}
-        {{^isArray}}
+        {{/isListContainer}}
+        {{^isListContainer}}
         if ({{paramName}} !== undefined && {{paramName}} !== null) {
         {{#isDateTime}}
-            queryParameters.append('{{baseName}}', <any>{{paramName}}.toISOString());
+            queryParameters['{{baseName}}'] = <any>{{paramName}}.toISOString();
         {{/isDateTime}}
         {{^isDateTime}}
-            queryParameters.append('{{baseName}}', <any>{{paramName}});
+            queryParameters['{{baseName}}'] = <any>{{paramName}};
         {{/isDateTime}}
         }
-        {{/isArray}}
+        {{/isListContainer}}
 {{/queryParams}}
 
 {{/hasQueryParams}}
-        let headers = {...this.defaultHeaders};
+        let headers = this.defaultHeaders;
 {{#headerParams}}
-        {{#isArray}}
+        {{#isListContainer}}
         if ({{paramName}}) {
             headers['{{baseName}}'] = {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']);
         }
-        {{/isArray}}
-        {{^isArray}}
+        {{/isListContainer}}
+        {{^isListContainer}}
         if ({{paramName}} !== undefined && {{paramName}} !== null) {
             headers['{{baseName}}'] = String({{paramName}});
         }
-        {{/isArray}}
+        {{/isListContainer}}
 {{/headerParams}}
 
 {{#authMethods}}
@@ -127,11 +121,8 @@ export class {{classname}} {
 
 {{/isKeyInHeader}}
 {{#isKeyInQuery}}
-        {{^hasQueryParams}}
-        let queryParameters = new URLSearchParams();
-        {{/hasQueryParams}}
         if (this.configuration.apiKeys["{{keyParamName}}"]) {
-            queryParameters.append('{{keyParamName}}', this.configuration.apiKeys["{{keyParamName}}"]);
+            queryParameters['{{keyParamName}}'] = this.configuration.apiKeys["{{keyParamName}}"];
         }
 
 {{/isKeyInQuery}}
@@ -197,7 +188,7 @@ export class {{classname}} {
         }
 {{#formParams}}
 
-        {{#isArray}}
+        {{#isListContainer}}
         if ({{paramName}}) {
         {{#isCollectionFormatMulti}}
             {{paramName}}.forEach((element) => {
@@ -208,12 +199,12 @@ export class {{classname}} {
             formParams.append('{{baseName}}', {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']));
         {{/isCollectionFormatMulti}}
         }
-        {{/isArray}}
-        {{^isArray}}
+        {{/isListContainer}}
+        {{^isListContainer}}
         if ({{paramName}} !== undefined) {
             formParams.append('{{baseName}}', <any>{{paramName}});
         }
-        {{/isArray}}
+        {{/isListContainer}}
 {{/formParams}}
 
 {{/hasFormParams}}

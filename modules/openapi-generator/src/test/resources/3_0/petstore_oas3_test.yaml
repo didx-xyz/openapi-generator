@@ -319,7 +319,7 @@ paths:
       summary: Find purchase order by ID
       description: >-
         For valid response try integer IDs with value <= 5 or > 10. Other values
-        will generate exceptions
+        will generated exceptions
       operationId: getOrderById
       parameters:
         - name: orderId
@@ -437,7 +437,7 @@ paths:
                 type: integer
                 format: int32
             X-Expires-After:
-              description: date in UTC when token expires
+              description: date in UTC when toekn expires
               schema:
                 type: string
                 format: date-time

@@ -40,15 +40,7 @@ namespace Org.OpenAPITools.Model
         public Model200Response(int name = default(int), string _class = default(string))
         {
             this._Name = name;
-            if (this.Name != null)
-            {
-                this._flagName = true;
-            }
             this._Class = _class;
-            if (this.Class != null)
-            {
-                this._flagClass = true;
-            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -112,7 +104,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class Model200Response {\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Class: ").Append(Class).Append("\n");
@@ -159,15 +151,11 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.Name.GetHashCode();
+                hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Class != null)
-                {
-                    hashCode = (hashCode * 59) + this.Class.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.Class.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

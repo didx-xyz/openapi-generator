@@ -25,8 +25,6 @@ Method | HTTP request | Description
 
 Add a new pet to the store
 
-
-
 ### Example
 ```perl
 use Data::Dumper;
@@ -72,8 +70,6 @@ void (empty response body)
 > delete_pet(pet_id => $pet_id, api_key => $api_key)
 
 Deletes a pet
-
-
 
 ### Example
 ```perl
@@ -272,8 +268,6 @@ Name | Type | Description  | Notes
 
 Update an existing pet
 
-
-
 ### Example
 ```perl
 use Data::Dumper;
@@ -319,8 +313,6 @@ void (empty response body)
 > update_pet_with_form(pet_id => $pet_id, name => $name, status => $status)
 
 Updates a pet in the store with form data
-
-
 
 ### Example
 ```perl
@@ -372,8 +364,6 @@ void (empty response body)
 
 uploads an image
 
-
-
 ### Example
 ```perl
 use Data::Dumper;
@@ -424,8 +414,6 @@ Name | Type | Description  | Notes
 > ApiResponse upload_file_with_required_file(pet_id => $pet_id, required_file => $required_file, additional_metadata => $additional_metadata)
 
 uploads an image (required)
-
-
 
 ### Example
 ```perl

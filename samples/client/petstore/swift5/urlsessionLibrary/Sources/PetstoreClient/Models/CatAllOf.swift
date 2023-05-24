@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.CatAllOf")
-public typealias CatAllOf = PetstoreClientAPI.CatAllOf
+@available(*, deprecated, renamed: "PetstoreClient.CatAllOf")
+public typealias CatAllOf = PetstoreClient.CatAllOf
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class CatAllOf: Codable, JSONEncodable, Hashable {
+public final class CatAllOf: Codable, Hashable {
 
     public var declawed: Bool?
 

@@ -14,14 +14,12 @@ postUserR = notImplemented
 
 -- | Creates list of users with given input array
 --
--- 
 -- operationId: createUsersWithArrayInput
 postUserCreateWithArrayR :: Handler Value
 postUserCreateWithArrayR = notImplemented
 
 -- | Creates list of users with given input array
 --
--- 
 -- operationId: createUsersWithListInput
 postUserCreateWithListR :: Handler Value
 postUserCreateWithListR = notImplemented
@@ -36,7 +34,6 @@ deleteUserByTextR username = notImplemented
 
 -- | Get user by user name
 --
--- 
 -- operationId: getUserByName
 getUserByTextR :: Text -- ^ The name that needs to be fetched. Use user1 for testing.
                -> Handler Value
@@ -44,14 +41,12 @@ getUserByTextR username = notImplemented
 
 -- | Logs user into the system
 --
--- 
 -- operationId: loginUser
 getUserLoginR :: Handler Value
 getUserLoginR = notImplemented
 
 -- | Logs out current logged in user session
 --
--- 
 -- operationId: logoutUser
 getUserLogoutR :: Handler Value
 getUserLogoutR = notImplemented

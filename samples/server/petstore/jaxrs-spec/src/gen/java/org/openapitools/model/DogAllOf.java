@@ -1,6 +1,5 @@
 package org.openapitools.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -12,21 +11,12 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("Dog_allOf")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class DogAllOf  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class DogAllOf  implements Serializable {
+  
   private @Valid String breed;
-
-  protected DogAllOf(DogAllOfBuilder<?, ?> b) {
-    this.breed = b.breed;
-  }
-
-  public DogAllOf() {
-  }
 
   /**
    **/
@@ -36,13 +26,14 @@ public class DogAllOf  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("breed")
   public String getBreed() {
     return breed;
   }
 
-  @JsonProperty("breed")
   public void setBreed(String breed) {
     this.breed = breed;
   }
@@ -87,33 +78,5 @@ public class DogAllOf  implements Serializable {
   }
 
 
-  public static DogAllOfBuilder<?, ?> builder() {
-    return new DogAllOfBuilderImpl();
-  }
-
-  private static final class DogAllOfBuilderImpl extends DogAllOfBuilder<DogAllOf, DogAllOfBuilderImpl> {
-
-    @Override
-    protected DogAllOfBuilderImpl self() {
-      return this;
-    }
-
-    @Override
-    public DogAllOf build() {
-      return new DogAllOf(this);
-    }
-  }
-
-  public static abstract class DogAllOfBuilder<C extends DogAllOf, B extends DogAllOfBuilder<C, B>>  {
-    private String breed;
-    protected abstract B self();
-
-    public abstract C build();
-
-    public B breed(String breed) {
-      this.breed = breed;
-      return self();
-    }
-  }
 }
 

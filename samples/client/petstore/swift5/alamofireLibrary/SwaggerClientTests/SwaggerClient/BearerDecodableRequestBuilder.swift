@@ -21,55 +21,49 @@ class BearerRequestBuilderFactory: RequestBuilderFactory {
 }
 
 class BearerRequestBuilder<T>: AlamofireRequestBuilder<T> {
-    override func createAlamofireSession(interceptor: RequestInterceptor? = nil) -> Session {
-        if self.requiresAuthentication {
-
-            let bearerTokenHandler = BearerTokenHandler()
-            let alamofireSession = super.createAlamofireSession(interceptor: bearerTokenHandler)
-
-            return alamofireSession
-        } else {
-            return super.createAlamofireSession(interceptor: nil)
-        }      
+    override func createSessionManager() -> SessionManager {
+        let sessionManager = super.createSessionManager()
+        
+        let bearerTokenHandler = BearerTokenHandler()
+        sessionManager.adapter = bearerTokenHandler
+        sessionManager.retrier = bearerTokenHandler
+        
+        return sessionManager
     }
 }
 
 class BearerDecodableRequestBuilder<T: Decodable>: AlamofireDecodableRequestBuilder<T> {
-    override func createAlamofireSession(interceptor: RequestInterceptor? = nil) -> Session {
-        if self.requiresAuthentication {
-
-            let bearerTokenHandler = BearerTokenHandler()
-            let alamofireSession = super.createAlamofireSession(interceptor: bearerTokenHandler)
-
-            return alamofireSession
-        } else {
-            return super.createAlamofireSession(interceptor: nil)
-        }  
+    override func createSessionManager() -> SessionManager {
+        let sessionManager = super.createSessionManager()
+        
+        let bearerTokenHandler = BearerTokenHandler()
+        sessionManager.adapter = bearerTokenHandler
+        sessionManager.retrier = bearerTokenHandler
+        
+        return sessionManager
     }
 }
 
-class BearerTokenHandler: RequestInterceptor {
+class BearerTokenHandler: RequestAdapter, RequestRetrier {
     private static var bearerToken: String? = nil
     
-    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+    func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         if let bearerToken = Self.bearerToken {
             var urlRequest = urlRequest
             urlRequest.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
-            
-            completion(.success(urlRequest))
-            return
+            return urlRequest
         }
         
-        completion(.success(urlRequest))
+        return urlRequest
     }
     
-    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+    func should(_: SessionManager, retry request: Request, with _: Error, completion: @escaping RequestRetryCompletion) {
         if let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 {
             Self.startRefreshingToken { isTokenRefreshed in
-                completion(.retry)
+                completion(isTokenRefreshed, 0.0)
             }
         } else {
-            completion(.doNotRetryWithError(error))
+            completion(false, 0.0)
         }
     }
     

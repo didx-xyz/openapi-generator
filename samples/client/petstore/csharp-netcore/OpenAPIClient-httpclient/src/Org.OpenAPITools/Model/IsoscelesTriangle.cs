@@ -46,29 +46,21 @@ namespace Org.OpenAPITools.Model
         public IsoscelesTriangle(string shapeType = default(string), string triangleType = default(string))
         {
             // to ensure "shapeType" is required (not null)
-            if (shapeType == null)
-            {
-                throw new ArgumentNullException("shapeType is a required property for IsoscelesTriangle and cannot be null");
-            }
-            this.ShapeType = shapeType;
+            this.ShapeType = shapeType ?? throw new ArgumentNullException("shapeType is a required property for IsoscelesTriangle and cannot be null");
             // to ensure "triangleType" is required (not null)
-            if (triangleType == null)
-            {
-                throw new ArgumentNullException("triangleType is a required property for IsoscelesTriangle and cannot be null");
-            }
-            this.TriangleType = triangleType;
+            this.TriangleType = triangleType ?? throw new ArgumentNullException("triangleType is a required property for IsoscelesTriangle and cannot be null");
         }
 
         /// <summary>
         /// Gets or Sets ShapeType
         /// </summary>
-        [DataMember(Name = "shapeType", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "shapeType", IsRequired = true, EmitDefaultValue = false)]
         public string ShapeType { get; set; }
 
         /// <summary>
         /// Gets or Sets TriangleType
         /// </summary>
-        [DataMember(Name = "triangleType", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "triangleType", IsRequired = true, EmitDefaultValue = false)]
         public string TriangleType { get; set; }
 
         /// <summary>
@@ -77,7 +69,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class IsoscelesTriangle {\n");
             sb.Append("  ShapeType: ").Append(ShapeType).Append("\n");
             sb.Append("  TriangleType: ").Append(TriangleType).Append("\n");
@@ -124,13 +116,9 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.ShapeType != null)
-                {
-                    hashCode = (hashCode * 59) + this.ShapeType.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ShapeType.GetHashCode();
                 if (this.TriangleType != null)
-                {
-                    hashCode = (hashCode * 59) + this.TriangleType.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.TriangleType.GetHashCode();
                 return hashCode;
             }
         }

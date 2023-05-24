@@ -14,20 +14,17 @@ import play.mvc.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import openapitools.OpenAPIUtils;
-import openapitools.SecurityAPIUtils;
 import static play.mvc.Results.ok;
-import static play.mvc.Results.unauthorized;
 import play.libs.Files.TemporaryFile;
 
 
 @SuppressWarnings("RedundantThrows")
 public abstract class StoreApiControllerImpInterface {
-    @Inject private SecurityAPIUtils securityAPIUtils;
     private ObjectMapper mapper = new ObjectMapper();
 
     public Result deleteOrderHttp(Http.Request request, String orderId) throws Exception {
         deleteOrder(request, orderId);
-        return ok();
+return ok();
 
     }
 
@@ -35,9 +32,8 @@ public abstract class StoreApiControllerImpInterface {
 
     public Result getInventoryHttp(Http.Request request) throws Exception {
         Map<String, Integer> obj = getInventory(request);
-        JsonNode result = mapper.valueToTree(obj);
-
-        return ok(result);
+JsonNode result = mapper.valueToTree(obj);
+return ok(result);
 
     }
 
@@ -45,9 +41,8 @@ public abstract class StoreApiControllerImpInterface {
 
     public Result getOrderByIdHttp(Http.Request request, Long orderId) throws Exception {
         Order obj = getOrderById(request, orderId);
-        JsonNode result = mapper.valueToTree(obj);
-
-        return ok(result);
+JsonNode result = mapper.valueToTree(obj);
+return ok(result);
 
     }
 
@@ -55,9 +50,8 @@ public abstract class StoreApiControllerImpInterface {
 
     public Result placeOrderHttp(Http.Request request, Order body) throws Exception {
         Order obj = placeOrder(request, body);
-        JsonNode result = mapper.valueToTree(obj);
-
-        return ok(result);
+JsonNode result = mapper.valueToTree(obj);
+return ok(result);
 
     }
 

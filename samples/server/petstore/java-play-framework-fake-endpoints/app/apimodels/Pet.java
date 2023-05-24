@@ -2,7 +2,6 @@ package apimodels;
 
 import apimodels.Category;
 import apimodels.Tag;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -136,10 +135,7 @@ public class Pet   {
   }
 
   public Pet addPhotoUrlsItem(String photoUrlsItem) {
-    if (this.photoUrls == null) {
-      this.photoUrls = new LinkedHashSet<>();
-    }
-    this.photoUrls.add(photoUrlsItem);
+    photoUrls.add(photoUrlsItem);
     return this;
   }
 
@@ -151,7 +147,6 @@ public class Pet   {
     return photoUrls;
   }
 
-  @JsonDeserialize(as = LinkedHashSet.class)
   public void setPhotoUrls(Set<String> photoUrls) {
     this.photoUrls = photoUrls;
   }
@@ -162,10 +157,10 @@ public class Pet   {
   }
 
   public Pet addTagsItem(Tag tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<>();
+    if (tags == null) {
+      tags = new ArrayList<>();
     }
-    this.tags.add(tagsItem);
+    tags.add(tagsItem);
     return this;
   }
 

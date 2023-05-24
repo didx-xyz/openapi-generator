@@ -2,7 +2,7 @@
 /**
  * Order
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -41,7 +41,6 @@ use JMS\Serializer\Annotation\SerializedName;
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-
 class Order 
 {
         /**
@@ -50,7 +49,7 @@ class Order
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $id = null;
+    protected $id;
 
     /**
      * @var int|null
@@ -58,7 +57,7 @@ class Order
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $petId = null;
+    protected $petId;
 
     /**
      * @var int|null
@@ -66,7 +65,7 @@ class Order
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $quantity = null;
+    protected $quantity;
 
     /**
      * @var \DateTime|null
@@ -74,7 +73,7 @@ class Order
      * @Assert\DateTime()
      * @Type("DateTime")
      */
-    protected ?\DateTime $shipDate = null;
+    protected $shipDate;
 
     /**
      * Order Status
@@ -85,7 +84,7 @@ class Order
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $status = null;
+    protected $status;
 
     /**
      * @var bool|null
@@ -93,20 +92,20 @@ class Order
      * @Assert\Type("bool")
      * @Type("bool")
      */
-    protected ?bool $complete = null;
+    protected $complete;
 
     /**
      * Constructor
-     * @param array|null $data Associated array of property values initializing the model
+     * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->id = $data['id'] ?? null;
-        $this->petId = $data['petId'] ?? null;
-        $this->quantity = $data['quantity'] ?? null;
-        $this->shipDate = $data['shipDate'] ?? null;
-        $this->status = $data['status'] ?? null;
-        $this->complete = $data['complete'] ?? null;
+        $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->petId = isset($data['petId']) ? $data['petId'] : null;
+        $this->quantity = isset($data['quantity']) ? $data['quantity'] : null;
+        $this->shipDate = isset($data['shipDate']) ? $data['shipDate'] : null;
+        $this->status = isset($data['status']) ? $data['status'] : null;
+        $this->complete = isset($data['complete']) ? $data['complete'] : false;
     }
 
     /**
@@ -114,7 +113,7 @@ class Order
      *
      * @return int|null
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
@@ -126,7 +125,7 @@ class Order
      *
      * @return $this
      */
-    public function setId(?int $id = null): self
+    public function setId($id = null)
     {
         $this->id = $id;
 
@@ -138,7 +137,7 @@ class Order
      *
      * @return int|null
      */
-    public function getPetId(): ?int
+    public function getPetId()
     {
         return $this->petId;
     }
@@ -150,7 +149,7 @@ class Order
      *
      * @return $this
      */
-    public function setPetId(?int $petId = null): self
+    public function setPetId($petId = null)
     {
         $this->petId = $petId;
 
@@ -162,7 +161,7 @@ class Order
      *
      * @return int|null
      */
-    public function getQuantity(): ?int
+    public function getQuantity()
     {
         return $this->quantity;
     }
@@ -174,7 +173,7 @@ class Order
      *
      * @return $this
      */
-    public function setQuantity(?int $quantity = null): self
+    public function setQuantity($quantity = null)
     {
         $this->quantity = $quantity;
 
@@ -198,7 +197,7 @@ class Order
      *
      * @return $this
      */
-    public function setShipDate(?\DateTime $shipDate = null): self
+    public function setShipDate(\DateTime $shipDate = null)
     {
         $this->shipDate = $shipDate;
 
@@ -210,7 +209,7 @@ class Order
      *
      * @return string|null
      */
-    public function getStatus(): ?string
+    public function getStatus()
     {
         return $this->status;
     }
@@ -222,7 +221,7 @@ class Order
      *
      * @return $this
      */
-    public function setStatus(?string $status = null): self
+    public function setStatus($status = null)
     {
         $this->status = $status;
 
@@ -234,7 +233,7 @@ class Order
      *
      * @return bool|null
      */
-    public function isComplete(): ?bool
+    public function isComplete()
     {
         return $this->complete;
     }
@@ -246,7 +245,7 @@ class Order
      *
      * @return $this
      */
-    public function setComplete(?bool $complete = null): self
+    public function setComplete($complete = null)
     {
         $this->complete = $complete;
 

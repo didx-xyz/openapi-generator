@@ -10,13 +10,13 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.Model200Response")
-public typealias Model200Response = PetstoreClientAPI.Model200Response
+@available(*, deprecated, renamed: "PetstoreClient.Model200Response")
+public typealias Model200Response = PetstoreClient.Model200Response
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
 /** Model for testing model name starting with number */
-public final class Model200Response: Codable, JSONEncodable, Hashable {
+public final class Model200Response: Codable, Hashable {
 
     public var name: Int?
     public var _class: String?

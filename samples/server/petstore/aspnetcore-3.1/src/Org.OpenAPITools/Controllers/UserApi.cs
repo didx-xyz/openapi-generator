@@ -32,15 +32,13 @@ namespace Org.OpenAPITools.Controllers
         /// Create user
         /// </summary>
         /// <remarks>This can only be done by the logged in user.</remarks>
-        /// <param name="user">Created user object</param>
+        /// <param name="body">Created user object</param>
         /// <response code="0">successful operation</response>
         [HttpPost]
         [Route("/v2/user")]
-        [Authorize(Policy = "api_key")]
-        [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateUser")]
-        public virtual IActionResult CreateUser([FromBody]User user)
+        public virtual IActionResult CreateUser([FromBody]User body)
         {
 
             //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -52,15 +50,13 @@ namespace Org.OpenAPITools.Controllers
         /// <summary>
         /// Creates list of users with given input array
         /// </summary>
-        /// <param name="user">List of user object</param>
+        /// <param name="body">List of user object</param>
         /// <response code="0">successful operation</response>
         [HttpPost]
         [Route("/v2/user/createWithArray")]
-        [Authorize(Policy = "api_key")]
-        [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateUsersWithArrayInput")]
-        public virtual IActionResult CreateUsersWithArrayInput([FromBody]List<User> user)
+        public virtual IActionResult CreateUsersWithArrayInput([FromBody]List<User> body)
         {
 
             //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -72,15 +68,13 @@ namespace Org.OpenAPITools.Controllers
         /// <summary>
         /// Creates list of users with given input array
         /// </summary>
-        /// <param name="user">List of user object</param>
+        /// <param name="body">List of user object</param>
         /// <response code="0">successful operation</response>
         [HttpPost]
         [Route("/v2/user/createWithList")]
-        [Authorize(Policy = "api_key")]
-        [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("CreateUsersWithListInput")]
-        public virtual IActionResult CreateUsersWithListInput([FromBody]List<User> user)
+        public virtual IActionResult CreateUsersWithListInput([FromBody]List<User> body)
         {
 
             //TODO: Uncomment the next line to return response 0 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -98,7 +92,6 @@ namespace Org.OpenAPITools.Controllers
         /// <response code="404">User not found</response>
         [HttpDelete]
         [Route("/v2/user/{username}")]
-        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("DeleteUser")]
         public virtual IActionResult DeleteUser([FromRoute (Name = "username")][Required]string username)
@@ -156,7 +149,7 @@ namespace Org.OpenAPITools.Controllers
         [ValidateModelState]
         [SwaggerOperation("LoginUser")]
         [SwaggerResponse(statusCode: 200, type: typeof(string), description: "successful operation")]
-        public virtual IActionResult LoginUser([FromQuery (Name = "username")][Required()][RegularExpression("^[a-zA-Z0-9]+[a-zA-Z0-9\\.\\-_]*[a-zA-Z0-9]+$")]string username, [FromQuery (Name = "password")][Required()]string password)
+        public virtual IActionResult LoginUser([FromQuery (Name = "username")][Required()]string username, [FromQuery (Name = "password")][Required()]string password)
         {
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -178,7 +171,6 @@ namespace Org.OpenAPITools.Controllers
         /// <response code="0">successful operation</response>
         [HttpGet]
         [Route("/v2/user/logout")]
-        [Authorize(Policy = "api_key")]
         [ValidateModelState]
         [SwaggerOperation("LogoutUser")]
         public virtual IActionResult LogoutUser()
@@ -195,16 +187,14 @@ namespace Org.OpenAPITools.Controllers
         /// </summary>
         /// <remarks>This can only be done by the logged in user.</remarks>
         /// <param name="username">name that need to be deleted</param>
-        /// <param name="user">Updated user object</param>
+        /// <param name="body">Updated user object</param>
         /// <response code="400">Invalid user supplied</response>
         /// <response code="404">User not found</response>
         [HttpPut]
         [Route("/v2/user/{username}")]
-        [Authorize(Policy = "api_key")]
-        [Consumes("application/json")]
         [ValidateModelState]
         [SwaggerOperation("UpdateUser")]
-        public virtual IActionResult UpdateUser([FromRoute (Name = "username")][Required]string username, [FromBody]User user)
+        public virtual IActionResult UpdateUser([FromRoute (Name = "username")][Required]string username, [FromBody]User body)
         {
 
             //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

@@ -1,5 +1,7 @@
 package org.openapitools.model
 
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
 import java.util.HashMap
 import java.util.Map
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
@@ -11,20 +13,20 @@ import jakarta.inject.Inject
  */
 @MicronautTest
 public class AdditionalPropertiesStringSpec extends Specification {
-    private final AdditionalPropertiesString model = null
+    private final AdditionalPropertiesString model = new AdditionalPropertiesString()
 
     /**
      * Model tests for AdditionalPropertiesString
      */
-    void 'AdditionalPropertiesString test'() {
+    void "AdditionalPropertiesString test"() {
         // TODO: test AdditionalPropertiesString
     }
 
     /**
      * Test the property 'name'
      */
-    void 'AdditionalPropertiesString property name test'() {
-        // TODO: test name property of AdditionalPropertiesString
+    void "AdditionalPropertiesString property name test"() {
+        // TODO: test name
     }
 
 }

@@ -2,7 +2,7 @@
 /**
  * Category
  *
- * PHP version 8.1.1
+ * PHP version 7.1.3
  *
  * @category Class
  * @package  OpenAPI\Server\Model
@@ -41,7 +41,6 @@ use JMS\Serializer\Annotation\SerializedName;
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-
 class Category 
 {
         /**
@@ -50,7 +49,7 @@ class Category
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $id = null;
+    protected $id;
 
     /**
      * @var string|null
@@ -59,16 +58,16 @@ class Category
      * @Type("string")
      * @Assert\Regex("/^[a-zA-Z0-9]+[a-zA-Z0-9\\.\\-_]*[a-zA-Z0-9]+$/")
      */
-    protected ?string $name = null;
+    protected $name;
 
     /**
      * Constructor
-     * @param array|null $data Associated array of property values initializing the model
+     * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
-        $this->id = $data['id'] ?? null;
-        $this->name = $data['name'] ?? null;
+        $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->name = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -76,7 +75,7 @@ class Category
      *
      * @return int|null
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
@@ -88,7 +87,7 @@ class Category
      *
      * @return $this
      */
-    public function setId(?int $id = null): self
+    public function setId($id = null)
     {
         $this->id = $id;
 
@@ -100,7 +99,7 @@ class Category
      *
      * @return string|null
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -112,7 +111,7 @@ class Category
      *
      * @return $this
      */
-    public function setName(?string $name = null): self
+    public function setName($name = null)
     {
         $this->name = $name;
 

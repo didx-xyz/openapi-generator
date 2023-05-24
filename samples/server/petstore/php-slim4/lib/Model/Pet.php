@@ -2,7 +2,7 @@
 
 /**
  * OpenAPI Petstore
- * PHP version 7.4
+ * PHP version 7.2
  *
  * @package OpenAPIServer
  * @author  OpenAPI Generator team

@@ -16,7 +16,10 @@
 
 package org.openapitools.codegen.languages;
 
-import org.openapitools.codegen.*;
+import org.openapitools.codegen.CliOption;
+import org.openapitools.codegen.CodegenConfig;
+import org.openapitools.codegen.CodegenConstants;
+import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.meta.features.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +102,4 @@ public class GraphQLSchemaCodegen extends AbstractGraphQLCodegen implements Code
         //supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"))
         //supportingFiles.add(new SupportingFile(".travis.yml", "", ".travis.yml"));
     }
-
-    @Override
-    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.GRAPH_QL; }
 }

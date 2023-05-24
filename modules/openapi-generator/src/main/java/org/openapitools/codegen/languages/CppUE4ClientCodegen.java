@@ -39,14 +39,14 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
 
     protected String unrealModuleName = "OpenAPI";
     // Will be treated as pointer
-    protected Set<String> pointerClasses = new HashSet<>();
+    protected Set<String> pointerClasses = new HashSet<String>();
     // source folder where to write the files
     protected String privateFolder = "Private";
     protected String publicFolder = "Public";
     protected String apiVersion = "1.0.0";
-    protected Map<String, String> namespaces = new HashMap<>();
+    protected Map<String, String> namespaces = new HashMap<String, String>();
     // Will be included using the <> syntax, not used in Unreal's coding convention
-    protected Set<String> systemIncludes = new HashSet<>();
+    protected Set<String> systemIncludes = new HashSet<String>();
     protected String cppNamespace = unrealModuleName;
     protected boolean optionalProjectFileFlag = true;
 
@@ -124,7 +124,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
 
         // Write defaults namespace in properties so that it can be accessible in templates.
         // At this point command line has not been parsed so if value is given
-        // in command line it will supersede this content
+        // in command line it will superseed this content
         additionalProperties.put("cppNamespace", cppNamespace);
         additionalProperties.put("unrealModuleName", unrealModuleName);
 
@@ -132,7 +132,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
          * Language Specific Primitives.  These types will not trigger imports by
          * the client generator
          */
-        languageSpecificPrimitives = new HashSet<>(
+        languageSpecificPrimitives = new HashSet<String>(
                 Arrays.asList(
                         "bool",
                         "int32",
@@ -145,9 +145,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
                         "TArray",
                         "TArray<uint8>",  // For byte arrays
                         "TMap",
-                        "TSet",
-                        "TSharedPtr<FJsonObject>",
-                        "TSharedPtr<FJsonValue>")
+                        "TSharedPtr<FJsonObject>")
         );
 
         supportingFiles.add(new SupportingFile("model-base-header.mustache", publicFolder, modelNamePrefix + "BaseModel.h"));
@@ -160,7 +158,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
             supportingFiles.add(new SupportingFile("module-source.mustache", privateFolder, unrealModuleName + "Module.cpp"));
         }
 
-        super.typeMapping = new HashMap<>();
+        super.typeMapping = new HashMap<String, String>();
 
         // Maps C++ types during call to getSchemaType, see DefaultCodegen.getSchemaType and not the types/formats
         // defined in openapi specification "array" is also used explicitly in the generator for containers
@@ -181,19 +179,17 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
         typeMapping.put("date-time", "FDateTime");
         typeMapping.put("DateTime", "FDateTime");
         typeMapping.put("array", "TArray");
-        typeMapping.put("set", "TSet");
         typeMapping.put("list", "TArray");
         typeMapping.put("map", "TMap");
         typeMapping.put("object", "TSharedPtr<FJsonObject>");
         typeMapping.put("Object", "TSharedPtr<FJsonObject>");
         typeMapping.put("file", "HttpFileInput");
         typeMapping.put("UUID", "FGuid");
-        typeMapping.put("AnyType", "TSharedPtr<FJsonValue>");
 
-        importMapping = new HashMap<>();
+        importMapping = new HashMap<String, String>();
         importMapping.put("HttpFileInput", "#include \"" + modelNamePrefix + "Helpers.h\"");
 
-        namespaces = new HashMap<>();
+        namespaces = new HashMap<String, String>();
     }
 
     @Override
@@ -385,9 +381,11 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
 
         if (ModelUtils.isArraySchema(p)) {
             ArraySchema ap = (ArraySchema) p;
-            return getSchemaType(p) + "<" + getTypeDeclaration(ap.getItems()) + ">";
+            String inner = getSchemaType(ap.getItems());
+            return getSchemaType(p) + "<" + getTypeDeclaration(inner) + ">";
         } else if (ModelUtils.isMapSchema(p)) {
-            return getSchemaType(p) + "<FString, " + getTypeDeclaration(getAdditionalProperties(p)) + ">";
+            String inner = getSchemaType(getAdditionalProperties(p));
+            return getSchemaType(p) + "<FString, " + getTypeDeclaration(inner) + ">";
         }
 
         if (pointerClasses.contains(openAPIType)) {
@@ -485,7 +483,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
                 languageSpecificPrimitives.contains(type)) {
             return type;
         } else {
-            return modelNamePrefix + camelize(sanitizeName(type));
+            return modelNamePrefix + camelize(sanitizeName(type), false);
         }
     }
 
@@ -494,13 +492,13 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
         // sanitize name
         name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
 
-        // if it's all upper case, convert to lower case
+        // if it's all uppper case, convert to lower case
         if (name.matches("^[A-Z_]*$")) {
             name = name.toLowerCase(Locale.ROOT);
         }
 
         //Unreal variable names are CamelCase
-        String camelCaseName = camelize(name);
+        String camelCaseName = camelize(name, false);
 
         //Avoid empty variable name at all costs
         if(!camelCaseName.isEmpty()) {
@@ -527,7 +525,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
 
     @Override
     public String toApiName(String type) {
-        return modelNamePrefix + camelize(type) + "Api";
+        return modelNamePrefix + camelize(type, false) + "Api";
     }
 
     @Override

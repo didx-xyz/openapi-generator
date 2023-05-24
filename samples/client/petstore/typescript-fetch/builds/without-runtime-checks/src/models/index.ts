@@ -70,10 +70,10 @@ export interface Order {
     quantity?: number;
     /**
      * 
-     * @type {string}
+     * @type {Date}
      * @memberof Order
      */
-    shipDate?: string;
+    shipDate?: Date;
     /**
      * Order Status
      * @type {string}
@@ -88,17 +88,15 @@ export interface Order {
     complete?: boolean;
 }
 
-
 /**
- * @export
- */
-export const OrderStatusEnum = {
-    Placed: 'placed',
-    Approved: 'approved',
-    Delivered: 'delivered'
-} as const;
-export type OrderStatusEnum = typeof OrderStatusEnum[keyof typeof OrderStatusEnum];
-
+* @export
+* @enum {string}
+*/
+export enum OrderStatusEnum {
+    Placed = 'placed',
+    Approved = 'approved',
+    Delivered = 'delivered'
+}
 /**
  * A pet for sale in the pet store
  * @export
@@ -143,17 +141,15 @@ export interface Pet {
     status?: PetStatusEnum;
 }
 
-
 /**
- * @export
- */
-export const PetStatusEnum = {
-    Available: 'available',
-    Pending: 'pending',
-    Sold: 'sold'
-} as const;
-export type PetStatusEnum = typeof PetStatusEnum[keyof typeof PetStatusEnum];
-
+* @export
+* @enum {string}
+*/
+export enum PetStatusEnum {
+    Available = 'available',
+    Pending = 'pending',
+    Sold = 'sold'
+}
 /**
  * A tag for a pet
  * @export

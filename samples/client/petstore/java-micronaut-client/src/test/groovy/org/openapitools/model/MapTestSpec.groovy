@@ -1,5 +1,7 @@
 package org.openapitools.model
 
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
 import java.util.HashMap
 import java.util.List
 import java.util.Map
@@ -12,41 +14,41 @@ import jakarta.inject.Inject
  */
 @MicronautTest
 public class MapTestSpec extends Specification {
-    private final MapTest model = null
+    private final MapTest model = new MapTest()
 
     /**
      * Model tests for MapTest
      */
-    void 'MapTest test'() {
+    void "MapTest test"() {
         // TODO: test MapTest
     }
 
     /**
      * Test the property 'mapMapOfString'
      */
-    void 'MapTest property mapMapOfString test'() {
-        // TODO: test mapMapOfString property of MapTest
+    void "MapTest property mapMapOfString test"() {
+        // TODO: test mapMapOfString
     }
 
     /**
      * Test the property 'mapOfEnumString'
      */
-    void 'MapTest property mapOfEnumString test'() {
-        // TODO: test mapOfEnumString property of MapTest
+    void "MapTest property mapOfEnumString test"() {
+        // TODO: test mapOfEnumString
     }
 
     /**
      * Test the property 'directMap'
      */
-    void 'MapTest property directMap test'() {
-        // TODO: test directMap property of MapTest
+    void "MapTest property directMap test"() {
+        // TODO: test directMap
     }
 
     /**
      * Test the property 'indirectMap'
      */
-    void 'MapTest property indirectMap test'() {
-        // TODO: test indirectMap property of MapTest
+    void "MapTest property indirectMap test"() {
+        // TODO: test indirectMap
     }
 
 }

@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.Pet")
-public typealias Pet = PetstoreClientAPI.Pet
+@available(*, deprecated, renamed: "PetstoreClient.Pet")
+public typealias Pet = PetstoreClient.Pet
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class Pet: Codable, JSONEncodable, Hashable {
+public final class Pet: Codable, Hashable {
 
     public enum Status: String, Codable, CaseIterable {
         case available = "available"
@@ -28,9 +28,9 @@ public final class Pet: Codable, JSONEncodable, Hashable {
     public var photoUrls: [String]
     public var tags: [Tag]?
     /** pet status in the store */
-    public var status: NullEncodable<Status>
+    public var status: Status?
 
-    public init(id: Int64? = nil, category: Category? = nil, name: String, photoUrls: [String], tags: [Tag]? = nil, status: NullEncodable<Status> = .encodeNull) {
+    public init(id: Int64? = nil, category: Category? = nil, name: String, photoUrls: [String], tags: [Tag]? = nil, status: Status? = nil) {
         self.id = id
         self.category = category
         self.name = name
@@ -57,10 +57,7 @@ public final class Pet: Codable, JSONEncodable, Hashable {
         try container.encode(name, forKey: .name)
         try container.encode(photoUrls, forKey: .photoUrls)
         try container.encodeIfPresent(tags, forKey: .tags)
-        switch status {
-        case .encodeNothing: break
-        case .encodeNull, .encodeValue: try container.encode(status, forKey: .status)
-        }
+        try container.encodeIfPresent(status, forKey: .status)
     }
 
     public static func == (lhs: Pet, rhs: Pet) -> Bool {
@@ -79,7 +76,7 @@ public final class Pet: Codable, JSONEncodable, Hashable {
         hasher.combine(name.hashValue)
         hasher.combine(photoUrls.hashValue)
         hasher.combine(tags?.hashValue)
-        hasher.combine(status.hashValue)
+        hasher.combine(status?.hashValue)
         
     }
 }

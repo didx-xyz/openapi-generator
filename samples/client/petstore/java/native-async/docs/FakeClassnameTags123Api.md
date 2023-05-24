@@ -2,16 +2,16 @@
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
-| Method | HTTP request | Description |
-|------------- | ------------- | -------------|
-| [**testClassname**](FakeClassnameTags123Api.md#testClassname) | **PATCH** /fake_classname_test | To test class name in snake case |
-| [**testClassnameWithHttpInfo**](FakeClassnameTags123Api.md#testClassnameWithHttpInfo) | **PATCH** /fake_classname_test | To test class name in snake case |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**testClassname**](FakeClassnameTags123Api.md#testClassname) | **PATCH** /fake_classname_test | To test class name in snake case
+[**testClassnameWithHttpInfo**](FakeClassnameTags123Api.md#testClassnameWithHttpInfo) | **PATCH** /fake_classname_test | To test class name in snake case
 
 
 
 ## testClassname
 
-> CompletableFuture<Client> testClassname(client)
+> CompletableFuture<Client> testClassname(body)
 
 To test class name in snake case
 
@@ -41,9 +41,9 @@ public class Example {
         //api_key_query.setApiKeyPrefix("Token");
 
         FakeClassnameTags123Api apiInstance = new FakeClassnameTags123Api(defaultClient);
-        Client client = new Client(); // Client | client model
+        Client body = new Client(); // Client | client model
         try {
-            CompletableFuture<Client> result = apiInstance.testClassname(client);
+            CompletableFuture<Client> result = apiInstance.testClassname(body);
             System.out.println(result.get());
         } catch (ApiException e) {
             System.err.println("Exception when calling FakeClassnameTags123Api#testClassname");
@@ -59,9 +59,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **client** | [**Client**](Client.md)| client model | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**Client**](Client.md)| client model |
 
 ### Return type
 
@@ -84,7 +84,7 @@ CompletableFuture<[**Client**](Client.md)>
 
 ## testClassnameWithHttpInfo
 
-> CompletableFuture<ApiResponse<Client>> testClassname testClassnameWithHttpInfo(client)
+> CompletableFuture<ApiResponse<Client>> testClassname testClassnameWithHttpInfo(body)
 
 To test class name in snake case
 
@@ -115,9 +115,9 @@ public class Example {
         //api_key_query.setApiKeyPrefix("Token");
 
         FakeClassnameTags123Api apiInstance = new FakeClassnameTags123Api(defaultClient);
-        Client client = new Client(); // Client | client model
+        Client body = new Client(); // Client | client model
         try {
-            CompletableFuture<ApiResponse<Client>> response = apiInstance.testClassnameWithHttpInfo(client);
+            CompletableFuture<ApiResponse<Client>> response = apiInstance.testClassnameWithHttpInfo(body);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -142,9 +142,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **client** | [**Client**](Client.md)| client model | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**Client**](Client.md)| client model |
 
 ### Return type
 

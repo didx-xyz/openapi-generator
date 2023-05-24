@@ -20,7 +20,7 @@ package org.openapitools.codegen.languages.features;
 public interface UseGenericResponseFeatures {
 
     // Language supports generating generic Jaxrs or native return types
-    String USE_GENERIC_RESPONSE = "useGenericResponse";
+    public static final String USE_GENERIC_RESPONSE = "useGenericResponse";
 
-    void setUseGenericResponse(boolean useGenericResponse);
+    public void setUseGenericResponse(boolean useGenericResponse);
 }

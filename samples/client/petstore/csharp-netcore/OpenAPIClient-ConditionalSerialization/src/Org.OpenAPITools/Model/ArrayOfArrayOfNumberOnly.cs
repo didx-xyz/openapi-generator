@@ -39,10 +39,6 @@ namespace Org.OpenAPITools.Model
         public ArrayOfArrayOfNumberOnly(List<List<decimal>> arrayArrayNumber = default(List<List<decimal>>))
         {
             this._ArrayArrayNumber = arrayArrayNumber;
-            if (this.ArrayArrayNumber != null)
-            {
-                this._flagArrayArrayNumber = true;
-            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -82,7 +78,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class ArrayOfArrayOfNumberOnly {\n");
             sb.Append("  ArrayArrayNumber: ").Append(ArrayArrayNumber).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
@@ -129,13 +125,9 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.ArrayArrayNumber != null)
-                {
-                    hashCode = (hashCode * 59) + this.ArrayArrayNumber.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ArrayArrayNumber.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

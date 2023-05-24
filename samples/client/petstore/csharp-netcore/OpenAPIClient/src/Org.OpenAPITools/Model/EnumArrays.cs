@@ -49,6 +49,7 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "$")]
             Dollar = 2
+
         }
 
 
@@ -74,8 +75,16 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "crab")]
             Crab = 2
+
         }
 
+
+
+        /// <summary>
+        /// Gets or Sets ArrayEnum
+        /// </summary>
+        [DataMember(Name = "array_enum", EmitDefaultValue = false)]
+        public List<ArrayEnumEnum> ArrayEnum { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumArrays" /> class.
         /// </summary>
@@ -89,12 +98,6 @@ namespace Org.OpenAPITools.Model
         }
 
         /// <summary>
-        /// Gets or Sets ArrayEnum
-        /// </summary>
-        [DataMember(Name = "array_enum", EmitDefaultValue = false)]
-        public List<EnumArrays.ArrayEnumEnum> ArrayEnum { get; set; }
-
-        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -106,7 +109,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class EnumArrays {\n");
             sb.Append("  JustSymbol: ").Append(JustSymbol).Append("\n");
             sb.Append("  ArrayEnum: ").Append(ArrayEnum).Append("\n");
@@ -153,15 +156,10 @@ namespace Org.OpenAPITools.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = (hashCode * 59) + this.JustSymbol.GetHashCode();
-                if (this.ArrayEnum != null)
-                {
-                    hashCode = (hashCode * 59) + this.ArrayEnum.GetHashCode();
-                }
+                hashCode = hashCode * 59 + this.JustSymbol.GetHashCode();
+                hashCode = hashCode * 59 + this.ArrayEnum.GetHashCode();
                 if (this.AdditionalProperties != null)
-                {
-                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
                 return hashCode;
             }
         }

@@ -6,7 +6,7 @@ package org.openapitools.server.model
  * @param status Updated status of the pet for example: ''null''
 */
 final case class InlineObject (
-  name: Option[String] = None,
-  status: Option[String] = None
+  name: Option[String],
+  status: Option[String]
 )
 

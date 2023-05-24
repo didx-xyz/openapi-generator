@@ -7,6 +7,13 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiModelProperty;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -116,7 +123,7 @@ public class XmlItem  {
   /**
    * Sets the <code>attributeString</code> property.
    */
- public void setAttributeString(String attributeString) {
+  public void setAttributeString(String attributeString) {
     this.attributeString = attributeString;
   }
 
@@ -140,7 +147,7 @@ public class XmlItem  {
   /**
    * Sets the <code>attributeNumber</code> property.
    */
- public void setAttributeNumber(BigDecimal attributeNumber) {
+  public void setAttributeNumber(BigDecimal attributeNumber) {
     this.attributeNumber = attributeNumber;
   }
 
@@ -164,7 +171,7 @@ public class XmlItem  {
   /**
    * Sets the <code>attributeInteger</code> property.
    */
- public void setAttributeInteger(Integer attributeInteger) {
+  public void setAttributeInteger(Integer attributeInteger) {
     this.attributeInteger = attributeInteger;
   }
 
@@ -188,7 +195,7 @@ public class XmlItem  {
   /**
    * Sets the <code>attributeBoolean</code> property.
    */
- public void setAttributeBoolean(Boolean attributeBoolean) {
+  public void setAttributeBoolean(Boolean attributeBoolean) {
     this.attributeBoolean = attributeBoolean;
   }
 
@@ -212,7 +219,7 @@ public class XmlItem  {
   /**
    * Sets the <code>wrappedArray</code> property.
    */
- public void setWrappedArray(List<Integer> wrappedArray) {
+  public void setWrappedArray(List<Integer> wrappedArray) {
     this.wrappedArray = wrappedArray;
   }
 
@@ -244,7 +251,7 @@ public class XmlItem  {
   /**
    * Sets the <code>nameString</code> property.
    */
- public void setNameString(String nameString) {
+  public void setNameString(String nameString) {
     this.nameString = nameString;
   }
 
@@ -268,7 +275,7 @@ public class XmlItem  {
   /**
    * Sets the <code>nameNumber</code> property.
    */
- public void setNameNumber(BigDecimal nameNumber) {
+  public void setNameNumber(BigDecimal nameNumber) {
     this.nameNumber = nameNumber;
   }
 
@@ -292,7 +299,7 @@ public class XmlItem  {
   /**
    * Sets the <code>nameInteger</code> property.
    */
- public void setNameInteger(Integer nameInteger) {
+  public void setNameInteger(Integer nameInteger) {
     this.nameInteger = nameInteger;
   }
 
@@ -316,7 +323,7 @@ public class XmlItem  {
   /**
    * Sets the <code>nameBoolean</code> property.
    */
- public void setNameBoolean(Boolean nameBoolean) {
+  public void setNameBoolean(Boolean nameBoolean) {
     this.nameBoolean = nameBoolean;
   }
 
@@ -340,7 +347,7 @@ public class XmlItem  {
   /**
    * Sets the <code>nameArray</code> property.
    */
- public void setNameArray(List<Integer> nameArray) {
+  public void setNameArray(List<Integer> nameArray) {
     this.nameArray = nameArray;
   }
 
@@ -372,7 +379,7 @@ public class XmlItem  {
   /**
    * Sets the <code>nameWrappedArray</code> property.
    */
- public void setNameWrappedArray(List<Integer> nameWrappedArray) {
+  public void setNameWrappedArray(List<Integer> nameWrappedArray) {
     this.nameWrappedArray = nameWrappedArray;
   }
 
@@ -404,7 +411,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixString</code> property.
    */
- public void setPrefixString(String prefixString) {
+  public void setPrefixString(String prefixString) {
     this.prefixString = prefixString;
   }
 
@@ -428,7 +435,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixNumber</code> property.
    */
- public void setPrefixNumber(BigDecimal prefixNumber) {
+  public void setPrefixNumber(BigDecimal prefixNumber) {
     this.prefixNumber = prefixNumber;
   }
 
@@ -452,7 +459,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixInteger</code> property.
    */
- public void setPrefixInteger(Integer prefixInteger) {
+  public void setPrefixInteger(Integer prefixInteger) {
     this.prefixInteger = prefixInteger;
   }
 
@@ -476,7 +483,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixBoolean</code> property.
    */
- public void setPrefixBoolean(Boolean prefixBoolean) {
+  public void setPrefixBoolean(Boolean prefixBoolean) {
     this.prefixBoolean = prefixBoolean;
   }
 
@@ -500,7 +507,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixArray</code> property.
    */
- public void setPrefixArray(List<Integer> prefixArray) {
+  public void setPrefixArray(List<Integer> prefixArray) {
     this.prefixArray = prefixArray;
   }
 
@@ -532,7 +539,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixWrappedArray</code> property.
    */
- public void setPrefixWrappedArray(List<Integer> prefixWrappedArray) {
+  public void setPrefixWrappedArray(List<Integer> prefixWrappedArray) {
     this.prefixWrappedArray = prefixWrappedArray;
   }
 
@@ -564,7 +571,7 @@ public class XmlItem  {
   /**
    * Sets the <code>namespaceString</code> property.
    */
- public void setNamespaceString(String namespaceString) {
+  public void setNamespaceString(String namespaceString) {
     this.namespaceString = namespaceString;
   }
 
@@ -588,7 +595,7 @@ public class XmlItem  {
   /**
    * Sets the <code>namespaceNumber</code> property.
    */
- public void setNamespaceNumber(BigDecimal namespaceNumber) {
+  public void setNamespaceNumber(BigDecimal namespaceNumber) {
     this.namespaceNumber = namespaceNumber;
   }
 
@@ -612,7 +619,7 @@ public class XmlItem  {
   /**
    * Sets the <code>namespaceInteger</code> property.
    */
- public void setNamespaceInteger(Integer namespaceInteger) {
+  public void setNamespaceInteger(Integer namespaceInteger) {
     this.namespaceInteger = namespaceInteger;
   }
 
@@ -636,7 +643,7 @@ public class XmlItem  {
   /**
    * Sets the <code>namespaceBoolean</code> property.
    */
- public void setNamespaceBoolean(Boolean namespaceBoolean) {
+  public void setNamespaceBoolean(Boolean namespaceBoolean) {
     this.namespaceBoolean = namespaceBoolean;
   }
 
@@ -660,7 +667,7 @@ public class XmlItem  {
   /**
    * Sets the <code>namespaceArray</code> property.
    */
- public void setNamespaceArray(List<Integer> namespaceArray) {
+  public void setNamespaceArray(List<Integer> namespaceArray) {
     this.namespaceArray = namespaceArray;
   }
 
@@ -692,7 +699,7 @@ public class XmlItem  {
   /**
    * Sets the <code>namespaceWrappedArray</code> property.
    */
- public void setNamespaceWrappedArray(List<Integer> namespaceWrappedArray) {
+  public void setNamespaceWrappedArray(List<Integer> namespaceWrappedArray) {
     this.namespaceWrappedArray = namespaceWrappedArray;
   }
 
@@ -724,7 +731,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixNsString</code> property.
    */
- public void setPrefixNsString(String prefixNsString) {
+  public void setPrefixNsString(String prefixNsString) {
     this.prefixNsString = prefixNsString;
   }
 
@@ -748,7 +755,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixNsNumber</code> property.
    */
- public void setPrefixNsNumber(BigDecimal prefixNsNumber) {
+  public void setPrefixNsNumber(BigDecimal prefixNsNumber) {
     this.prefixNsNumber = prefixNsNumber;
   }
 
@@ -772,7 +779,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixNsInteger</code> property.
    */
- public void setPrefixNsInteger(Integer prefixNsInteger) {
+  public void setPrefixNsInteger(Integer prefixNsInteger) {
     this.prefixNsInteger = prefixNsInteger;
   }
 
@@ -796,7 +803,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixNsBoolean</code> property.
    */
- public void setPrefixNsBoolean(Boolean prefixNsBoolean) {
+  public void setPrefixNsBoolean(Boolean prefixNsBoolean) {
     this.prefixNsBoolean = prefixNsBoolean;
   }
 
@@ -820,7 +827,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixNsArray</code> property.
    */
- public void setPrefixNsArray(List<Integer> prefixNsArray) {
+  public void setPrefixNsArray(List<Integer> prefixNsArray) {
     this.prefixNsArray = prefixNsArray;
   }
 
@@ -852,7 +859,7 @@ public class XmlItem  {
   /**
    * Sets the <code>prefixNsWrappedArray</code> property.
    */
- public void setPrefixNsWrappedArray(List<Integer> prefixNsWrappedArray) {
+  public void setPrefixNsWrappedArray(List<Integer> prefixNsWrappedArray) {
     this.prefixNsWrappedArray = prefixNsWrappedArray;
   }
 

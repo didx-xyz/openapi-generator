@@ -2,26 +2,24 @@
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
-| Method | HTTP request | Description |
-|------------- | ------------- | -------------|
-| [**addPet**](PetApi.md#addPet) | **POST** /pet | Add a new pet to the store |
-| [**deletePet**](PetApi.md#deletePet) | **DELETE** /pet/{petId} | Deletes a pet |
-| [**findPetsByStatus**](PetApi.md#findPetsByStatus) | **GET** /pet/findByStatus | Finds Pets by status |
-| [**findPetsByTags**](PetApi.md#findPetsByTags) | **GET** /pet/findByTags | Finds Pets by tags |
-| [**getPetById**](PetApi.md#getPetById) | **GET** /pet/{petId} | Find pet by ID |
-| [**updatePet**](PetApi.md#updatePet) | **PUT** /pet | Update an existing pet |
-| [**updatePetWithForm**](PetApi.md#updatePetWithForm) | **POST** /pet/{petId} | Updates a pet in the store with form data |
-| [**uploadFile**](PetApi.md#uploadFile) | **POST** /pet/{petId}/uploadImage | uploads an image |
-| [**uploadFileWithRequiredFile**](PetApi.md#uploadFileWithRequiredFile) | **POST** /fake/{petId}/uploadImageWithRequiredFile | uploads an image (required) |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**addPet**](PetApi.md#addPet) | **POST** /pet | Add a new pet to the store
+[**deletePet**](PetApi.md#deletePet) | **DELETE** /pet/{petId} | Deletes a pet
+[**findPetsByStatus**](PetApi.md#findPetsByStatus) | **GET** /pet/findByStatus | Finds Pets by status
+[**findPetsByTags**](PetApi.md#findPetsByTags) | **GET** /pet/findByTags | Finds Pets by tags
+[**getPetById**](PetApi.md#getPetById) | **GET** /pet/{petId} | Find pet by ID
+[**updatePet**](PetApi.md#updatePet) | **PUT** /pet | Update an existing pet
+[**updatePetWithForm**](PetApi.md#updatePetWithForm) | **POST** /pet/{petId} | Updates a pet in the store with form data
+[**uploadFile**](PetApi.md#uploadFile) | **POST** /pet/{petId}/uploadImage | uploads an image
+[**uploadFileWithRequiredFile**](PetApi.md#uploadFileWithRequiredFile) | **POST** /fake/{petId}/uploadImageWithRequiredFile | uploads an image (required)
 
 
-<a id="addPet"></a>
+<a name="addPet"></a>
 # **addPet**
-> addPet(pet)
+> addPet(body)
 
 Add a new pet to the store
-
-
 
 ### Example
 ```java
@@ -43,9 +41,9 @@ public class Example {
     petstore_auth.setAccessToken("YOUR ACCESS TOKEN");
 
     PetApi apiInstance = new PetApi(defaultClient);
-    Pet pet = new Pet(); // Pet | Pet object that needs to be added to the store
+    Pet body = new Pet(); // Pet | Pet object that needs to be added to the store
     try {
-      apiInstance.addPet(pet);
+      apiInstance.addPet(body);
     } catch (ApiException e) {
       System.err.println("Exception when calling PetApi#addPet");
       System.err.println("Status code: " + e.getCode());
@@ -59,9 +57,9 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **pet** | [**Pet**](Pet.md)| Pet object that needs to be added to the store | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**Pet**](Pet.md)| Pet object that needs to be added to the store |
 
 ### Return type
 
@@ -79,15 +77,14 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **405** | Invalid input |  -  |
+**200** | successful operation |  -  |
+**405** | Invalid input |  -  |
 
-<a id="deletePet"></a>
+<a name="deletePet"></a>
 # **deletePet**
 > deletePet(petId, apiKey)
 
 Deletes a pet
-
-
 
 ### Example
 ```java
@@ -126,10 +123,10 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **petId** | **Long**| Pet id to delete | |
-| **apiKey** | **String**|  | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Long**| Pet id to delete |
+ **apiKey** | **String**|  | [optional]
 
 ### Return type
 
@@ -147,9 +144,10 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Invalid pet value |  -  |
+**200** | successful operation |  -  |
+**400** | Invalid pet value |  -  |
 
-<a id="findPetsByStatus"></a>
+<a name="findPetsByStatus"></a>
 # **findPetsByStatus**
 > List&lt;Pet&gt; findPetsByStatus(status)
 
@@ -194,9 +192,9 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **status** | [**List&lt;String&gt;**](String.md)| Status values that need to be considered for filter | [enum: available, pending, sold] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | [**List&lt;String&gt;**](String.md)| Status values that need to be considered for filter | [enum: available, pending, sold]
 
 ### Return type
 
@@ -214,12 +212,12 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | successful operation |  -  |
-| **400** | Invalid status value |  -  |
+**200** | successful operation |  -  |
+**400** | Invalid status value |  -  |
 
-<a id="findPetsByTags"></a>
+<a name="findPetsByTags"></a>
 # **findPetsByTags**
-> List&lt;Pet&gt; findPetsByTags(tags)
+> Set&lt;Pet&gt; findPetsByTags(tags)
 
 Finds Pets by tags
 
@@ -245,9 +243,9 @@ public class Example {
     petstore_auth.setAccessToken("YOUR ACCESS TOKEN");
 
     PetApi apiInstance = new PetApi(defaultClient);
-    List<String> tags = Arrays.asList(); // List<String> | Tags to filter by
+    Set<String> tags = Arrays.asList(); // Set<String> | Tags to filter by
     try {
-      List<Pet> result = apiInstance.findPetsByTags(tags);
+      Set<Pet> result = apiInstance.findPetsByTags(tags);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PetApi#findPetsByTags");
@@ -262,13 +260,13 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **tags** | [**List&lt;String&gt;**](String.md)| Tags to filter by | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tags** | [**Set&lt;String&gt;**](String.md)| Tags to filter by |
 
 ### Return type
 
-[**List&lt;Pet&gt;**](Pet.md)
+[**Set&lt;Pet&gt;**](Pet.md)
 
 ### Authorization
 
@@ -282,10 +280,10 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | successful operation |  -  |
-| **400** | Invalid tag value |  -  |
+**200** | successful operation |  -  |
+**400** | Invalid tag value |  -  |
 
-<a id="getPetById"></a>
+<a name="getPetById"></a>
 # **getPetById**
 > Pet getPetById(petId)
 
@@ -332,9 +330,9 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **petId** | **Long**| ID of pet to return | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Long**| ID of pet to return |
 
 ### Return type
 
@@ -352,17 +350,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | successful operation |  -  |
-| **400** | Invalid ID supplied |  -  |
-| **404** | Pet not found |  -  |
+**200** | successful operation |  -  |
+**400** | Invalid ID supplied |  -  |
+**404** | Pet not found |  -  |
 
-<a id="updatePet"></a>
+<a name="updatePet"></a>
 # **updatePet**
-> updatePet(pet)
+> updatePet(body)
 
 Update an existing pet
-
-
 
 ### Example
 ```java
@@ -384,9 +380,9 @@ public class Example {
     petstore_auth.setAccessToken("YOUR ACCESS TOKEN");
 
     PetApi apiInstance = new PetApi(defaultClient);
-    Pet pet = new Pet(); // Pet | Pet object that needs to be added to the store
+    Pet body = new Pet(); // Pet | Pet object that needs to be added to the store
     try {
-      apiInstance.updatePet(pet);
+      apiInstance.updatePet(body);
     } catch (ApiException e) {
       System.err.println("Exception when calling PetApi#updatePet");
       System.err.println("Status code: " + e.getCode());
@@ -400,9 +396,9 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **pet** | [**Pet**](Pet.md)| Pet object that needs to be added to the store | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**Pet**](Pet.md)| Pet object that needs to be added to the store |
 
 ### Return type
 
@@ -420,17 +416,16 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Invalid ID supplied |  -  |
-| **404** | Pet not found |  -  |
-| **405** | Validation exception |  -  |
+**200** | successful operation |  -  |
+**400** | Invalid ID supplied |  -  |
+**404** | Pet not found |  -  |
+**405** | Validation exception |  -  |
 
-<a id="updatePetWithForm"></a>
+<a name="updatePetWithForm"></a>
 # **updatePetWithForm**
 > updatePetWithForm(petId, name, status)
 
 Updates a pet in the store with form data
-
-
 
 ### Example
 ```java
@@ -470,11 +465,11 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **petId** | **Long**| ID of pet that needs to be updated | |
-| **name** | **String**| Updated name of the pet | [optional] |
-| **status** | **String**| Updated status of the pet | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Long**| ID of pet that needs to be updated |
+ **name** | **String**| Updated name of the pet | [optional]
+ **status** | **String**| Updated status of the pet | [optional]
 
 ### Return type
 
@@ -492,15 +487,13 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **405** | Invalid input |  -  |
+**405** | Invalid input |  -  |
 
-<a id="uploadFile"></a>
+<a name="uploadFile"></a>
 # **uploadFile**
-> ModelApiResponse uploadFile(petId, additionalMetadata, _file)
+> ModelApiResponse uploadFile(petId, additionalMetadata, file)
 
 uploads an image
-
-
 
 ### Example
 ```java
@@ -524,9 +517,9 @@ public class Example {
     PetApi apiInstance = new PetApi(defaultClient);
     Long petId = 56L; // Long | ID of pet to update
     String additionalMetadata = "additionalMetadata_example"; // String | Additional data to pass to server
-    File _file = new File("/path/to/file"); // File | file to upload
+    File file = new File("/path/to/file"); // File | file to upload
     try {
-      ModelApiResponse result = apiInstance.uploadFile(petId, additionalMetadata, _file);
+      ModelApiResponse result = apiInstance.uploadFile(petId, additionalMetadata, file);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PetApi#uploadFile");
@@ -541,11 +534,11 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **petId** | **Long**| ID of pet to update | |
-| **additionalMetadata** | **String**| Additional data to pass to server | [optional] |
-| **_file** | **File**| file to upload | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Long**| ID of pet to update |
+ **additionalMetadata** | **String**| Additional data to pass to server | [optional]
+ **file** | **File**| file to upload | [optional]
 
 ### Return type
 
@@ -563,15 +556,13 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | successful operation |  -  |
+**200** | successful operation |  -  |
 
-<a id="uploadFileWithRequiredFile"></a>
+<a name="uploadFileWithRequiredFile"></a>
 # **uploadFileWithRequiredFile**
 > ModelApiResponse uploadFileWithRequiredFile(petId, requiredFile, additionalMetadata)
 
 uploads an image (required)
-
-
 
 ### Example
 ```java
@@ -612,11 +603,11 @@ public class Example {
 
 ### Parameters
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **petId** | **Long**| ID of pet to update | |
-| **requiredFile** | **File**| file to upload | |
-| **additionalMetadata** | **String**| Additional data to pass to server | [optional] |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Long**| ID of pet to update |
+ **requiredFile** | **File**| file to upload |
+ **additionalMetadata** | **String**| Additional data to pass to server | [optional]
 
 ### Return type
 
@@ -634,5 +625,5 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | successful operation |  -  |
+**200** | successful operation |  -  |
 

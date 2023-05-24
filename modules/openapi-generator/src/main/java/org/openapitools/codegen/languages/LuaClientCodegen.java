@@ -24,10 +24,6 @@ import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
 import org.openapitools.codegen.meta.features.*;
-import org.openapitools.codegen.model.ModelMap;
-import org.openapitools.codegen.model.ModelsMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,13 +111,13 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
                 )
         );
 
-        defaultIncludes = new HashSet<>(
+        defaultIncludes = new HashSet<String>(
                 Arrays.asList(
                         "map",
                         "array")
         );
 
-        languageSpecificPrimitives = new HashSet<>(
+        languageSpecificPrimitives = new HashSet<String>(
                 Arrays.asList(
                         "nil",
                         "string",
@@ -154,7 +150,7 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
         typeMapping.put("ByteArray", "string");
         typeMapping.put("object", "TODO_OBJECT_MAPPING");
 
-        importMapping = new HashMap<>();
+        importMapping = new HashMap<String, String>();
         importMapping.put("time.Time", "time");
         importMapping.put("*os.File", "os");
         importMapping.put("os", "io/ioutil");
@@ -242,7 +238,7 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
         // replace - with _ e.g. created-at => created_at
         name = sanitizeName(name.replaceAll("-", "_"));
 
-        // if it's all upper case, do nothing
+        // if it's all uppper case, do nothing
         if (name.matches("^[A-Z_]*$"))
             return name;
 
@@ -422,9 +418,11 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
-        OperationMap objectMap = objs.getOperations();
-        List<CodegenOperation> operations = objectMap.getOperation();
+    public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+        @SuppressWarnings("unchecked")
+        Map<String, Object> objectMap = (Map<String, Object>) objs.get("operations");
+        @SuppressWarnings("unchecked")
+        List<CodegenOperation> operations = (List<CodegenOperation>) objectMap.get("operation");
         for (CodegenOperation op : operations) {
 
             String[] items = op.path.split("/", -1);
@@ -451,9 +449,9 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
     }
 
     @Override
-    public ModelsMap postProcessModels(ModelsMap objs) {
+    public Map<String, Object> postProcessModels(Map<String, Object> objs) {
         // remove model imports to avoid error
-        List<Map<String, String>> imports = objs.getImports();
+        List<Map<String, String>> imports = (List<Map<String, String>>) objs.get("imports");
         final String prefix = modelPackage();
         Iterator<Map<String, String>> iterator = imports.iterator();
         while (iterator.hasNext()) {
@@ -463,7 +461,7 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
         }
 
         // recursively add import for mapping one type to multiple imports
-        List<Map<String, String>> recursiveImports = objs.getImports();
+        List<Map<String, String>> recursiveImports = (List<Map<String, String>>) objs.get("imports");
         if (recursiveImports == null)
             return objs;
 
@@ -510,7 +508,7 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
     }
 
     public Map<String, String> createMapping(String key, String value) {
-        Map<String, String> customImport = new HashMap<>();
+        Map<String, String> customImport = new HashMap<String, String>();
         customImport.put(key, value);
 
         return customImport;
@@ -596,7 +594,4 @@ public class LuaClientCodegen extends DefaultCodegen implements CodegenConfig {
         System.out.println("# Pls support his work directly via https://github.com/sponsors/daurnimator \uD83D\uDE4F #");
         System.out.println("################################################################################");
     }
-
-    @Override
-    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.LUA; }
 }

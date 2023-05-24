@@ -1,13 +1,13 @@
 {{#hasImports}}
-{{#oneOf}}
 import {
+    {{#imports}}
     {{{.}}},
-    instanceOf{{{.}}},
-    {{{.}}}FromJSON,
+    {{/imports}}
+    {{#oneOf}}
     {{{.}}}FromJSONTyped,
     {{{.}}}ToJSON,
-} from './{{.}}';
-{{/oneOf}}
+    {{/oneOf}}
+} from './';
 
 {{/hasImports}}
 {{>modelOneOfInterfaces}}
@@ -52,14 +52,7 @@ export function {{classname}}ToJSON(value?: {{classname}} | null): any {
             throw new Error(`No variant of {{classname}} exists with '{{discriminator.propertyName}}=${value['{{discriminator.propertyName}}']}'`);
     }
 {{/discriminator}}
-
 {{^discriminator}}
-    {{#oneOf}}
-    if (instanceOf{{{.}}}(value)) {
-        return {{{.}}}ToJSON(value as {{{.}}});
-    }
-    {{/oneOf}}
-
-    return {};
+    return { {{#oneOf}}...{{{.}}}ToJSON(value){{^-last}}, {{/-last}}{{/oneOf}} };
 {{/discriminator}}
 }

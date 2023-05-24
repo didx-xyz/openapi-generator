@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.Order")
-public typealias Order = PetstoreClientAPI.Order
+@available(*, deprecated, renamed: "PetstoreClient.Order")
+public typealias Order = PetstoreClient.Order
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class Order: Codable, JSONEncodable, Hashable {
+public final class Order: Codable, Hashable {
 
     public enum Status: String, Codable, CaseIterable {
         case placed = "placed"

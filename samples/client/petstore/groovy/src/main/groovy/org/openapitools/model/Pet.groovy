@@ -17,34 +17,9 @@ class Pet {
     
     String name
     
-    List<String> photoUrls = new ArrayList<>()
+    List<String> photoUrls = new ArrayList<String>()
     
-    List<Tag> tags
-
-    enum StatusEnum {
-    
-        AVAILABLE("available"),
-        
-        PENDING("pending"),
-        
-        SOLD("sold")
-    
-        private final String value
-    
-        StatusEnum(String value) {
-            this.value = value
-        }
-    
-        String getValue() {
-            value
-        }
-    
-        @Override
-        String toString() {
-            String.valueOf(value)
-        }
-    }
-
+    List<Tag> tags = new ArrayList<Tag>()
     /* pet status in the store */
-    StatusEnum status
+    String status
 }

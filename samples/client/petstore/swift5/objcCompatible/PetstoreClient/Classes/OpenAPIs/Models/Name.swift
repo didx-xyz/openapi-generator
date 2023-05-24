@@ -11,17 +11,13 @@ import AnyCodable
 #endif
 
 /** Model for testing model name same as property name */
-@objcMembers public class Name: NSObject, Codable, JSONEncodable {
+@objc public class Name: NSObject, Codable {
 
     public var name: Int
-    public var snakeCase: NullEncodable<Int> = .encodeValue(11033)
+    public var snakeCase: Int?
     public var snakeCaseNum: NSNumber? {
         get {
-            if case .encodeValue(let value) = snakeCase {
-                return value as NSNumber?
-            } else {
-                return nil
-            }
+            return snakeCase as NSNumber?
         }
     }
     public var property: String?
@@ -32,7 +28,7 @@ import AnyCodable
         }
     }
 
-    public init(name: Int, snakeCase: NullEncodable<Int> = .encodeValue(11033), property: String? = nil, _123number: Int? = nil) {
+    public init(name: Int, snakeCase: Int? = nil, property: String? = nil, _123number: Int? = nil) {
         self.name = name
         self.snakeCase = snakeCase
         self.property = property
@@ -51,10 +47,7 @@ import AnyCodable
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
-        switch snakeCase {
-        case .encodeNothing: break
-        case .encodeNull, .encodeValue: try container.encode(snakeCase, forKey: .snakeCase)
-        }
+        try container.encodeIfPresent(snakeCase, forKey: .snakeCase)
         try container.encodeIfPresent(property, forKey: .property)
         try container.encodeIfPresent(_123number, forKey: ._123number)
     }

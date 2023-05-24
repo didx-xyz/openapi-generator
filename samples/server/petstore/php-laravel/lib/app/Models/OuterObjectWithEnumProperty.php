@@ -9,7 +9,7 @@ namespace app\Models;
  */
 class OuterObjectWithEnumProperty {
 
-    /** @var int $value */
-    public $value = \app\Models\OuterEnumInteger::NUMBER_0;
+    /** @var \app\Models\OuterEnumInteger $value */
+    private $value;
 
 }

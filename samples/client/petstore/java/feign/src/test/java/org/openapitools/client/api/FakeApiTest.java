@@ -6,8 +6,8 @@ import org.openapitools.client.model.Client;
 import java.io.File;
 import org.openapitools.client.model.FileSchemaTestClass;
 import org.openapitools.client.model.HealthCheckResult;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
 import org.openapitools.client.model.OuterComposite;
 import org.openapitools.client.model.OuterObjectWithEnumProperty;
 import org.openapitools.client.model.Pet;
@@ -376,9 +376,7 @@ class FakeApiTest {
         List<String> http = null;
         List<String> url = null;
         List<String> context = null;
-        String allowEmpty = null;
-        Map<String, String> language = null;
-        // api.testQueryParameterCollectionFormat(pipe, ioutil, http, url, context, allowEmpty, language);
+        // api.testQueryParameterCollectionFormat(pipe, ioutil, http, url, context);
 
         // TODO: test validations
     }
@@ -398,9 +396,7 @@ class FakeApiTest {
             .ioutil(null)
             .http(null)
             .url(null)
-            .context(null)
-            .language(null)
-            .allowEmpty(null);
+            .context(null);
         // api.testQueryParameterCollectionFormat(queryParams);
 
     // TODO: test validations

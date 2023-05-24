@@ -16,8 +16,6 @@
 
 package org.openapitools.codegen.ktorm;
 
-import static org.openapitools.codegen.TestUtils.createCodegenModelWrapper;
-
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.TestUtils;
@@ -29,9 +27,22 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.*;
 import io.swagger.v3.parser.util.SchemaTypeUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class KtormSchemaCodegenTest {
+
+    private Map<String, Object> toObjs(CodegenModel cm) {
+        Map<String, Object> objs = new HashMap<String, Object>();
+        List<Object> models = new ArrayList<Object>();
+        Map<String, Object> model = new HashMap<>();
+        model.put("model", cm);
+        models.add(model);
+        objs.put("models", models);
+        return objs;
+    }
 
     private CodegenModel getModel(Schema schema, String pkName, Boolean surrogateKey) {
         final KtormSchemaCodegen codegen = new KtormSchemaCodegen();
@@ -40,7 +51,7 @@ public class KtormSchemaCodegenTest {
         codegen.setPrimaryKeyConvention(pkName);
         codegen.setOpenAPI(openAPI);
         CodegenModel cm = codegen.fromModel("sample", schema);
-        codegen.postProcessModels(createCodegenModelWrapper(cm));
+        codegen.postProcessModels(toObjs(cm));
         return cm;
     }
 
@@ -266,7 +277,7 @@ public class KtormSchemaCodegenTest {
     }
 
     @Test
-    public void testDontAddSurrogateKey() {
+    public void testDontAddSorrogateKey() {
         final Schema schema = new Schema()
             .description("a sample model")
             .addProperties("key" , new IntegerSchema())
@@ -280,7 +291,7 @@ public class KtormSchemaCodegenTest {
     }
 
     @Test
-    public void testAddSurrogateKey() {
+    public void testAddSorrogateKey() {
         final Schema schema = new Schema()
             .description("a sample model")
             .addProperties("key", new IntegerSchema());

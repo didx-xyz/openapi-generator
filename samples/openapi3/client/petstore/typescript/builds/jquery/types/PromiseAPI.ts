@@ -1,4 +1,5 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http';
+import * as models from '../models/all';
 import { Configuration} from '../configuration'
 
 import { ApiResponse } from '../models/ApiResponse';
@@ -22,7 +23,6 @@ export class PromisePetApi {
     }
 
     /**
-     * 
      * Add a new pet to the store
      * @param pet Pet object that needs to be added to the store
      */
@@ -32,7 +32,6 @@ export class PromisePetApi {
     }
 
     /**
-     * 
      * Deletes a pet
      * @param petId Pet id to delete
      * @param apiKey 
@@ -73,7 +72,6 @@ export class PromisePetApi {
     }
 
     /**
-     * 
      * Update an existing pet
      * @param pet Pet object that needs to be added to the store
      */
@@ -83,7 +81,6 @@ export class PromisePetApi {
     }
 
     /**
-     * 
      * Updates a pet in the store with form data
      * @param petId ID of pet that needs to be updated
      * @param name Updated name of the pet
@@ -95,7 +92,6 @@ export class PromisePetApi {
     }
 
     /**
-     * 
      * uploads an image
      * @param petId ID of pet to update
      * @param additionalMetadata Additional data to pass to server
@@ -145,7 +141,7 @@ export class PromiseStoreApi {
     }
 
     /**
-     * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+     * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
      * Find purchase order by ID
      * @param orderId ID of pet that needs to be fetched
      */
@@ -155,7 +151,6 @@ export class PromiseStoreApi {
     }
 
     /**
-     * 
      * Place an order for a pet
      * @param order order placed for purchasing the pet
      */
@@ -194,7 +189,6 @@ export class PromiseUserApi {
     }
 
     /**
-     * 
      * Creates list of users with given input array
      * @param user List of user object
      */
@@ -204,7 +198,6 @@ export class PromiseUserApi {
     }
 
     /**
-     * 
      * Creates list of users with given input array
      * @param user List of user object
      */
@@ -224,7 +217,6 @@ export class PromiseUserApi {
     }
 
     /**
-     * 
      * Get user by user name
      * @param username The name that needs to be fetched. Use user1 for testing.
      */
@@ -234,7 +226,6 @@ export class PromiseUserApi {
     }
 
     /**
-     * 
      * Logs user into the system
      * @param username The user name for login
      * @param password The password for login in clear text
@@ -245,7 +236,6 @@ export class PromiseUserApi {
     }
 
     /**
-     * 
      * Logs out current logged in user session
      */
     public logoutUser(_options?: Configuration): Promise<void> {

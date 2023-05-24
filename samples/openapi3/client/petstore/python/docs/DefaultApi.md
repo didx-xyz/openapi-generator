@@ -8,20 +8,19 @@ Method | HTTP request | Description
 
 
 # **foo_get**
-> FooGetDefaultResponse foo_get()
+> InlineResponseDefault foo_get()
 
 
 
 ### Example
 
+
 ```python
 import time
-import os
 import petstore_api
-from petstore_api.models.foo_get_default_response import FooGetDefaultResponse
-from petstore_api.rest import ApiException
+from petstore_api.api import default_api
+from petstore_api.model.inline_response_default import InlineResponseDefault
 from pprint import pprint
-
 # Defining the host is optional and defaults to http://petstore.swagger.io:80/v2
 # See configuration.py for a list of all supported configuration parameters.
 configuration = petstore_api.Configuration(
@@ -30,15 +29,15 @@ configuration = petstore_api.Configuration(
 
 
 # Enter a context with an instance of the API client
-with petstore_api.ApiClient(configuration) as api_client:
+with petstore_api.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = petstore_api.DefaultApi(api_client)
+    api_instance = default_api.DefaultApi(api_client)
 
+    # example, this endpoint has no required or optional parameters
     try:
         api_response = api_instance.foo_get()
-        print("The response of DefaultApi->foo_get:\n")
         pprint(api_response)
-    except Exception as e:
+    except petstore_api.ApiException as e:
         print("Exception when calling DefaultApi->foo_get: %s\n" % e)
 ```
 
@@ -48,7 +47,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**FooGetDefaultResponse**](FooGetDefaultResponse.md)
+[**InlineResponseDefault**](InlineResponseDefault.md)
 
 ### Authorization
 
@@ -59,7 +58,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **0** | response |  -  |

@@ -32,7 +32,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.Map;
 
 public class JMeterClientCodegen extends DefaultCodegen implements CodegenConfig {
 
@@ -133,7 +132,7 @@ public class JMeterClientCodegen extends DefaultCodegen implements CodegenConfig
         /*
          * Reserved words.  Override this with reserved words specific to your language
          */
-        reservedWords = new HashSet<>(
+        reservedWords = new HashSet<String>(
                 Arrays.asList(
                         "sample1",  // replace with static values
                         "sample2")
@@ -150,9 +149,8 @@ public class JMeterClientCodegen extends DefaultCodegen implements CodegenConfig
     @Override
     public void preprocessOpenAPI(OpenAPI openAPI) {
         if (openAPI != null && openAPI.getPaths() != null) {
-            for (Map.Entry<String, PathItem> openAPIGetPathsEntry : openAPI.getPaths().entrySet()) {
-                String pathname = openAPIGetPathsEntry.getKey();
-                PathItem path = openAPIGetPathsEntry.getValue();
+            for (String pathname : openAPI.getPaths().keySet()) {
+                PathItem path = openAPI.getPaths().get(pathname);
                 if (path.readOperations() != null) {
                     for (Operation operation : path.readOperations()) {
                         String pathWithDollars = pathname.replaceAll("\\{", "\\$\\{");

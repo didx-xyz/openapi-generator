@@ -5,7 +5,6 @@
 #include "{{prefix}}Helpers.h"
 #include "{{prefix}}HttpRequest.h"
 #include "{{prefix}}ServerConfiguration.h"
-#include "{{prefix}}Oauth.h"
 
 {{#imports}}{{{import}}}
 {{/imports}}
@@ -44,9 +43,9 @@ public:
     void enableRequestCompression();
     void enableResponseCompression();
     void abortRequests();
-    QString getParamStylePrefix(const QString &style);
-    QString getParamStyleSuffix(const QString &style);
-    QString getParamStyleDelimiter(const QString &style, const QString &name, bool isExplode);
+    QString getParamStylePrefix(QString style);
+    QString getParamStyleSuffix(QString style);
+    QString getParamStyleDelimiter(QString style, QString name, bool isExplode);
 {{#operations}}{{#operation}}
 {{#hasParams}}    /**
     {{#allParams}}
@@ -71,17 +70,9 @@ private:
     int _timeOut;
     QString _workingDirectory;
     QNetworkAccessManager* _manager;
-    QMap<QString, QString> _defaultHeaders;
-    bool _isResponseCompressionEnabled;
-    bool _isRequestCompressionEnabled;
-    {{prefix}}HttpRequestInput _latestInput;
-    {{prefix}}HttpRequestWorker *_latestWorker;
-    QStringList _latestScope;
-    OauthCode _authFlow;
-    OauthImplicit _implicitFlow;
-    OauthCredentials _credentialFlow;
-    OauthPassword _passwordFlow;
-    int _OauthMethod = 0;
+    QMap<QString, QString> defaultHeaders;
+    bool isResponseCompressionEnabled;
+    bool isRequestCompressionEnabled;
 {{#operations}}{{#operation}}
     void {{nickname}}Callback({{prefix}}HttpRequestWorker *worker);{{/operation}}{{/operations}}
 
@@ -97,10 +88,6 @@ signals:
 
     void abortRequestsSignal();
     void allPendingRequestsCompleted();
-
-public slots:
-    void tokenAvailable();
-    
 };
 
 {{#cppNamespaceDeclarations}}

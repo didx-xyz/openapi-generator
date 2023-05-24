@@ -1,5 +1,6 @@
 package org.openapitools.api;
 
+import org.openapitools.model.*;
 import org.openapitools.api.PetApiService;
 import org.openapitools.api.factories.PetApiServiceFactory;
 
@@ -57,7 +58,7 @@ public class PetApi  {
       this.delegate = delegate;
    }
 
-    @javax.ws.rs.POST
+    @POST
     @Path("/pet")
     @Consumes({ "application/json", "application/xml" })
     
@@ -75,7 +76,7 @@ public class PetApi  {
     throws NotFoundException {
         return delegate.addPet(body, securityContext);
     }
-    @javax.ws.rs.DELETE
+    @DELETE
     @Path("/pet/{petId}")
     
     
@@ -93,7 +94,7 @@ public class PetApi  {
     throws NotFoundException {
         return delegate.deletePet(petId, apiKey, securityContext);
     }
-    @javax.ws.rs.GET
+    @GET
     @Path("/pet/findByStatus")
     
     @Produces({ "application/xml", "application/json" })
@@ -111,7 +112,7 @@ public class PetApi  {
     throws NotFoundException {
         return delegate.findPetsByStatus(status, securityContext);
     }
-    @javax.ws.rs.GET
+    @GET
     @Path("/pet/findByTags")
     
     @Produces({ "application/xml", "application/json" })
@@ -129,7 +130,7 @@ public class PetApi  {
     throws NotFoundException {
         return delegate.findPetsByTags(tags, securityContext);
     }
-    @javax.ws.rs.GET
+    @GET
     @Path("/pet/{petId}")
     
     @Produces({ "application/xml", "application/json" })
@@ -145,7 +146,7 @@ public class PetApi  {
     throws NotFoundException {
         return delegate.getPetById(petId, securityContext);
     }
-    @javax.ws.rs.PUT
+    @PUT
     @Path("/pet")
     @Consumes({ "application/json", "application/xml" })
     
@@ -165,7 +166,7 @@ public class PetApi  {
     throws NotFoundException {
         return delegate.updatePet(body, securityContext);
     }
-    @javax.ws.rs.POST
+    @POST
     @Path("/pet/{petId}")
     @Consumes({ "application/x-www-form-urlencoded" })
     
@@ -182,7 +183,7 @@ public class PetApi  {
     throws NotFoundException {
         return delegate.updatePetWithForm(petId, name, status, securityContext);
     }
-    @javax.ws.rs.POST
+    @POST
     @Path("/pet/{petId}/uploadImage")
     @Consumes({ "multipart/form-data" })
     @Produces({ "application/json" })
@@ -196,11 +197,11 @@ public class PetApi  {
         @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = ModelApiResponse.class)
     })
     public Response uploadFile(@ApiParam(value = "ID of pet to update", required = true) @PathParam("petId") @NotNull  Long petId,@ApiParam(value = "Additional data to pass to server")@FormDataParam("additionalMetadata")  String additionalMetadata,
- @FormDataParam("file") FormDataBodyPart _fileBodypart ,@Context SecurityContext securityContext)
+ @FormDataParam("file") FormDataBodyPart fileBodypart ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.uploadFile(petId, additionalMetadata, _fileBodypart, securityContext);
+        return delegate.uploadFile(petId, additionalMetadata, fileBodypart, securityContext);
     }
-    @javax.ws.rs.POST
+    @POST
     @Path("/fake/{petId}/uploadImageWithRequiredFile")
     @Consumes({ "multipart/form-data" })
     @Produces({ "application/json" })

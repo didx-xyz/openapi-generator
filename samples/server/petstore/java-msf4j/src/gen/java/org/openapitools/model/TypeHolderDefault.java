@@ -27,7 +27,7 @@ public class TypeHolderDefault   {
   private Boolean boolItem = true;
 
   @JsonProperty("array_item")
-  private List<Integer> arrayItem = new ArrayList<>();
+  private List<Integer> arrayItem = new ArrayList<Integer>();
 
   public TypeHolderDefault stringItem(String stringItem) {
     this.stringItem = stringItem;

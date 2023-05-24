@@ -20,7 +20,6 @@ import org.openapitools.client.model.*;
 
 import java.util.*;
 
-import java.util.Date;
 import java.util.*;
 import org.openapitools.client.model.User;
 

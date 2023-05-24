@@ -10,6 +10,6 @@ namespace app\Models;
 class CatAllOf {
 
     /** @var bool $declawed */
-    public $declawed = false;
+    private $declawed;
 
 }

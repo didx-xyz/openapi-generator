@@ -45,23 +45,29 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "ChildCat")]
             ChildCat = 1
+
         }
 
 
         /// <summary>
         /// Gets or Sets PetType
         /// </summary>
-        [DataMember(Name = "pet_type", EmitDefaultValue = false)]
-        public PetTypeEnum? PetType { get; set; }
+        [DataMember(Name = "pet_type", IsRequired = true, EmitDefaultValue = false)]
+        public PetTypeEnum PetType { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChildCat" /> class.
+        /// </summary>
+        [JsonConstructorAttribute]
+        protected ChildCat() { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ChildCat" /> class.
         /// </summary>
         /// <param name="name">name.</param>
-        /// <param name="petType">petType (default to PetTypeEnum.ChildCat).</param>
-        public ChildCat(string name = default(string), PetTypeEnum? petType = PetTypeEnum.ChildCat) : base()
+        /// <param name="petType">petType (required) (default to PetTypeEnum.ChildCat).</param>
+        public ChildCat(string name = default(string), PetTypeEnum petType = PetTypeEnum.ChildCat) : base()
         {
-            this.Name = name;
             this.PetType = petType;
+            this.Name = name;
         }
 
         /// <summary>
@@ -76,7 +82,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class ChildCat {\n");
             sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
@@ -124,10 +130,8 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = base.GetHashCode();
                 if (this.Name != null)
-                {
-                    hashCode = (hashCode * 59) + this.Name.GetHashCode();
-                }
-                hashCode = (hashCode * 59) + this.PetType.GetHashCode();
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                hashCode = hashCode * 59 + this.PetType.GetHashCode();
                 return hashCode;
             }
         }
@@ -149,10 +153,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>Validation Result</returns>
         protected IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> BaseValidate(ValidationContext validationContext)
         {
-            foreach (var x in base.BaseValidate(validationContext))
-            {
-                yield return x;
-            }
+            foreach(var x in BaseValidate(validationContext)) yield return x;
             yield break;
         }
     }

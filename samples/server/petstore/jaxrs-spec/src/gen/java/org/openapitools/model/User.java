@@ -11,13 +11,11 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("User")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class User  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class User  implements Serializable {
+  
   private @Valid Long id;
   private @Valid String username;
   private @Valid String firstName;
@@ -27,20 +25,6 @@ public class User  implements Serializable {
   private @Valid String phone;
   private @Valid Integer userStatus;
 
-  protected User(UserBuilder<?, ?> b) {
-    this.id = b.id;
-    this.username = b.username;
-    this.firstName = b.firstName;
-    this.lastName = b.lastName;
-    this.email = b.email;
-    this.password = b.password;
-    this.phone = b.phone;
-    this.userStatus = b.userStatus;
-  }
-
-  public User() {
-  }
-
   /**
    **/
   public User id(Long id) {
@@ -49,23 +33,26 @@ public class User  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("id")
   public Long getId() {
     return id;
   }
 
-  @JsonProperty("id")
   public void setId(Long id) {
     this.id = id;
   }
 
-  /**
+/**
    **/
   public User username(String username) {
     this.username = username;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -74,17 +61,18 @@ public class User  implements Serializable {
     return username;
   }
 
-  @JsonProperty("username")
   public void setUsername(String username) {
     this.username = username;
   }
 
-  /**
+/**
    **/
   public User firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -93,17 +81,18 @@ public class User  implements Serializable {
     return firstName;
   }
 
-  @JsonProperty("firstName")
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
-  /**
+/**
    **/
   public User lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -112,17 +101,18 @@ public class User  implements Serializable {
     return lastName;
   }
 
-  @JsonProperty("lastName")
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
-  /**
+/**
    **/
   public User email(String email) {
     this.email = email;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -131,17 +121,18 @@ public class User  implements Serializable {
     return email;
   }
 
-  @JsonProperty("email")
   public void setEmail(String email) {
     this.email = email;
   }
 
-  /**
+/**
    **/
   public User password(String password) {
     this.password = password;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -150,17 +141,18 @@ public class User  implements Serializable {
     return password;
   }
 
-  @JsonProperty("password")
   public void setPassword(String password) {
     this.password = password;
   }
 
-  /**
+/**
    **/
   public User phone(String phone) {
     this.phone = phone;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -169,12 +161,11 @@ public class User  implements Serializable {
     return phone;
   }
 
-  @JsonProperty("phone")
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
-  /**
+/**
    * User Status
    **/
   public User userStatus(Integer userStatus) {
@@ -183,13 +174,14 @@ public class User  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "User Status")
   @JsonProperty("userStatus")
   public Integer getUserStatus() {
     return userStatus;
   }
 
-  @JsonProperty("userStatus")
   public void setUserStatus(Integer userStatus) {
     this.userStatus = userStatus;
   }
@@ -248,68 +240,5 @@ public class User  implements Serializable {
   }
 
 
-  public static UserBuilder<?, ?> builder() {
-    return new UserBuilderImpl();
-  }
-
-  private static final class UserBuilderImpl extends UserBuilder<User, UserBuilderImpl> {
-
-    @Override
-    protected UserBuilderImpl self() {
-      return this;
-    }
-
-    @Override
-    public User build() {
-      return new User(this);
-    }
-  }
-
-  public static abstract class UserBuilder<C extends User, B extends UserBuilder<C, B>>  {
-    private Long id;
-    private String username;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String phone;
-    private Integer userStatus;
-    protected abstract B self();
-
-    public abstract C build();
-
-    public B id(Long id) {
-      this.id = id;
-      return self();
-    }
-    public B username(String username) {
-      this.username = username;
-      return self();
-    }
-    public B firstName(String firstName) {
-      this.firstName = firstName;
-      return self();
-    }
-    public B lastName(String lastName) {
-      this.lastName = lastName;
-      return self();
-    }
-    public B email(String email) {
-      this.email = email;
-      return self();
-    }
-    public B password(String password) {
-      this.password = password;
-      return self();
-    }
-    public B phone(String phone) {
-      this.phone = phone;
-      return self();
-    }
-    public B userStatus(Integer userStatus) {
-      this.userStatus = userStatus;
-      return self();
-    }
-  }
 }
 

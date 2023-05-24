@@ -14,14 +14,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the ArrayTest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ArrayTest{}
-
 // ArrayTest struct for ArrayTest
 type ArrayTest struct {
-	ArrayOfString []string `json:"array_of_string,omitempty"`
-	ArrayArrayOfInteger [][]int64 `json:"array_array_of_integer,omitempty"`
-	ArrayArrayOfModel [][]ReadOnlyFirst `json:"array_array_of_model,omitempty"`
+	ArrayOfString *[]string `json:"array_of_string,omitempty"`
+	ArrayArrayOfInteger *[][]int64 `json:"array_array_of_integer,omitempty"`
+	ArrayArrayOfModel *[][]ReadOnlyFirst `json:"array_array_of_model,omitempty"`
 }
 
 // NewArrayTest instantiates a new ArrayTest object
@@ -43,17 +40,17 @@ func NewArrayTestWithDefaults() *ArrayTest {
 
 // GetArrayOfString returns the ArrayOfString field value if set, zero value otherwise.
 func (o *ArrayTest) GetArrayOfString() []string {
-	if o == nil || IsNil(o.ArrayOfString) {
+	if o == nil || o.ArrayOfString == nil {
 		var ret []string
 		return ret
 	}
-	return o.ArrayOfString
+	return *o.ArrayOfString
 }
 
 // GetArrayOfStringOk returns a tuple with the ArrayOfString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArrayTest) GetArrayOfStringOk() ([]string, bool) {
-	if o == nil || IsNil(o.ArrayOfString) {
+func (o *ArrayTest) GetArrayOfStringOk() (*[]string, bool) {
+	if o == nil || o.ArrayOfString == nil {
 		return nil, false
 	}
 	return o.ArrayOfString, true
@@ -61,7 +58,7 @@ func (o *ArrayTest) GetArrayOfStringOk() ([]string, bool) {
 
 // HasArrayOfString returns a boolean if a field has been set.
 func (o *ArrayTest) HasArrayOfString() bool {
-	if o != nil && !IsNil(o.ArrayOfString) {
+	if o != nil && o.ArrayOfString != nil {
 		return true
 	}
 
@@ -70,22 +67,22 @@ func (o *ArrayTest) HasArrayOfString() bool {
 
 // SetArrayOfString gets a reference to the given []string and assigns it to the ArrayOfString field.
 func (o *ArrayTest) SetArrayOfString(v []string) {
-	o.ArrayOfString = v
+	o.ArrayOfString = &v
 }
 
 // GetArrayArrayOfInteger returns the ArrayArrayOfInteger field value if set, zero value otherwise.
 func (o *ArrayTest) GetArrayArrayOfInteger() [][]int64 {
-	if o == nil || IsNil(o.ArrayArrayOfInteger) {
+	if o == nil || o.ArrayArrayOfInteger == nil {
 		var ret [][]int64
 		return ret
 	}
-	return o.ArrayArrayOfInteger
+	return *o.ArrayArrayOfInteger
 }
 
 // GetArrayArrayOfIntegerOk returns a tuple with the ArrayArrayOfInteger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArrayTest) GetArrayArrayOfIntegerOk() ([][]int64, bool) {
-	if o == nil || IsNil(o.ArrayArrayOfInteger) {
+func (o *ArrayTest) GetArrayArrayOfIntegerOk() (*[][]int64, bool) {
+	if o == nil || o.ArrayArrayOfInteger == nil {
 		return nil, false
 	}
 	return o.ArrayArrayOfInteger, true
@@ -93,7 +90,7 @@ func (o *ArrayTest) GetArrayArrayOfIntegerOk() ([][]int64, bool) {
 
 // HasArrayArrayOfInteger returns a boolean if a field has been set.
 func (o *ArrayTest) HasArrayArrayOfInteger() bool {
-	if o != nil && !IsNil(o.ArrayArrayOfInteger) {
+	if o != nil && o.ArrayArrayOfInteger != nil {
 		return true
 	}
 
@@ -102,22 +99,22 @@ func (o *ArrayTest) HasArrayArrayOfInteger() bool {
 
 // SetArrayArrayOfInteger gets a reference to the given [][]int64 and assigns it to the ArrayArrayOfInteger field.
 func (o *ArrayTest) SetArrayArrayOfInteger(v [][]int64) {
-	o.ArrayArrayOfInteger = v
+	o.ArrayArrayOfInteger = &v
 }
 
 // GetArrayArrayOfModel returns the ArrayArrayOfModel field value if set, zero value otherwise.
 func (o *ArrayTest) GetArrayArrayOfModel() [][]ReadOnlyFirst {
-	if o == nil || IsNil(o.ArrayArrayOfModel) {
+	if o == nil || o.ArrayArrayOfModel == nil {
 		var ret [][]ReadOnlyFirst
 		return ret
 	}
-	return o.ArrayArrayOfModel
+	return *o.ArrayArrayOfModel
 }
 
 // GetArrayArrayOfModelOk returns a tuple with the ArrayArrayOfModel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArrayTest) GetArrayArrayOfModelOk() ([][]ReadOnlyFirst, bool) {
-	if o == nil || IsNil(o.ArrayArrayOfModel) {
+func (o *ArrayTest) GetArrayArrayOfModelOk() (*[][]ReadOnlyFirst, bool) {
+	if o == nil || o.ArrayArrayOfModel == nil {
 		return nil, false
 	}
 	return o.ArrayArrayOfModel, true
@@ -125,7 +122,7 @@ func (o *ArrayTest) GetArrayArrayOfModelOk() ([][]ReadOnlyFirst, bool) {
 
 // HasArrayArrayOfModel returns a boolean if a field has been set.
 func (o *ArrayTest) HasArrayArrayOfModel() bool {
-	if o != nil && !IsNil(o.ArrayArrayOfModel) {
+	if o != nil && o.ArrayArrayOfModel != nil {
 		return true
 	}
 
@@ -134,29 +131,21 @@ func (o *ArrayTest) HasArrayArrayOfModel() bool {
 
 // SetArrayArrayOfModel gets a reference to the given [][]ReadOnlyFirst and assigns it to the ArrayArrayOfModel field.
 func (o *ArrayTest) SetArrayArrayOfModel(v [][]ReadOnlyFirst) {
-	o.ArrayArrayOfModel = v
+	o.ArrayArrayOfModel = &v
 }
 
 func (o ArrayTest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o ArrayTest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ArrayOfString) {
+	if o.ArrayOfString != nil {
 		toSerialize["array_of_string"] = o.ArrayOfString
 	}
-	if !IsNil(o.ArrayArrayOfInteger) {
+	if o.ArrayArrayOfInteger != nil {
 		toSerialize["array_array_of_integer"] = o.ArrayArrayOfInteger
 	}
-	if !IsNil(o.ArrayArrayOfModel) {
+	if o.ArrayArrayOfModel != nil {
 		toSerialize["array_array_of_model"] = o.ArrayArrayOfModel
 	}
-	return toSerialize, nil
+	return json.Marshal(toSerialize)
 }
 
 type NullableArrayTest struct {

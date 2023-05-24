@@ -6,20 +6,19 @@ namespace app\Models;
 
 /**
  * Name
- * @description Model for testing model name same as property name
  */
 class Name {
 
     /** @var int $name */
-    public $name = 0;
+    private $name;
 
     /** @var int $snakeCase */
-    public $snakeCase = 0;
+    private $snakeCase;
 
     /** @var string $property */
-    public $property = "";
+    private $property;
 
     /** @var int $_123number */
-    public $_123number = 0;
+    private $_123number;
 
 }

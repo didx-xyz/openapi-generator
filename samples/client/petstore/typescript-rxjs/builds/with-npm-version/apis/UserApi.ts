@@ -11,11 +11,9 @@
  * Do not edit the class manually.
  */
 
-import type { Observable } from 'rxjs';
-import type { AjaxResponse } from 'rxjs/ajax';
-import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
-import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
-import type {
+import { Observable } from 'rxjs';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
+import {
     User,
 } from '../models';
 
@@ -59,8 +57,8 @@ export class UserApi extends BaseAPI {
      * Create user
      */
     createUser({ body }: CreateUserRequest): Observable<void>
-    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>>
-    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
+    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    createUser({ body }: CreateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(body, 'body', 'createUser');
 
         const headers: HttpHeaders = {
@@ -79,8 +77,8 @@ export class UserApi extends BaseAPI {
      * Creates list of users with given input array
      */
     createUsersWithArrayInput({ body }: CreateUsersWithArrayInputRequest): Observable<void>
-    createUsersWithArrayInput({ body }: CreateUsersWithArrayInputRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>>
-    createUsersWithArrayInput({ body }: CreateUsersWithArrayInputRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
+    createUsersWithArrayInput({ body }: CreateUsersWithArrayInputRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    createUsersWithArrayInput({ body }: CreateUsersWithArrayInputRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(body, 'body', 'createUsersWithArrayInput');
 
         const headers: HttpHeaders = {
@@ -99,8 +97,8 @@ export class UserApi extends BaseAPI {
      * Creates list of users with given input array
      */
     createUsersWithListInput({ body }: CreateUsersWithListInputRequest): Observable<void>
-    createUsersWithListInput({ body }: CreateUsersWithListInputRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>>
-    createUsersWithListInput({ body }: CreateUsersWithListInputRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
+    createUsersWithListInput({ body }: CreateUsersWithListInputRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    createUsersWithListInput({ body }: CreateUsersWithListInputRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(body, 'body', 'createUsersWithListInput');
 
         const headers: HttpHeaders = {
@@ -120,8 +118,8 @@ export class UserApi extends BaseAPI {
      * Delete user
      */
     deleteUser({ username }: DeleteUserRequest): Observable<void>
-    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>>
-    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
+    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(username, 'username', 'deleteUser');
 
         return this.request<void>({
@@ -134,8 +132,8 @@ export class UserApi extends BaseAPI {
      * Get user by user name
      */
     getUserByName({ username }: GetUserByNameRequest): Observable<User>
-    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<AjaxResponse<User>>
-    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<User | AjaxResponse<User>> {
+    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<RawAjaxResponse<User>>
+    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<User | RawAjaxResponse<User>> {
         throwIfNullOrUndefined(username, 'username', 'getUserByName');
 
         return this.request<User>({
@@ -148,8 +146,8 @@ export class UserApi extends BaseAPI {
      * Logs user into the system
      */
     loginUser({ username, password }: LoginUserRequest): Observable<string>
-    loginUser({ username, password }: LoginUserRequest, opts?: OperationOpts): Observable<AjaxResponse<string>>
-    loginUser({ username, password }: LoginUserRequest, opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+    loginUser({ username, password }: LoginUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    loginUser({ username, password }: LoginUserRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         throwIfNullOrUndefined(username, 'username', 'loginUser');
         throwIfNullOrUndefined(password, 'password', 'loginUser');
 
@@ -169,8 +167,8 @@ export class UserApi extends BaseAPI {
      * Logs out current logged in user session
      */
     logoutUser(): Observable<void>
-    logoutUser(opts?: OperationOpts): Observable<void | AjaxResponse<void>>
-    logoutUser(opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
+    logoutUser(opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    logoutUser(opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         return this.request<void>({
             url: '/user/logout',
             method: 'GET',
@@ -182,8 +180,8 @@ export class UserApi extends BaseAPI {
      * Updated user
      */
     updateUser({ username, body }: UpdateUserRequest): Observable<void>
-    updateUser({ username, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>>
-    updateUser({ username, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
+    updateUser({ username, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updateUser({ username, body }: UpdateUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(username, 'username', 'updateUser');
         throwIfNullOrUndefined(body, 'body', 'updateUser');
 

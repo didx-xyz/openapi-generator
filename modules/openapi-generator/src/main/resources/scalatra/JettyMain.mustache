@@ -1,5 +1,4 @@
 {{>licenseInfo}}
-package {{invokerPackage}}
 import org.eclipse.jetty.server._
 import org.eclipse.jetty.webapp.WebAppContext
 import org.scalatra.servlet.ScalatraListener
@@ -37,7 +36,6 @@ object JettyMain {
     webApp setContextPath conf.contextPath
     webApp setResourceBase conf.webapp
     webApp setEventListeners Array(new ScalatraListener)
-    webApp.setInitParameter(ScalatraListener.LifeCycleKey, classOf[ScalatraBootstrap].getName)
 
     server setHandler webApp
 

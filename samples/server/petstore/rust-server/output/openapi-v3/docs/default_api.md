@@ -268,7 +268,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # ****
-> models::OneOfGet200Response ()
+> swagger::OneOf2<i32,Vec<String>> ()
 
 
 ### Required Parameters
@@ -276,7 +276,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::OneOfGet200Response**](_one_of_get_200_response.md)
+[**swagger::OneOf2<i32,Vec<String>>**](swagger::OneOf2<i32,Vec<String>>.md)
 
 ### Authorization
 
@@ -614,8 +614,6 @@ No authorization required
 # ****
 > (optional)
 Post an array
-
-
 
 ### Required Parameters
 

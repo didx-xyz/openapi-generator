@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.ArrayTest")
-public typealias ArrayTest = PetstoreClientAPI.ArrayTest
+@available(*, deprecated, renamed: "PetstoreClient.ArrayTest")
+public typealias ArrayTest = PetstoreClient.ArrayTest
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class ArrayTest: Codable, JSONEncodable, Hashable {
+public final class ArrayTest: Codable, Hashable {
 
     public var arrayOfString: [String]?
     public var arrayArrayOfInteger: [[Int64]]?

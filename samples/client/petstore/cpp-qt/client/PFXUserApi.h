@@ -15,7 +15,6 @@
 #include "PFXHelpers.h"
 #include "PFXHttpRequest.h"
 #include "PFXServerConfiguration.h"
-#include "PFXOauth.h"
 
 #include "PFXUser.h"
 #include <QList>
@@ -53,24 +52,24 @@ public:
     void enableRequestCompression();
     void enableResponseCompression();
     void abortRequests();
-    QString getParamStylePrefix(const QString &style);
-    QString getParamStyleSuffix(const QString &style);
-    QString getParamStyleDelimiter(const QString &style, const QString &name, bool isExplode);
+    QString getParamStylePrefix(QString style);
+    QString getParamStyleSuffix(QString style);
+    QString getParamStyleDelimiter(QString style, QString name, bool isExplode);
 
     /**
-    * @param[in]  pfx_user PFXUser [required]
+    * @param[in]  body PFXUser [required]
     */
-    void createUser(const PFXUser &pfx_user);
+    void createUser(const PFXUser &body);
 
     /**
-    * @param[in]  pfx_user QList<PFXUser> [required]
+    * @param[in]  body QList<PFXUser> [required]
     */
-    void createUsersWithArrayInput(const QList<PFXUser> &pfx_user);
+    void createUsersWithArrayInput(const QList<PFXUser> &body);
 
     /**
-    * @param[in]  pfx_user QList<PFXUser> [required]
+    * @param[in]  body QList<PFXUser> [required]
     */
-    void createUsersWithListInput(const QList<PFXUser> &pfx_user);
+    void createUsersWithListInput(const QList<PFXUser> &body);
 
     /**
     * @param[in]  username QString [required]
@@ -93,9 +92,9 @@ public:
 
     /**
     * @param[in]  username QString [required]
-    * @param[in]  pfx_user PFXUser [required]
+    * @param[in]  body PFXUser [required]
     */
-    void updateUser(const QString &username, const PFXUser &pfx_user);
+    void updateUser(const QString &username, const PFXUser &body);
 
 
 private:
@@ -108,17 +107,9 @@ private:
     int _timeOut;
     QString _workingDirectory;
     QNetworkAccessManager* _manager;
-    QMap<QString, QString> _defaultHeaders;
-    bool _isResponseCompressionEnabled;
-    bool _isRequestCompressionEnabled;
-    PFXHttpRequestInput _latestInput;
-    PFXHttpRequestWorker *_latestWorker;
-    QStringList _latestScope;
-    OauthCode _authFlow;
-    OauthImplicit _implicitFlow;
-    OauthCredentials _credentialFlow;
-    OauthPassword _passwordFlow;
-    int _OauthMethod = 0;
+    QMap<QString, QString> defaultHeaders;
+    bool isResponseCompressionEnabled;
+    bool isRequestCompressionEnabled;
 
     void createUserCallback(PFXHttpRequestWorker *worker);
     void createUsersWithArrayInputCallback(PFXHttpRequestWorker *worker);
@@ -169,10 +160,6 @@ signals:
 
     void abortRequestsSignal();
     void allPendingRequestsCompleted();
-
-public slots:
-    void tokenAvailable();
-    
 };
 
 } // namespace test_namespace

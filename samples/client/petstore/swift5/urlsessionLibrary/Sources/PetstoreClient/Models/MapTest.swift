@@ -10,12 +10,12 @@ import Foundation
 import AnyCodable
 #endif
 
-@available(*, deprecated, renamed: "PetstoreClientAPI.MapTest")
-public typealias MapTest = PetstoreClientAPI.MapTest
+@available(*, deprecated, renamed: "PetstoreClient.MapTest")
+public typealias MapTest = PetstoreClient.MapTest
 
-extension PetstoreClientAPI {
+extension PetstoreClient {
 
-public final class MapTest: Codable, JSONEncodable, Hashable {
+public final class MapTest: Codable, Hashable {
 
     public enum MapOfEnumString: String, Codable, CaseIterable {
         case upper = "UPPER"

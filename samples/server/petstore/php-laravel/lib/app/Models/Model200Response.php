@@ -6,14 +6,13 @@ namespace app\Models;
 
 /**
  * Model200Response
- * @description Model for testing model name starting with number
  */
 class Model200Response {
 
     /** @var int $name */
-    public $name = 0;
+    private $name;
 
     /** @var string $class */
-    public $class = "";
+    private $class;
 
 }

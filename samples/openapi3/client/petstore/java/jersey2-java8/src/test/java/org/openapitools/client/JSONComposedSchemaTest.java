@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.*;
+import static org.junit.Assert.*;
+
 
 public class JSONComposedSchemaTest {
     JSON json = null;
 
-    @BeforeEach
+    @Before
     public void setup() {
         json = new JSON();
     }
@@ -68,32 +69,24 @@ public class JSONComposedSchemaTest {
     /**
      * Test to ensure the setter will throw IllegalArgumentException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testEnumDiscriminator() throws Exception {
-        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            ChildCat cc = new ChildCat();
-            cc.setPetType("ChildCat");
-            assertEquals("ChildCat", cc.getPetType());
-            cc.setPetType("WrongValue");
-        });
-        Assertions.assertEquals("WrongValue is invalid. Possible values for petType: ChildCat", thrown.getMessage());
+        ChildCat cc = new ChildCat();
+        cc.setPetType("ChildCat");
+        assertEquals("ChildCat", cc.getPetType());
+
+        cc.setPetType("WrongValue");
     }
 
     /**
      * Test to ensure the getter will throw ClassCastException
      */
-    @Test
+    @Test(expected = ClassCastException.class)
     public void testCastException() throws Exception {
-        ClassCastException thrown = Assertions.assertThrows(ClassCastException.class, () -> {
-            String str = "{ \"cultivar\": \"golden delicious\", \"mealy\": false }";
-            FruitReq o = json.getContext(null).readValue(str, FruitReq.class);
-            assertTrue(o.getActualInstance() instanceof AppleReq);
-            BananaReq inst2 = o.getBananaReq(); // should throw ClassCastException
-        });
-        // comment out below as the error message can be different due to JDK versions
-        // org.opentest4j.AssertionFailedError: expected: <class org.openapitools.client.model.AppleReq cannot be cast to class org.openapitools.client.model.BananaReq (org.openapitools.client.model.AppleReq and org.openapitools.client.model.BananaReq are in unnamed module of loader 'app')> but was: <org.openapitools.client.model.AppleReq cannot be cast to org.openapitools.client.model.BananaReq>
-        //Assertions.assertEquals("class org.openapitools.client.model.AppleReq cannot be cast to class org.openapitools.client.model.BananaReq (org.openapitools.client.model.AppleReq and org.openapitools.client.model.BananaReq are in unnamed module of loader 'app')", thrown.getMessage());
-       Assertions.assertNotNull(thrown);
+        String str = "{ \"cultivar\": \"golden delicious\", \"mealy\": false }";
+        FruitReq o = json.getContext(null).readValue(str, FruitReq.class);
+        assertTrue(o.getActualInstance() instanceof AppleReq);
+        BananaReq inst2 = o.getBananaReq(); // should throw ClassCastException
     }
 
     /**
@@ -141,7 +134,7 @@ public class JSONComposedSchemaTest {
             });
             assertTrue(exception.getMessage().contains("Failed deserialization for FruitReq: 2 classes match result"));
             // TODO: add a similar unit test where the oneOf child schemas have required properties.
-            // If the implementation is correct, the unmarshalling should take the "required" keyword
+            // If the implementation is correct, the unmarshaling should take the "required" keyword
             // into consideration, which it is not doing currently.
         }
         {
@@ -232,7 +225,7 @@ public class JSONComposedSchemaTest {
     @Test
     public void testOneOfMultipleDiscriminators() throws Exception {
         // 'shapeType' is a discriminator for the 'Shape' model and
-        // 'triangleType' is a discriminator for the 'Triangle' model.
+        // 'triangleType' is a discriminator forr the 'Triangle' model.
         String str = "{ \"shapeType\": \"Triangle\", \"triangleType\": \"EquilateralTriangle\" }";
 
         // We should be able to deserialize a equilateral triangle into a EquilateralTriangle class.
@@ -391,13 +384,13 @@ public class JSONComposedSchemaTest {
     public void testNullValueDisallowed() throws Exception {
         {
             String str = "{ \"id\": 123, \"petId\": 345, \"quantity\": 100, \"status\": \"placed\" }";
-            org.openapitools.client.model.Order o = json.getContext(null).readValue(str, org.openapitools.client.model.Order.class);
+            Order o = json.getContext(null).readValue(str, Order.class);
             assertEquals(100L, (long)o.getQuantity());
-            assertEquals(org.openapitools.client.model.Order.StatusEnum.PLACED, o.getStatus());
+            assertEquals(Order.StatusEnum.PLACED, o.getStatus());
         }
         {
             String str = "{ \"id\": 123, \"petId\": 345, \"quantity\": null }";
-            org.openapitools.client.model.Order o = json.getContext(null).readValue(str, org.openapitools.client.model.Order.class);
+            Order o = json.getContext(null).readValue(str, Order.class);
             // TODO: the null value is not allowed per OAS document.
             // The deserialization should fail.
             assertNull(o.getQuantity());

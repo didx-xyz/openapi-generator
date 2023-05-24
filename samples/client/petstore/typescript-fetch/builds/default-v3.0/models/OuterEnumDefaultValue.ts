@@ -12,18 +12,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * 
  * @export
+ * @enum {string}
  */
-export const OuterEnumDefaultValue = {
-    Placed: 'placed',
-    Approved: 'approved',
-    Delivered: 'delivered'
-} as const;
-export type OuterEnumDefaultValue = typeof OuterEnumDefaultValue[keyof typeof OuterEnumDefaultValue];
-
+export enum OuterEnumDefaultValue {
+    Placed = 'placed',
+    Approved = 'approved',
+    Delivered = 'delivered'
+}
 
 export function OuterEnumDefaultValueFromJSON(json: any): OuterEnumDefaultValue {
     return OuterEnumDefaultValueFromJSONTyped(json, false);

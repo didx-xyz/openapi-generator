@@ -23,7 +23,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.CodegenConfig;
 import org.openapitools.codegen.DefaultCodegen;
-import org.openapitools.codegen.GeneratorLanguage;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +78,6 @@ abstract public class AbstractRubyCodegen extends DefaultCodegen implements Code
         typeMapping.put("float", "Float");
         typeMapping.put("double", "Float");
         typeMapping.put("number", "Float");
-        typeMapping.put("decimal", "Float");
         typeMapping.put("date", "Date");
         typeMapping.put("DateTime", "Time");
         typeMapping.put("array", "Array");
@@ -161,7 +159,7 @@ abstract public class AbstractRubyCodegen extends DefaultCodegen implements Code
                 } else if (p.getDefault() instanceof java.time.OffsetDateTime) {
                     return "Time.parse(\"" + String.format(Locale.ROOT, ((java.time.OffsetDateTime) p.getDefault()).atZoneSameInstant(ZoneId.systemDefault()).toString(), "") + "\")";
                 } else {
-                    return "'" + escapeText((String.valueOf(p.getDefault()))) + "'";
+                    return "'" + escapeText((String) p.getDefault()) + "'";
                 }
             }
         }
@@ -177,7 +175,7 @@ abstract public class AbstractRubyCodegen extends DefaultCodegen implements Code
     @Override
     public String toVarName(final String name) {
         String varName = sanitizeName(name);
-        // if it's all upper case, convert to lower case
+        // if it's all uppper case, convert to lower case
         if (name.matches("^[A-Z_]*$")) {
             varName = varName.toLowerCase(Locale.ROOT);
         }
@@ -239,19 +237,18 @@ abstract public class AbstractRubyCodegen extends DefaultCodegen implements Code
         }
         // only process files with rb extension
         if ("rb".equals(FilenameUtils.getExtension(file.toString()))) {
-            String command = rubyPostProcessFile + " " + file;
+            String command = rubyPostProcessFile + " " + file.toString();
             try {
                 Process p = Runtime.getRuntime().exec(command);
                 int exitValue = p.waitFor();
                 if (exitValue != 0) {
-                    try (InputStreamReader inputStreamReader = new InputStreamReader(p.getErrorStream(), StandardCharsets.UTF_8);
-                         BufferedReader br = new BufferedReader(inputStreamReader)) {
+                    try(BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream(), StandardCharsets.UTF_8))) {
                         StringBuilder sb = new StringBuilder();
                         String line;
                         while ((line = br.readLine()) != null) {
                             sb.append(line);
                         }
-                        LOGGER.error("Error running the command ({}). Exit value: {}, Error output: {}", command, exitValue, sb);
+                        LOGGER.error("Error running the command ({}). Exit value: {}, Error output: {}", command, exitValue, sb.toString());
                     }
                 } else {
                     LOGGER.info("Successfully executed: `{}`", command);
@@ -263,7 +260,4 @@ abstract public class AbstractRubyCodegen extends DefaultCodegen implements Code
             }
         }
     }
-
-    @Override
-    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.RUBY; }
 }

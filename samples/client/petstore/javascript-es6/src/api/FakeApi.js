@@ -14,7 +14,6 @@
 
 import ApiClient from "../ApiClient";
 import Client from '../model/Client';
-import EnumClass from '../model/EnumClass';
 import FileSchemaTestClass from '../model/FileSchemaTestClass';
 import HealthCheckResult from '../model/HealthCheckResult';
 import OuterComposite from '../model/OuterComposite';
@@ -89,8 +88,8 @@ export default class FakeApi {
      * test http signature authentication
      * @param {module:model/Pet} pet Pet object that needs to be added to the store
      * @param {Object} opts Optional parameters
-     * @param {String} [query1] query parameter
-     * @param {String} [header1] header parameter
+     * @param {String} opts.query1 query parameter
+     * @param {String} opts.header1 header parameter
      * @param {module:api/FakeApi~fakeHttpSignatureTestCallback} callback The callback function, accepting three arguments: error, data, response
      */
     fakeHttpSignatureTest(pet, opts, callback) {
@@ -134,7 +133,7 @@ export default class FakeApi {
     /**
      * Test serialization of outer boolean types
      * @param {Object} opts Optional parameters
-     * @param {Boolean} [body] Input boolean as post body
+     * @param {Boolean} opts.body Input boolean as post body
      * @param {module:api/FakeApi~fakeOuterBooleanSerializeCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Boolean}
      */
@@ -173,7 +172,7 @@ export default class FakeApi {
     /**
      * Test serialization of object with outer number type
      * @param {Object} opts Optional parameters
-     * @param {module:model/OuterComposite} [outerComposite] Input composite as post body
+     * @param {module:model/OuterComposite} opts.outerComposite Input composite as post body
      * @param {module:api/FakeApi~fakeOuterCompositeSerializeCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/OuterComposite}
      */
@@ -212,7 +211,7 @@ export default class FakeApi {
     /**
      * Test serialization of outer number types
      * @param {Object} opts Optional parameters
-     * @param {Number} [body] Input number as post body
+     * @param {Number} opts.body Input number as post body
      * @param {module:api/FakeApi~fakeOuterNumberSerializeCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Number}
      */
@@ -251,7 +250,7 @@ export default class FakeApi {
     /**
      * Test serialization of outer string types
      * @param {Object} opts Optional parameters
-     * @param {String} [body] Input string as post body
+     * @param {String} opts.body Input string as post body
      * @param {module:api/FakeApi~fakeOuterStringSerializeCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link String}
      */
@@ -503,16 +502,16 @@ export default class FakeApi {
      * @param {String} patternWithoutDelimiter None
      * @param {Blob} _byte None
      * @param {Object} opts Optional parameters
-     * @param {Number} [integer] None
-     * @param {Number} [int32] None
-     * @param {Number} [int64] None
-     * @param {Number} [_float] None
-     * @param {String} [string] None
-     * @param {File} [binary] None
-     * @param {Date} [date] None
-     * @param {Date} [dateTime] None
-     * @param {String} [password] None
-     * @param {String} [callback] None
+     * @param {Number} opts.integer None
+     * @param {Number} opts.int32 None
+     * @param {Number} opts.int64 None
+     * @param {Number} opts._float None
+     * @param {String} opts.string None
+     * @param {File} opts.binary None
+     * @param {Date} opts.date None
+     * @param {Date} opts.dateTime None
+     * @param {String} opts.password None
+     * @param {String} opts.callback None
      * @param {module:api/FakeApi~testEndpointParametersCallback} callback The callback function, accepting three arguments: error, data, response
      */
     testEndpointParameters(number, _double, patternWithoutDelimiter, _byte, opts, callback) {
@@ -581,15 +580,14 @@ export default class FakeApi {
      * To test enum parameters
      * To test enum parameters
      * @param {Object} opts Optional parameters
-     * @param {Array.<module:model/String>} [enumHeaderStringArray] Header parameter enum test (string array)
-     * @param {module:model/String} [enumHeaderString = '-efg')] Header parameter enum test (string)
-     * @param {Array.<module:model/String>} [enumQueryStringArray] Query parameter enum test (string array)
-     * @param {module:model/String} [enumQueryString = '-efg')] Query parameter enum test (string)
-     * @param {module:model/Number} [enumQueryInteger] Query parameter enum test (double)
-     * @param {module:model/Number} [enumQueryDouble] Query parameter enum test (double)
-     * @param {Array.<module:model/EnumClass>} [enumQueryModelArray] 
-     * @param {Array.<module:model/String>} [enumFormStringArray = '$')] Form parameter enum test (string array)
-     * @param {module:model/String} [enumFormString = '-efg')] Form parameter enum test (string)
+     * @param {Array.<module:model/String>} opts.enumHeaderStringArray Header parameter enum test (string array)
+     * @param {module:model/String} opts.enumHeaderString Header parameter enum test (string) (default to '-efg')
+     * @param {Array.<module:model/String>} opts.enumQueryStringArray Query parameter enum test (string array)
+     * @param {module:model/String} opts.enumQueryString Query parameter enum test (string) (default to '-efg')
+     * @param {module:model/Number} opts.enumQueryInteger Query parameter enum test (double)
+     * @param {module:model/Number} opts.enumQueryDouble Query parameter enum test (double)
+     * @param {Array.<module:model/String>} opts.enumFormStringArray Form parameter enum test (string array) (default to '$')
+     * @param {module:model/String} opts.enumFormString Form parameter enum test (string) (default to '-efg')
      * @param {module:api/FakeApi~testEnumParametersCallback} callback The callback function, accepting three arguments: error, data, response
      */
     testEnumParameters(opts, callback) {
@@ -602,8 +600,7 @@ export default class FakeApi {
         'enum_query_string_array': this.apiClient.buildCollectionParam(opts['enumQueryStringArray'], 'multi'),
         'enum_query_string': opts['enumQueryString'],
         'enum_query_integer': opts['enumQueryInteger'],
-        'enum_query_double': opts['enumQueryDouble'],
-        'enum_query_model_array': this.apiClient.buildCollectionParam(opts['enumQueryModelArray'], 'multi')
+        'enum_query_double': opts['enumQueryDouble']
       };
       let headerParams = {
         'enum_header_string_array': opts['enumHeaderStringArray'],
@@ -640,9 +637,9 @@ export default class FakeApi {
      * @param {Boolean} requiredBooleanGroup Required Boolean in group parameters
      * @param {Number} requiredInt64Group Required Integer in group parameters
      * @param {Object} opts Optional parameters
-     * @param {Number} [stringGroup] String in group parameters
-     * @param {Boolean} [booleanGroup] Boolean in group parameters
-     * @param {Number} [int64Group] Integer in group parameters
+     * @param {Number} opts.stringGroup String in group parameters
+     * @param {Boolean} opts.booleanGroup Boolean in group parameters
+     * @param {Number} opts.int64Group Integer in group parameters
      * @param {module:api/FakeApi~testGroupParametersCallback} callback The callback function, accepting three arguments: error, data, response
      */
     testGroupParameters(requiredStringGroup, requiredBooleanGroup, requiredInt64Group, opts, callback) {
@@ -697,7 +694,6 @@ export default class FakeApi {
 
     /**
      * test inline additionalProperties
-     * 
      * @param {Object.<String, {String: String}>} requestBody request body
      * @param {module:api/FakeApi~testInlineAdditionalPropertiesCallback} callback The callback function, accepting three arguments: error, data, response
      */
@@ -738,7 +734,6 @@ export default class FakeApi {
 
     /**
      * test json serialization of form data
-     * 
      * @param {String} param field1
      * @param {String} param2 field2
      * @param {module:api/FakeApi~testJsonFormDataCallback} callback The callback function, accepting three arguments: error, data, response
@@ -791,12 +786,11 @@ export default class FakeApi {
      * @param {Array.<String>} http 
      * @param {Array.<String>} url 
      * @param {Array.<String>} context 
-     * @param {String} allowEmpty 
      * @param {Object} opts Optional parameters
-     * @param {Object.<String, {String: String}>} [language] 
+     * @param {Object.<String, {String: String}>} opts.language 
      * @param {module:api/FakeApi~testQueryParameterCollectionFormatCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    testQueryParameterCollectionFormat(pipe, ioutil, http, url, context, allowEmpty, opts, callback) {
+    testQueryParameterCollectionFormat(pipe, ioutil, http, url, context, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'pipe' is set
@@ -819,10 +813,6 @@ export default class FakeApi {
       if (context === undefined || context === null) {
         throw new Error("Missing the required parameter 'context' when calling testQueryParameterCollectionFormat");
       }
-      // verify the required parameter 'allowEmpty' is set
-      if (allowEmpty === undefined || allowEmpty === null) {
-        throw new Error("Missing the required parameter 'allowEmpty' when calling testQueryParameterCollectionFormat");
-      }
 
       let pathParams = {
       };
@@ -832,8 +822,7 @@ export default class FakeApi {
         'http': this.apiClient.buildCollectionParam(http, 'ssv'),
         'url': this.apiClient.buildCollectionParam(url, 'csv'),
         'context': this.apiClient.buildCollectionParam(context, 'multi'),
-        'language': opts['language'],
-        'allowEmpty': allowEmpty
+        'language': opts['language']
       };
       let headerParams = {
       };
@@ -845,7 +834,7 @@ export default class FakeApi {
       let accepts = [];
       let returnType = null;
       return this.apiClient.callApi(
-        '/fake/test-query-parameters', 'PUT',
+        '/fake/test-query-paramters', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -44,17 +44,13 @@ namespace Org.OpenAPITools.Model
         public ShapeInterface(string shapeType = default(string))
         {
             // to ensure "shapeType" is required (not null)
-            if (shapeType == null)
-            {
-                throw new ArgumentNullException("shapeType is a required property for ShapeInterface and cannot be null");
-            }
-            this.ShapeType = shapeType;
+            this.ShapeType = shapeType ?? throw new ArgumentNullException("shapeType is a required property for ShapeInterface and cannot be null");
         }
 
         /// <summary>
         /// Gets or Sets ShapeType
         /// </summary>
-        [DataMember(Name = "shapeType", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "shapeType", IsRequired = true, EmitDefaultValue = false)]
         public string ShapeType { get; set; }
 
         /// <summary>
@@ -63,7 +59,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("class ShapeInterface {\n");
             sb.Append("  ShapeType: ").Append(ShapeType).Append("\n");
             sb.Append("}\n");
@@ -109,9 +105,7 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.ShapeType != null)
-                {
-                    hashCode = (hashCode * 59) + this.ShapeType.GetHashCode();
-                }
+                    hashCode = hashCode * 59 + this.ShapeType.GetHashCode();
                 return hashCode;
             }
         }

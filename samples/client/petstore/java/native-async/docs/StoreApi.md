@@ -2,16 +2,16 @@
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
-| Method | HTTP request | Description |
-|------------- | ------------- | -------------|
-| [**deleteOrder**](StoreApi.md#deleteOrder) | **DELETE** /store/order/{order_id} | Delete purchase order by ID |
-| [**deleteOrderWithHttpInfo**](StoreApi.md#deleteOrderWithHttpInfo) | **DELETE** /store/order/{order_id} | Delete purchase order by ID |
-| [**getInventory**](StoreApi.md#getInventory) | **GET** /store/inventory | Returns pet inventories by status |
-| [**getInventoryWithHttpInfo**](StoreApi.md#getInventoryWithHttpInfo) | **GET** /store/inventory | Returns pet inventories by status |
-| [**getOrderById**](StoreApi.md#getOrderById) | **GET** /store/order/{order_id} | Find purchase order by ID |
-| [**getOrderByIdWithHttpInfo**](StoreApi.md#getOrderByIdWithHttpInfo) | **GET** /store/order/{order_id} | Find purchase order by ID |
-| [**placeOrder**](StoreApi.md#placeOrder) | **POST** /store/order | Place an order for a pet |
-| [**placeOrderWithHttpInfo**](StoreApi.md#placeOrderWithHttpInfo) | **POST** /store/order | Place an order for a pet |
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**deleteOrder**](StoreApi.md#deleteOrder) | **DELETE** /store/order/{order_id} | Delete purchase order by ID
+[**deleteOrderWithHttpInfo**](StoreApi.md#deleteOrderWithHttpInfo) | **DELETE** /store/order/{order_id} | Delete purchase order by ID
+[**getInventory**](StoreApi.md#getInventory) | **GET** /store/inventory | Returns pet inventories by status
+[**getInventoryWithHttpInfo**](StoreApi.md#getInventoryWithHttpInfo) | **GET** /store/inventory | Returns pet inventories by status
+[**getOrderById**](StoreApi.md#getOrderById) | **GET** /store/order/{order_id} | Find purchase order by ID
+[**getOrderByIdWithHttpInfo**](StoreApi.md#getOrderByIdWithHttpInfo) | **GET** /store/order/{order_id} | Find purchase order by ID
+[**placeOrder**](StoreApi.md#placeOrder) | **POST** /store/order | Place an order for a pet
+[**placeOrderWithHttpInfo**](StoreApi.md#placeOrderWithHttpInfo) | **POST** /store/order | Place an order for a pet
 
 
 
@@ -57,9 +57,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **orderId** | **String**| ID of the order that needs to be deleted | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | **String**| ID of the order that needs to be deleted |
 
 ### Return type
 
@@ -133,9 +133,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **orderId** | **String**| ID of the order that needs to be deleted | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | **String**| ID of the order that needs to be deleted |
 
 ### Return type
 
@@ -313,7 +313,7 @@ CompletableFuture<ApiResponse<**Map&lt;String, Integer&gt;**>>
 
 Find purchase order by ID
 
-For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
 
 ### Example
 
@@ -350,9 +350,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **orderId** | **Long**| ID of pet that needs to be fetched | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | **Long**| ID of pet that needs to be fetched |
 
 ### Return type
 
@@ -381,7 +381,7 @@ No authorization required
 
 Find purchase order by ID
 
-For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
 
 ### Example
 
@@ -428,9 +428,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **orderId** | **Long**| ID of pet that needs to be fetched | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | **Long**| ID of pet that needs to be fetched |
 
 ### Return type
 
@@ -456,11 +456,9 @@ No authorization required
 
 ## placeOrder
 
-> CompletableFuture<Order> placeOrder(order)
+> CompletableFuture<Order> placeOrder(body)
 
 Place an order for a pet
-
-
 
 ### Example
 
@@ -479,9 +477,9 @@ public class Example {
         defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
 
         StoreApi apiInstance = new StoreApi(defaultClient);
-        Order order = new Order(); // Order | order placed for purchasing the pet
+        Order body = new Order(); // Order | order placed for purchasing the pet
         try {
-            CompletableFuture<Order> result = apiInstance.placeOrder(order);
+            CompletableFuture<Order> result = apiInstance.placeOrder(body);
             System.out.println(result.get());
         } catch (ApiException e) {
             System.err.println("Exception when calling StoreApi#placeOrder");
@@ -497,9 +495,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **order** | [**Order**](Order.md)| order placed for purchasing the pet | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**Order**](Order.md)| order placed for purchasing the pet |
 
 ### Return type
 
@@ -512,7 +510,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/xml, application/json
 
 ### HTTP response details
@@ -523,11 +521,9 @@ No authorization required
 
 ## placeOrderWithHttpInfo
 
-> CompletableFuture<ApiResponse<Order>> placeOrder placeOrderWithHttpInfo(order)
+> CompletableFuture<ApiResponse<Order>> placeOrder placeOrderWithHttpInfo(body)
 
 Place an order for a pet
-
-
 
 ### Example
 
@@ -547,9 +543,9 @@ public class Example {
         defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
 
         StoreApi apiInstance = new StoreApi(defaultClient);
-        Order order = new Order(); // Order | order placed for purchasing the pet
+        Order body = new Order(); // Order | order placed for purchasing the pet
         try {
-            CompletableFuture<ApiResponse<Order>> response = apiInstance.placeOrderWithHttpInfo(order);
+            CompletableFuture<ApiResponse<Order>> response = apiInstance.placeOrderWithHttpInfo(body);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -574,9 +570,9 @@ public class Example {
 ### Parameters
 
 
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **order** | [**Order**](Order.md)| order placed for purchasing the pet | |
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**Order**](Order.md)| order placed for purchasing the pet |
 
 ### Return type
 
@@ -589,7 +585,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/xml, application/json
 
 ### HTTP response details
