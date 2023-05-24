@@ -61,7 +61,7 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
         typeMapping.put("file", "bytes");
 
         // Data types of the above values which are automatically imported
-        defaultIncludes = Sets.newHashSet("Union");
+        defaultIncludes = Sets.newHashSet("Union", "Any");
 
         modifyFeatureSet(features -> features.documentationFeatures(null)
                 .wireFormatFeatures(EnumSet.of(WireFormatFeature.JSON)));
