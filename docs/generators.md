@@ -53,6 +53,7 @@ The following generators are available:
 * [php-dt (beta)](generators/php-dt.md)  
 * [powershell (beta)](generators/powershell.md)  
 * [python](generators/python.md)  
+* [python-uplink (experimental)](generators/python-uplink.md)  
 * [r](generators/r.md)  
 * [ruby](generators/ruby.md)  
 * [rust](generators/rust.md)  

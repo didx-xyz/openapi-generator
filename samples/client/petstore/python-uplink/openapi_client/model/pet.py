@@ -7,7 +7,7 @@ from datetime import date, datetime  # noqa: F401
 import re  # noqa: F401
 from typing import Any, Dict, List, Optional, Union, Literal  # noqa: F401
 
-from pydantic import AnyUrl, BaseModel, EmailStr, validator, Field, Extra # noqa: F401
+from pydantic import AnyUrl, BaseModel, EmailStr, validator, Field, Extra  # noqa: F401
 from openapi_client.model.category import Category
 from openapi_client.model.tag import Tag
 
@@ -18,8 +18,8 @@ class Pet(BaseModel):
     Do not edit the class manually.
 
     Pet - a model defined in OpenAPI
-        name: The name of this Pet. 
-        photo_urls: The photo_urls of this Pet. 
+        name: The name of this Pet.
+        photo_urls: The photo_urls of this Pet.
         id: The id of this Pet [Optional].
         category: The category of this Pet [Optional].
         tags: The tags of this Pet [Optional].
@@ -52,6 +52,10 @@ class Pet(BaseModel):
             tags=tags,
             status=status,
             **kwargs,
-        ) 
+        )
+
+    class Config:
+        allow_population_by_field_name = True
+
 
 Pet.update_forward_refs()

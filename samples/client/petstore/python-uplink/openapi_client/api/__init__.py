@@ -5,7 +5,7 @@ from openapi_client.api.store import StoreApi
 from openapi_client.api.user import UserApi
 
 __all__ = [
-    PetApi,
-    StoreApi,
-    UserApi,
+    "PetApi",
+    "StoreApi",
+    "UserApi",
 ]
