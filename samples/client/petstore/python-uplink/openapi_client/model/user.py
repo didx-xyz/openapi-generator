@@ -7,7 +7,7 @@ from datetime import date, datetime  # noqa: F401
 import re  # noqa: F401
 from typing import Any, Dict, List, Optional, Union, Literal  # noqa: F401
 
-from pydantic import AnyUrl, BaseModel, EmailStr, validator, Field, Extra # noqa: F401
+from pydantic import AnyUrl, BaseModel, EmailStr, validator, Field, Extra  # noqa: F401
 
 
 class User(BaseModel):
@@ -58,6 +58,10 @@ class User(BaseModel):
             phone=phone,
             user_status=user_status,
             **kwargs,
-        ) 
+        )
+
+    class Config:
+        allow_population_by_field_name = True
+
 
 User.update_forward_refs()

@@ -41,10 +41,10 @@ class {{classname}}(BaseModel):
         *,
     {{#requiredVars}}
     {{#vendorExtensions.x-has-custom-name}}
-        {{name}}: {{>model_field_type}} = None,
+        {{name}}: {{>model_field_type}},
     {{/vendorExtensions.x-has-custom-name}}
     {{^vendorExtensions.x-has-custom-name}}
-        {{name}}: {{>model_field_type}} = None,
+        {{name}}: {{>model_field_type}},
     {{/vendorExtensions.x-has-custom-name}}
     {{/requiredVars}}
     {{#optionalVars}}

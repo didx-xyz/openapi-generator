@@ -56,12 +56,12 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
         // at the moment
         importMapping.clear();
 
-        typeMapping.put("object", "Dict");
+        typeMapping.put("object", "Dict[str, Any]");
         typeMapping.put("AnyType", "Any");
         typeMapping.put("file", "bytes");
 
         // Data types of the above values which are automatically imported
-        defaultIncludes = Sets.newHashSet("Union");
+        defaultIncludes = Sets.newHashSet("Union", "Any");
 
         modifyFeatureSet(features -> features.documentationFeatures(null)
                 .wireFormatFeatures(EnumSet.of(WireFormatFeature.JSON)));
@@ -71,7 +71,7 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
         languageSpecificPrimitives.add("List");
         languageSpecificPrimitives.add("Dict");
         typeMapping.put("array", "List");
-        typeMapping.put("map", "Dict");
+        typeMapping.put("map", "Dict[str, Any]");
 
     }
 

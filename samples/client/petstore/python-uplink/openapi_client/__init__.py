@@ -14,13 +14,13 @@ from openapi_client.model import (
 )
 
 __all__ = [
-    ApiResponse,
-    Category,
-    Order,
-    Pet,
-    Tag,
-    User,
-    PetApi,
-    StoreApi,
-    UserApi,
+    "ApiResponse",
+    "Category",
+    "Order",
+    "Pet",
+    "Tag",
+    "User",
+    "PetApi",
+    "StoreApi",
+    "UserApi",
 ]

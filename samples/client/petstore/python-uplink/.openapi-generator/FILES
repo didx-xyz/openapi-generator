@@ -11,3 +11,4 @@ openapi_client/model/order.py
 openapi_client/model/pet.py
 openapi_client/model/tag.py
 openapi_client/model/user.py
+openapi_client/uplink_util.py
