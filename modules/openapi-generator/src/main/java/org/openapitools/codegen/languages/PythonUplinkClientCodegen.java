@@ -56,7 +56,7 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
         // at the moment
         importMapping.clear();
 
-        typeMapping.put("object", "Dict");
+        typeMapping.put("object", "Dict[str, Any]");
         typeMapping.put("AnyType", "Any");
         typeMapping.put("file", "bytes");
 
@@ -71,7 +71,7 @@ public class PythonUplinkClientCodegen extends AbstractPythonCodegen implements 
         languageSpecificPrimitives.add("List");
         languageSpecificPrimitives.add("Dict");
         typeMapping.put("array", "List");
-        typeMapping.put("map", "Dict");
+        typeMapping.put("map", "Dict[str, Any]");
 
     }
 
