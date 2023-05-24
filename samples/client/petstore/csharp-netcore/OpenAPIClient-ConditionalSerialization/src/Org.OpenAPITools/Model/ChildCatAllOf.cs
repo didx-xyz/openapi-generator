@@ -43,17 +43,16 @@ namespace Org.OpenAPITools.Model
             /// </summary>
             [EnumMember(Value = "ChildCat")]
             ChildCat = 1
-
         }
 
 
         /// <summary>
         /// Gets or Sets PetType
         /// </summary>
-        
+
         [DataMember(Name = "pet_type", EmitDefaultValue = false)]
-        public PetTypeEnum? PetType 
-        { 
+        public PetTypeEnum? PetType
+        {
             get{ return _PetType;}
             set
             {
@@ -80,7 +79,10 @@ namespace Org.OpenAPITools.Model
         public ChildCatAllOf(string name = default(string), PetTypeEnum? petType = PetTypeEnum.ChildCat)
         {
             this._Name = name;
-            this.PetType = petType;
+            if (this.Name != null)
+            {
+                this._flagName = true;
+            }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
@@ -89,13 +91,13 @@ namespace Org.OpenAPITools.Model
         /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name
-        { 
+        {
             get{ return _Name;}
             set
             {
                 _Name = value;
                 _flagName = true;
-            } 
+            }
         }
         private string _Name;
         private bool _flagName;
@@ -120,7 +122,7 @@ namespace Org.OpenAPITools.Model
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append("class ChildCatAllOf {\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  PetType: ").Append(PetType).Append("\n");
@@ -168,10 +170,14 @@ namespace Org.OpenAPITools.Model
             {
                 int hashCode = 41;
                 if (this.Name != null)
-                    hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.PetType.GetHashCode();
+                {
+                    hashCode = (hashCode * 59) + this.Name.GetHashCode();
+                }
+                hashCode = (hashCode * 59) + this.PetType.GetHashCode();
                 if (this.AdditionalProperties != null)
-                    hashCode = hashCode * 59 + this.AdditionalProperties.GetHashCode();
+                {
+                    hashCode = (hashCode * 59) + this.AdditionalProperties.GetHashCode();
+                }
                 return hashCode;
             }
         }

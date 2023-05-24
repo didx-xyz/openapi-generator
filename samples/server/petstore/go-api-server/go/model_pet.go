@@ -9,6 +9,13 @@
 
 package petstoreserver
 
+
+import (
+	"encoding/json"
+)
+
+
+
 // Pet - A pet for sale in the pet store
 type Pet struct {
 
@@ -23,5 +30,41 @@ type Pet struct {
 	Tags []Tag `json:"tags,omitempty"`
 
 	// pet status in the store
+	// Deprecated
 	Status string `json:"status,omitempty"`
+}
+
+// UnmarshalJSON sets *m to a copy of data while respecting defaults if specified.
+func (m *Pet) UnmarshalJSON(data []byte) error {
+
+	type Alias Pet // To avoid infinite recursion
+    return json.Unmarshal(data, (*Alias)(m))
+}
+
+// AssertPetRequired checks if the required fields are not zero-ed
+func AssertPetRequired(obj Pet) error {
+	elements := map[string]interface{}{
+		"name": obj.Name,
+		"photoUrls": obj.PhotoUrls,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
+	if err := AssertCategoryRequired(obj.Category); err != nil {
+		return err
+	}
+	for _, el := range obj.Tags {
+		if err := AssertTagRequired(el); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// AssertPetConstraints checks if the values respects the defined constraints
+func AssertPetConstraints(obj Pet) error {
+	return nil
 }
