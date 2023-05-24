@@ -55,6 +55,7 @@ The following generators are available:
 * [powershell (beta)](generators/powershell.md)  
 * [python (experimental)](generators/python.md)  
 * [python-legacy](generators/python-legacy.md)  
+* [python-uplink (experimental)](generators/python-uplink.md)  
 * [r](generators/r.md)  
 * [ruby](generators/ruby.md)  
 * [rust](generators/rust.md)  

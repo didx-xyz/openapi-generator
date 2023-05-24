@@ -8,10 +8,10 @@ from openapi_client.model.tag import Tag
 from openapi_client.model.user import User
 
 __all__ = [
-    ApiResponse,
-    Category,
-    Order,
-    Pet,
-    Tag,
-    User,
+    "ApiResponse",
+    "Category",
+    "Order",
+    "Pet",
+    "Tag",
+    "User",
 ]
