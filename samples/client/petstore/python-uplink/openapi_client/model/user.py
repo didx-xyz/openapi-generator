@@ -35,30 +35,6 @@ class User(BaseModel):
     phone: Optional[str] = None
     user_status: Optional[int] = Field(None, alias="userStatus")
 
-    def __init__(
-        self,
-        *,
-        id: Optional[int] = None,
-        username: Optional[str] = None,
-        first_name: Optional[str] = None,
-        last_name: Optional[str] = None,
-        email: Optional[str] = None,
-        password: Optional[str] = None,
-        phone: Optional[str] = None,
-        user_status: Optional[int] = None,
-        **kwargs,
-    ):
-        super().__init__(
-            id=id,
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=password,
-            phone=phone,
-            user_status=user_status,
-            **kwargs,
-        )
 
     class Config:
         allow_population_by_field_name = True

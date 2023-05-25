@@ -25,20 +25,6 @@ class ApiResponse(BaseModel):
     type: Optional[str] = None
     message: Optional[str] = None
 
-    def __init__(
-        self,
-        *,
-        code: Optional[int] = None,
-        type: Optional[str] = None,
-        message: Optional[str] = None,
-        **kwargs,
-    ):
-        super().__init__(
-            code=code,
-            type=type,
-            message=message,
-            **kwargs,
-        )
 
     class Config:
         allow_population_by_field_name = True

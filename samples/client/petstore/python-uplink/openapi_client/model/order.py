@@ -31,26 +31,6 @@ class Order(BaseModel):
     status: Optional[Literal["placed", "approved", "delivered"]] = None
     complete: Optional[bool] = None
 
-    def __init__(
-        self,
-        *,
-        id: Optional[int] = None,
-        pet_id: Optional[int] = None,
-        quantity: Optional[int] = None,
-        ship_date: Optional[datetime] = None,
-        status: Optional[Literal["placed", "approved", "delivered"]] = None,
-        complete: Optional[bool] = None,
-        **kwargs,
-    ):
-        super().__init__(
-            id=id,
-            pet_id=pet_id,
-            quantity=quantity,
-            ship_date=ship_date,
-            status=status,
-            complete=complete,
-            **kwargs,
-        )
 
     class Config:
         allow_population_by_field_name = True

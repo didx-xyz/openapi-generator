@@ -23,18 +23,6 @@ class Tag(BaseModel):
     id: Optional[int] = None
     name: Optional[str] = None
 
-    def __init__(
-        self,
-        *,
-        id: Optional[int] = None,
-        name: Optional[str] = None,
-        **kwargs,
-    ):
-        super().__init__(
-            id=id,
-            name=name,
-            **kwargs,
-        )
 
     class Config:
         allow_population_by_field_name = True

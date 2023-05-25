@@ -33,26 +33,6 @@ class Pet(BaseModel):
     tags: Optional[List[Tag]] = None
     status: Optional[Literal["available", "pending", "sold"]] = None
 
-    def __init__(
-        self,
-        *,
-        name: str,
-        photo_urls: List[str],
-        id: Optional[int] = None,
-        category: Optional[Category] = None,
-        tags: Optional[List[Tag]] = None,
-        status: Optional[Literal["available", "pending", "sold"]] = None,
-        **kwargs,
-    ):
-        super().__init__(
-            id=id,
-            category=category,
-            name=name,
-            photo_urls=photo_urls,
-            tags=tags,
-            status=status,
-            **kwargs,
-        )
 
     class Config:
         allow_population_by_field_name = True
