@@ -3772,7 +3772,11 @@ public class DefaultCodegen implements CodegenConfig {
             }
 
             op.defaultResponse = toDefaultValue(responseSchema);
-            op.returnType = cm.dataType;
+            if (cm.dataType == "Dict") {
+                op.returnType = "Dict[str, Any]";
+            } else {
+                op.returnType = cm.dataType;
+            }
             op.returnFormat = cm.dataFormat;
             op.hasReference = schemas != null && schemas.containsKey(op.returnBaseType);
 
