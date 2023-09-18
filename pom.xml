@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <name>openapi-generator-project</name>
     <!-- RELEASE_VERSION -->
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.1.0-SNAPSHOT</version>
     <!-- /RELEASE_VERSION -->
     <url>https://github.com/openapitools/openapi-generator</url>
     <scm>
@@ -52,11 +52,6 @@
             <id>etherealjoy</id>
             <name>Sunn</name>
             <email>sunn.ssb@live.com</email>
-        </developer>
-        <developer>
-            <id>spacether</id>
-            <name>Justin Black</name>
-            <email>justin.a.black@gmail.com</email>
         </developer>
     </developers>
     <issueManagement>
@@ -200,6 +195,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -218,6 +214,21 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.source}</target>
+                    <annotationProcessors>
+                        lombok.launch.AnnotationProcessorHider$AnnotationProcessor,lombok.launch.AnnotationProcessorHider$ClaimingProcessor,javaslang.match.PatternsProcessor
+                    </annotationProcessors>
+                    <annotationProcessorPaths>
+                        <processorPath>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </processorPath>
+                        <processorPath>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-compiler-embeddable</artifactId>
+                            <version>${kotlin-compiler-embeddable.version}</version>
+                        </processorPath>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
@@ -287,7 +298,7 @@
                 <version>3.3.0</version>
                 <executions>
                     <execution>
-                        <id>enforce-versions</id>
+                        <id>enforce-maven</id>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
@@ -297,7 +308,7 @@
                                     <version>1.11.0</version>
                                 </requireJavaVersion>
                                 <requireMavenVersion>
-                                    <version>3.2.5</version>
+                                    <version>3.3.4</version>
                                 </requireMavenVersion>
                                 <requireReleaseDeps>
                                     <message>No Snapshots Allowed!</message>
@@ -398,87 +409,6 @@
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
                     <version>${git-commit-id-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.gradle</groupId>
-                    <artifactId>gradle-enterprise-maven-extension</artifactId>
-                    <configuration>
-                        <gradleEnterprise>
-                            <plugins>
-                                <plugin>
-                                    <groupId>org.apache.maven.plugins</groupId>
-                                    <artifactId>maven-enforcer-plugin</artifactId>
-                                    <executions>
-                                        <execution>
-                                            <id>enforce-versions</id>
-                                            <inputs>
-                                                <properties>
-                                                    <property>
-                                                        <name>fail</name>
-                                                    </property>
-                                                    <property>
-                                                        <name>failFast</name>
-                                                    </property>
-                                                    <property>
-                                                        <name>failIfNoRules</name>
-                                                    </property>
-                                                    <property>
-                                                        <name>rulesToSkip</name>
-                                                    </property>
-                                                    <property>
-                                                        <name>rulesToExecute</name>
-                                                    </property>
-                                                    <property>
-                                                        <name>rules</name>
-                                                    </property>
-                                                    <property>
-                                                        <name>skip</name>
-                                                    </property>
-                                                </properties>
-                                                <ignoredProperties>
-                                                    <ignore>ignoreCache</ignore>
-                                                    <ignore>mojoExecution</ignore>
-                                                    <ignore>session</ignore>
-                                                </ignoredProperties>
-                                            </inputs>
-                                            <nestedProperties>
-                                                <property>
-                                                    <name>project</name>
-                                                    <iteratedProperties>
-                                                        <property>
-                                                            <name>dependencies</name>
-                                                            <inputs>
-                                                                <properties>
-                                                                    <property>
-                                                                        <name>groupId</name>
-                                                                    </property>
-                                                                    <property>
-                                                                        <name>artifactId</name>
-                                                                    </property>
-                                                                    <property>
-                                                                        <name>version</name>
-                                                                    </property>
-                                                                    <property>
-                                                                        <name>type</name>
-                                                                    </property>
-                                                                    <property>
-                                                                        <name>scope</name>
-                                                                    </property>
-                                                                </properties>
-                                                            </inputs>
-                                                        </property>
-                                                    </iteratedProperties>
-                                                </property>
-                                            </nestedProperties>
-                                            <outputs>
-                                                <cacheableBecause>version check should run in every build</cacheableBecause>
-                                            </outputs>
-                                        </execution>
-                                    </executions>
-                                </plugin>
-                            </plugins>
-                        </gradleEnterprise>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -753,7 +683,7 @@
                 </property>
             </activation>
             <modules>
-                <module>samples/client/petstore/java/retrofit2rx</module>
+                <module>samples/client/petstore/java/retrofit2rx2</module>
             </modules>
         </profile>
         <profile>
@@ -793,7 +723,7 @@
             </modules>
         </profile>
         <profile>
-            <id>scala-httpclient</id>
+            <id>scala-sttp</id>
             <activation>
                 <property>
                     <name>env</name>
@@ -801,7 +731,7 @@
                 </property>
             </activation>
             <modules>
-                <module>samples/client/petstore/scala-httpclient</module>
+                <module>samples/client/petstore/scala-sttp</module>
             </modules>
         </profile>
         <profile>
@@ -837,7 +767,7 @@
                 </property>
             </activation>
             <modules>
-                <module>samples/client/petstore/java-helidon-client</module>
+                <module>samples/client/petstore/java-helidon-client/mp</module>
             </modules>
         </profile>
         <profile>
@@ -849,7 +779,7 @@
                 </property>
             </activation>
             <modules>
-                <module>samples/server/petstore/java-helidon-server</module>
+                <module>samples/server/petstore/java-helidon-server/mp</module>
             </modules>
         </profile>
         <profile>
@@ -1257,8 +1187,8 @@
                 </property>
             </activation>
             <modules>
-                <module>samples/client/petstore/ruby-faraday</module>
                 <module>samples/client/petstore/ruby</module>
+                <module>samples/client/petstore/ruby-faraday</module>
                 <module>samples/client/petstore/ruby-autoload</module>
             </modules>
         </profile>
@@ -1292,10 +1222,12 @@
                 <module>samples/client/petstore/typescript-nestjs-v6-provided-in-root</module>-->
                 <!-- comment out due to error `npm run build`
                 <module>samples/client/petstore/typescript-jquery/npm</module>-->
+                <module>samples/client/others/typescript-angular</module>
                 <module>samples/client/petstore/typescript-angular-v12-provided-in-root</module>
                 <module>samples/client/petstore/typescript-angular-v13-provided-in-root</module>
                 <module>samples/client/petstore/typescript-angular-v14-provided-in-root</module>
                 <module>samples/client/petstore/typescript-angular-v15-provided-in-root</module>
+                <module>samples/client/petstore/typescript-angular-v16-provided-in-root</module>
                 <module>samples/openapi3/client/petstore/typescript/builds/default</module>
                 <module>samples/openapi3/client/petstore/typescript/tests/default</module>
                 <module>samples/openapi3/client/petstore/typescript/builds/jquery</module>
@@ -1347,14 +1279,19 @@
                 <!-- test java-related projects -->
                 <module>samples/client/petstore/scala-akka</module>
                 <module>samples/client/petstore/scala-sttp</module>
+                <module>samples/client/petstore/scala-sttp4</module>
                 <module>samples/client/petstore/clojure</module>
                 <module>samples/client/petstore/java/jersey2-java8</module>
                 <module>samples/openapi3/client/petstore/java/jersey2-java8</module>
                 <module>samples/client/petstore/java/jersey3</module>
                 <module>samples/client/others/java/okhttp-gson-streaming</module>
                 <module>samples/client/petstore/java/okhttp-gson</module>
+                <module>samples/client/petstore/java/okhttp-gson-3.1</module>
+                <module>samples/client/petstore/java/resteasy</module>
                 <module>samples/client/petstore/java-micronaut-client</module>
                 <module>samples/client/petstore/java/apache-httpclient</module>
+                <!-- server -->
+                <module>samples/server/petstore/java-undertow</module>
             </modules>
         </profile>
         <!-- test with Haskell -->
@@ -1523,7 +1460,6 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-
         <archunit.version>0.23.1</archunit.version>
         <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
         <commons-cli.version>1.5.0</commons-cli.version>
@@ -1536,30 +1472,33 @@
         <groovy.version>3.0.9</groovy.version>
         <guava.version>31.1-jre</guava.version>
         <handlebars-java.version>4.3.1</handlebars-java.version>
-        <jackson-threetenbp.version>2.12.5</jackson-threetenbp.version>
+        <jackson-threetenbp.version>2.14.3</jackson-threetenbp.version>
         <jackson-databind.version>2.14.0</jackson-databind.version>
         <jackson.version>2.14.0</jackson.version>
-        <jacoco.version>0.8.7</jacoco.version>
+        <jacoco.version>0.8.10</jacoco.version>
         <jmustache.version>1.15</jmustache.version>
         <junit.version>4.13.2</junit.version>
         <kotlin.version>1.6.21</kotlin.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+        <kotlin-compiler-embeddable.version>1.6.21</kotlin-compiler-embeddable.version>
+        <lombok.version>1.18.24</lombok.version>
+        <maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
+        <maven-site-plugin.version>4.0.0-M8</maven-site-plugin.version>
+        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
         <mockito.version>4.10.0</mockito.version>
+        <openrewrite.version>7.39.1</openrewrite.version>
         <pmd-plugin.version>3.12.0</pmd-plugin.version>
         <reflections.version>0.10.2</reflections.version>
         <rxgen.version>1.4</rxgen.version>
         <scala-maven-plugin.version>4.6.1</scala-maven-plugin.version>
         <slf4j.version>1.7.36</slf4j.version>
         <spotbugs-plugin.version>3.1.12.2</spotbugs-plugin.version>
-        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-        <openrewrite.version>7.22.0</openrewrite.version>
         <swagger-parser-groupid.version>io.swagger.parser.v3</swagger-parser-groupid.version>
-        <swagger-parser.version>2.1.6</swagger-parser.version>
+        <swagger-parser.version>2.1.14</swagger-parser.version>
         <testng.version>7.5</testng.version>
         <violations-maven-plugin.version>1.34</violations-maven-plugin.version>
         <wagon-ssh-external.version>3.4.3</wagon-ssh-external.version>

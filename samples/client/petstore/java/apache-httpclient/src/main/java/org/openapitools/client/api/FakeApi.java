@@ -17,12 +17,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.Configuration;
-import org.openapitools.client.model.*;
 import org.openapitools.client.Pair;
 
 import java.math.BigDecimal;
+import org.openapitools.client.model.ChildWithNullable;
 import org.openapitools.client.model.Client;
 import org.openapitools.client.model.EnumClass;
+import org.openapitools.client.model.FakeBigDecimalMap200Response;
 import java.io.File;
 import org.openapitools.client.model.FileSchemaTestClass;
 import org.openapitools.client.model.HealthCheckResult;
@@ -61,6 +62,73 @@ public class FakeApi {
 
   public void setApiClient(ApiClient apiClient) {
     this.apiClient = apiClient;
+  }
+
+  /**
+   * 
+   * for Java apache and Java native, test toUrlQueryString for maps with BegDecimal keys
+   * @return FakeBigDecimalMap200Response
+   * @throws ApiException if fails to make API call
+   */
+  public FakeBigDecimalMap200Response fakeBigDecimalMap() throws ApiException {
+    return this.fakeBigDecimalMap(Collections.emptyMap());
+  }
+
+
+  /**
+   * 
+   * for Java apache and Java native, test toUrlQueryString for maps with BegDecimal keys
+   * @param additionalHeaders additionalHeaders for this call
+   * @return FakeBigDecimalMap200Response
+   * @throws ApiException if fails to make API call
+   */
+  public FakeBigDecimalMap200Response fakeBigDecimalMap(Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/fake/BigDecimalMap";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "*/*"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    TypeReference<FakeBigDecimalMap200Response> localVarReturnType = new TypeReference<FakeBigDecimalMap200Response>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
   }
 
   /**
@@ -1326,6 +1394,77 @@ if (param2 != null)
     apiClient.invokeAPI(
         localVarPath,
         "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        null
+    );
+  }
+
+  /**
+   * test nullable parent property
+   * 
+   * @param childWithNullable request body (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void testNullable(ChildWithNullable childWithNullable) throws ApiException {
+    this.testNullable(childWithNullable, Collections.emptyMap());
+  }
+
+
+  /**
+   * test nullable parent property
+   * 
+   * @param childWithNullable request body (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void testNullable(ChildWithNullable childWithNullable, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = childWithNullable;
+    
+    // verify the required parameter 'childWithNullable' is set
+    if (childWithNullable == null) {
+      throw new ApiException(400, "Missing the required parameter 'childWithNullable' when calling testNullable");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/fake/nullable";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    apiClient.invokeAPI(
+        localVarPath,
+        "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),
