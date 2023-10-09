@@ -16,12 +16,11 @@ import re  # noqa: F401
 import io
 import warnings
 
-from pydantic import validate_arguments, ValidationError
-from typing import overload, Optional, Union, Awaitable
+from pydantic import validate_call, ValidationError
+from typing import Dict, List, Optional, Tuple
 
-from typing_extensions import Annotated
 from pydantic import Field
-
+from typing_extensions import Annotated
 from petstore_api.models.client import Client
 
 from petstore_api.api_client import ApiClient
@@ -44,29 +43,14 @@ class AnotherFakeApi:
             api_client = ApiClient.get_default()
         self.api_client = api_client
 
-    @overload
-    async def call_123_test_special_tags(self, client : Annotated[Client, Field(..., description="client model")], **kwargs) -> Client:  # noqa: E501
-        ...
-
-    @overload
-    def call_123_test_special_tags(self, client : Annotated[Client, Field(..., description="client model")], async_req: Optional[bool]=True, **kwargs) -> Client:  # noqa: E501
-        ...
-
-    @validate_arguments
-    def call_123_test_special_tags(self, client : Annotated[Client, Field(..., description="client model")], async_req: Optional[bool]=None, **kwargs) -> Union[Client, Awaitable[Client]]:  # noqa: E501
+    @validate_call
+    async def call_123_test_special_tags(self, client : Annotated[Client, Field(description="client model")], **kwargs) -> Client:  # noqa: E501
         """To test special tags  # noqa: E501
 
         To test special tags and operation ID starting with number  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.call_123_test_special_tags(client, async_req=True)
-        >>> result = thread.get()
 
         :param client: client model (required)
         :type client: Client
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request.
                If one number provided, it will be total request
                timeout. It can also be a pair (tuple) of
@@ -80,25 +64,16 @@ class AnotherFakeApi:
         if '_preload_content' in kwargs:
             message = "Error! Please call the call_123_test_special_tags_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data"  # noqa: E501
             raise ValueError(message)
-        if async_req is not None:
-            kwargs['async_req'] = async_req
-        return self.call_123_test_special_tags_with_http_info(client, **kwargs)  # noqa: E501
+        return await self.call_123_test_special_tags_with_http_info(client, **kwargs)  # noqa: E501
 
-    @validate_arguments
-    def call_123_test_special_tags_with_http_info(self, client : Annotated[Client, Field(..., description="client model")], **kwargs) -> ApiResponse:  # noqa: E501
+    @validate_call
+    async def call_123_test_special_tags_with_http_info(self, client : Annotated[Client, Field(description="client model")], **kwargs) -> ApiResponse:  # noqa: E501
         """To test special tags  # noqa: E501
 
         To test special tags and operation ID starting with number  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.call_123_test_special_tags_with_http_info(client, async_req=True)
-        >>> result = thread.get()
 
         :param client: client model (required)
         :type client: Client
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
                                  be set to none and raw_data will store the
                                  HTTP response body without reading/decoding.
@@ -129,7 +104,6 @@ class AnotherFakeApi:
         ]
         _all_params.extend(
             [
-                'async_req',
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
@@ -149,18 +123,18 @@ class AnotherFakeApi:
             _params[_key] = _val
         del _params['kwargs']
 
-        _collection_formats = {}
+        _collection_formats: Dict[str, str] = {}
 
         # process the path parameters
-        _path_params = {}
+        _path_params: Dict[str, str] = {}
 
         # process the query parameters
-        _query_params = []
+        _query_params: List[Tuple[str, str]] = []
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
         # process the form parameters
-        _form_params = []
-        _files = {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, str] = {}
         # process the body parameter
         _body_params = None
         if _params['client'] is not None:
@@ -178,13 +152,13 @@ class AnotherFakeApi:
                 _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
-        _auth_settings = []  # noqa: E501
+        _auth_settings: List[str] = []  # noqa: E501
 
-        _response_types_map = {
+        _response_types_map: Dict[str, Optional[str]] = {
             '200': "Client",
         }
 
-        return self.api_client.call_api(
+        return await self.api_client.call_api(
             '/another-fake/dummy', 'PATCH',
             _path_params,
             _query_params,
@@ -194,7 +168,6 @@ class AnotherFakeApi:
             files=_files,
             response_types_map=_response_types_map,
             auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
             _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
             _preload_content=_params.get('_preload_content', True),
             _request_timeout=_params.get('_request_timeout'),
